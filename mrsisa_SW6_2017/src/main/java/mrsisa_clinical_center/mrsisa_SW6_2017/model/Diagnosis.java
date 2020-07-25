@@ -50,6 +50,24 @@ public class Diagnosis {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<Medication> getMedications() {
+		return medications;
+	}
+
+	public void setMedications(Set<Medication> medications) {
+		this.medications = medications;
+	}
+
+	public Set<ExaminationReport> getExaminationReports() {
+		return examinationReports;
+	}
+
+	public void setExaminationReports(Set<ExaminationReport> examinationReports) {
+		this.examinationReports = examinationReports;
 	}	
+	
+	
 	
 }

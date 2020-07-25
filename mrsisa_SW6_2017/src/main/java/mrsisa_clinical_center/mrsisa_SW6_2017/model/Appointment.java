@@ -18,7 +18,7 @@ public class Appointment {
 	private Long id;
 	@Column(name="start", unique=false, nullable=false)
 	private Integer start;
-	@Column(name="end", unique=false, nullable=false)
+	@Column(name="ends", unique=false, nullable=false)
 	private Integer end;
 	@Column(name="date", unique=false, nullable=false)
 	private Date date;
@@ -28,7 +28,7 @@ public class Appointment {
 	private Patient patient;
 	
 	@ManyToOne
-	@JoinColumn(name = "doctor_id")
+	@JoinColumn(name = "doctor_id", referencedColumnName = "id")
 	private Doctor doctor;
 	
 	@ManyToOne
@@ -82,6 +82,46 @@ public class Appointment {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
+	public AppointmentType getAppointmentType() {
+		return appointmentType;
+	}
+
+	public void setAppointmentType(AppointmentType appointmentType) {
+		this.appointmentType = appointmentType;
+	}
+
+	public ExaminationReport getExaminationReport() {
+		return examinationReport;
+	}
+
+	public void setExaminationReport(ExaminationReport examinationReport) {
+		this.examinationReport = examinationReport;
 	}
 	
 }

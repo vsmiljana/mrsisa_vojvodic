@@ -42,5 +42,14 @@ public class Medication {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Set<Diagnosis> getDiagnoses() {
+		return diagnoses;
+	}
+
+	public void setDiagnoses(Set<Diagnosis> diagnoses) {
+		this.diagnoses = diagnoses;
+	}
+	
 	
 }

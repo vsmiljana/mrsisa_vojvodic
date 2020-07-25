@@ -95,5 +95,30 @@ public class Clinic {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public ClinicalCenter getClinicalCenter() {
+		return clinicalCenter;
+	}
+
+	public void setClinicalCenter(ClinicalCenter clinicalCenter) {
+		this.clinicalCenter = clinicalCenter;
+	}
+
+	public Set<Doctor> getDoctors() {
+		return doctors;
+	}
+
+	public void setDoctors(Set<Doctor> doctors) {
+		this.doctors = doctors;
+	}
+
+	public Set<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(Set<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
 	
 }

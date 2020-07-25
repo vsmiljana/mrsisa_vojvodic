@@ -17,7 +17,7 @@ public class Doctor extends User {
 
 	@Column(name="start", unique=false, nullable=false)
 	private Integer start;
-	@Column(name="end", unique=false, nullable=false)
+	@Column(name="ends", unique=false, nullable=false)
 	private Integer end;
 	
 	@ManyToOne
@@ -54,5 +54,38 @@ public class Doctor extends User {
 	public void setEnd(int end) {
 		this.end = end;
 	}
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
+	public Set<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(Set<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
+	public Set<AppointmentType> getAppointmentTypes() {
+		return appointmentTypes;
+	}
+
+	public void setAppointmentTypes(Set<AppointmentType> appointmentTypes) {
+		this.appointmentTypes = appointmentTypes;
+	}
+
+	public void setStart(Integer start) {
+		this.start = start;
+	}
+
+	public void setEnd(Integer end) {
+		this.end = end;
+	}
+	
 	
 }

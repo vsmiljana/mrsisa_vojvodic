@@ -52,5 +52,23 @@ public class ExaminationReport {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Appointment getAppointment() {
+		return appointment;
+	}
+
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
+	}
+
+	public Set<Diagnosis> getDiagnoses() {
+		return diagnoses;
+	}
+
+	public void setDiagnoses(Set<Diagnosis> diagnoses) {
+		this.diagnoses = diagnoses;
+	}
+	
+	
 	
 }

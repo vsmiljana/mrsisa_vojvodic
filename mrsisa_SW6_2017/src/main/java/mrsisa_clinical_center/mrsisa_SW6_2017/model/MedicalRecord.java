@@ -84,5 +84,15 @@ public class MedicalRecord {
 	public void setDioptre(Double dioptre) {
 		this.dioptre = dioptre;
 	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	
+	
 	
 }

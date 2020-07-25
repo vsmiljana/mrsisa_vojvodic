@@ -3,9 +3,10 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-public class User {
+@MappedSuperclass
+public abstract class User {
 	
 	@Id
 	private Long id;
@@ -123,5 +124,6 @@ public class User {
 	public void setSocialSecurityNumber(String socialSecurityNumber) {
 		this.socialSecurityNumber = socialSecurityNumber;
 	}
+	
 	
 }
