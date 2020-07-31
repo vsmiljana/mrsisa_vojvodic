@@ -10,7 +10,7 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.model.Person;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.PersonService;
 
 @RestController
-@RequestMapping("kc/person")
+@RequestMapping("/kc/person")
 public class PersonController {
 	
 	@Autowired
@@ -21,7 +21,7 @@ public class PersonController {
 	}
 	
 	@PostMapping()
-	public void receiveReq(@RequestBody Person person) {
+	public void receiadljkadsjkladsjklasdjkladsjklveReq(@RequestBody Person person) {
 		personService.addPerson(person);
 	}
 }

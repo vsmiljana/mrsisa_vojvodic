@@ -1,4 +1,4 @@
---insert into public.person(id, name, pass) values (12, 'marija', 'lozinka');
+insert into public.person(id, name, pass) values (16, 'jovana', 'lozinka');
 
 
 --INSERT INTO patient(

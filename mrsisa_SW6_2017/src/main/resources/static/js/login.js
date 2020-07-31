@@ -7,19 +7,29 @@ function login() {
 	console.log(name);
 	console.log(password);
 	
-	var person = {"name":name, "pass":password, "id": 1};
+	var person = {"email":name, "password":password};
 	
 	var personjson = JSON.stringify(person);
 	console.log(personjson);
 	$.ajax({
-		url: "kc/person",
+		url: "/login",
 		type: "POST",
 		data: personjson,
 		contentType: "application/json",
-		dataType: "json",
-		/*complete : function (data) {
-			d = JSON.parse(data.responseText);
-			
-		} */
+		//dataType: "json",
+		
+		error: function (response) {
+            errorValue = response.responseText;
+            console.log("error");
+            alert("nema");
+		},
+		success : function (data) {
+			//d = JSON.parse(data.responseText);
+			console.log(data);
+			console.log("success");
+			//alert("ima");
+			window.location.replace("/homepage.html");
+		}
+		
 	}); 
 }
