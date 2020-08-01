@@ -48,49 +48,63 @@
 						  <img src="/images/icons/logo.ico" alt="Girl in a jacket" style="width:100px;height:70px; margin-top: 10px; margin-bottom:20px;">
 					</span> 
 
-					<div class="wrap-input50 validate-input" data-validate = "Enter email" style="display: inline-block">
+<div style="display: inline-block; width: 250px;">
+					<div class="wrap-input50 validate-input" data-validate = "Enter email">
 						<input id="email_input" class="input100" type="text" name="email">
 						<span class="focus-input100" data-placeholder="Email"></span>
                     </div>
                     
-                    <div class="wrap-input50-right validate-input" data-validate = "Enter Address">
-						<input id="address_input" class="input100" type="text" name="address">
-						<span class="focus-input100" data-placeholder="Address"></span>
-					</div>
-					
-					<div class="wrap-input50 validate-input" data-validate = "Enter First Name" style="display: inline-block">
+
+                    <div class="wrap-input50 validate-input" data-validate = "Enter First Name">
 						<input id="first_name_input" class="input100" type="text" name="first_name">
 						<span class="focus-input100" data-placeholder="First Name"></span>
                     </div>
-                    
-                    
-					<div class="wrap-input50-right validate-input" data-validate = "Enter City">
-						<input id="city_input" class="input100" type="text" name="city">
-						<span class="focus-input100" data-placeholder="City"></span>
-					</div>
-					
-					
-					<div class="wrap-input50 validate-input" data-validate = "Enter Last Name">
+
+
+                    <div class="wrap-input50 validate-input" data-validate = "Enter Last Name">
 						<input id="last_name_input" class="input100" type="text" name="last_name">
 						<span class="focus-input100" data-placeholder="Last Name"></span>
 					</div>
-					
-					
-					
-					<div class="wrap-input50-right validate-input" data-validate = "Enter Country">
-						<input id="country_input" class="input100" type="text" name="country">
-						<span class="focus-input100" data-placeholder="Country"></span>
+
+                    <div class="wrap-input50 validate-input" data-validate = "Enter Phone Number">
+						<input id="phone_number_input" class="input100" type="text" name="phone_number">
+						<span class="focus-input100" data-placeholder="Phone Number"></span>
 					</div>
-                    
+					
+
+
                     <div class="wrap-input50 validate-input" data-validate = "Enter Social Security Number">
 						<input id="ssn_input" class="input100" type="text" name="ssn">
 						<span class="focus-input100" data-placeholder="Social Security Number"></span>
 					</div>
 
-					<div class="wrap-input50-right validate-input" data-validate = "Enter Phone Number">
-						<input id="phone_number_input" class="input100" type="text" name="phone_number">
-						<span class="focus-input100" data-placeholder="Phone Number"></span>
+					
+					
+                </div>
+                    
+                <div style="display: inline-block; width: 250px; float:right">
+                    
+                    
+                    <div class="wrap-input50 validate-input" data-validate = "Enter Address">
+						<input id="address_input" class="input100" type="text" name="address">
+						<span class="focus-input100" data-placeholder="Address"></span>
 					</div>
+					
+					
+                    
+                    
+					<div class="wrap-input50 validate-input" data-validate = "Enter City">
+						<input id="city_input" class="input100" type="text" name="city">
+						<span class="focus-input100" data-placeholder="City"></span>
+					</div>
+					
+
+					<div class="wrap-input50 validate-input" data-validate = "Enter Country">
+						<input id="country_input" class="input100" type="text" name="country">
+						<span class="focus-input100" data-placeholder="Country"></span>
+					</div>
+                    
+                   
 					
 
 					<div class="wrap-input50 validate-input" data-validate="Enter password">
@@ -101,17 +115,18 @@
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 					
-					<div class="wrap-input50-right validate-input" data-validate="Enter password again">
+					<div class="wrap-input50 validate-input" data-validate="Passwords must match">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
 						<input id="password2_input" class="input100" type="password" name="pass2">
 						<span class="focus-input100" data-placeholder="Re-enter Password"></span>
-					</div>
-
+                    </div>
+                </div>
+                
 					<div class="container-login100-form-btn">
-						<div class="wrap-login50-form-btn">
-							<div class="login50-form-bgbtn"></div>
+						<div class="wrap-login100-form-btn" style="width: 50%;">
+							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn" >
 								Sign Up
 							</button>
@@ -139,10 +154,20 @@
 <!--===============================================================================================-->
 	
 <!--===============================================================================================-->
-
+	<script src="vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
-	<script src="js/login.js"></script>
+ 	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script> 
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	
+	<script src="js/register.js"></script>
 
 
 </body>

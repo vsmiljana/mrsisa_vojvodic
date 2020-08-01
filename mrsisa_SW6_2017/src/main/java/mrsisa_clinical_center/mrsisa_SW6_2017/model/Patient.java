@@ -23,6 +23,13 @@ public class Patient extends User {
 	
 	@OneToMany(mappedBy = "patient")
 	private Set<Appointment> appointments;
+	
+	public Patient() {}
+	
+	public Patient(Long id, String email, String password, String firstName, String lastName, String phoneNumber,
+			String address, String city, String country, String socialSecurityNumber) {
+		super(id, email, password, firstName, lastName, phoneNumber, address, city, country, socialSecurityNumber);
+	}
 
 	public ClinicalCenter getClinicalCenter() {
 		return clinicalCenter;

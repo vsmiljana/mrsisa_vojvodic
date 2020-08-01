@@ -18,4 +18,16 @@ public class PatientImpl implements PatientService {
 		return rep.findOneByEmailAndPassword(email, password);
 	}
 
+	@Override
+	public Patient findOneByEmailOrSocialSecurityNumber(String email, String ssn) {
+		// TODO Auto-generated method stub
+		return rep.findOneByEmailOrSocialSecurityNumber(email, ssn);
+	}
+
+	@Override
+	public void registerPatient(Patient patient) {
+		rep.save(patient);
+		
+	}
+
 }

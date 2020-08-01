@@ -236,22 +236,22 @@ iframe {
 }
 
 .wrap-input50 {
-  width: 45%;
-  position: relative;
-  padding-left: 5px;
+  width: 100%;
+  /*position: relative;*/
+  padding-left: 0px;
   border-bottom: 2px solid #adadad;
   margin-bottom: 30px;
-  display: inline-block;
+  /*display: inline-block;*/
 }
 
 .wrap-input50-right {
-  width: 45%;
-  position: relative;
-  float: right;
-  padding-left: 5px;
+  width: 100%;
+  /*position: relative;*/
+  /*float: right;*/
+  padding-left: 0px;
   border-bottom: 2px solid #adadad;
   margin-bottom: 30px;
-  display: inline-block;
+  /*display: inline-block;*/
 }
 
 .input100 {

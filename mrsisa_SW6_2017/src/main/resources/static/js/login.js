@@ -12,9 +12,10 @@ function login() {
 	var personjson = JSON.stringify(person);
 	console.log(personjson);
 	$.ajax({
-		url: "/login",
+		url: "/usr/login",
 		type: "POST",
 		data: personjson,
+		headers: {"Authorization": "Basic xxxx"},
 		contentType: "application/json",
 		//dataType: "json",
 		

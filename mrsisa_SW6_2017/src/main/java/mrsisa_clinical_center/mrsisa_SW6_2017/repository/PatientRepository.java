@@ -9,5 +9,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long>{
 	
 	// ova se mora vako zvati jer je repozitorijumova
 	public Patient findOneByEmailAndPassword(String email, String password);
+	
+	public Patient findOneByEmailOrSocialSecurityNumber(String email, String ssn);
 
 }
