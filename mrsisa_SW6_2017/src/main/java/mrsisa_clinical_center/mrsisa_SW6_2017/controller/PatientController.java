@@ -1,5 +1,8 @@
 package mrsisa_clinical_center.mrsisa_SW6_2017.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.ClinicDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.LoginUserDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.RegisterUserDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.Clinic;
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.Doctor;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Patient;
-import mrsisa_clinical_center.mrsisa_SW6_2017.model.Person;
+import mrsisa_clinical_center.mrsisa_SW6_2017.service.ClinicService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.PatientService;
 
 @RestController
@@ -26,9 +32,14 @@ public class PatientController {
 	
 	private PatientService patientService;
 	
-	public PatientController(PatientService patientService) {
+	private ClinicService clinicService;
+	
+	public PatientController(PatientService patientService, ClinicService clinicService) {
 		this.patientService = patientService;
+		this.clinicService = clinicService;
 	}
+	
+	
 	
 	@PostMapping("/login")
 	public void login(@RequestBody LoginUserDto userDto) throws Exception {
@@ -74,6 +85,33 @@ public class PatientController {
 		//return "p";
 		return new LoginUserDto(p.getEmail(), "nebitno");
 	}
+	
+
+	@GetMapping("/clinics")
+	public List<ClinicDto> getClinics() {
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		List<ClinicDto> clinicsDto = new ArrayList<ClinicDto>();
+		
+		List<Clinic> clinics = clinicService.findAll();
+		for (Clinic c: clinics) {
+			clinicsDto.add(new ClinicDto(c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry()));
+		}
+		Clinic c = clinics.get(0);
+		System.out.println("Doktora: " + c.getDoctors().size());
+		
+		for (Doctor d: c.getDoctors()) {
+			System.out.println(d.getEmail());
+		}
+		
+		System.out.println("Ima ih " + clinics.size());
+		return clinicsDto;
+		///return clinics;
+	}
+	
+	
 	
 	//login(LoginUserDto )
 	//Patient korisnik = service.findOneByEmailAndPassword

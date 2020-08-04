@@ -28,9 +28,9 @@ public class Doctor extends User {
 	private Set<Appointment> appointments;
 	
 	@ManyToMany
-	@JoinTable(name = "doctors_appointment_types", 
-		      joinColumns = @JoinColumn(name = "appointment_type_id", referencedColumnName = "id"), 
-		      inverseJoinColumns = @JoinColumn(name = "doctor_id", 
+	@JoinTable(name = "appointment_type_doctor", 
+		      joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"), 
+		      inverseJoinColumns = @JoinColumn(name = "appointment_type_id", 
 		      referencedColumnName = "id"))
 	private Set<AppointmentType> appointmentTypes;
 	
