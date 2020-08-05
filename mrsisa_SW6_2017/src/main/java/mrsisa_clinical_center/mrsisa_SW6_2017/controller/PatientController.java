@@ -1,6 +1,10 @@
 package mrsisa_clinical_center.mrsisa_SW6_2017.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -153,7 +157,7 @@ public class PatientController {
 	
 	@RequestMapping(value = "/appointmentsById/{id}", method=RequestMethod.GET)
 	@ResponseBody
-	public void getPredefinedAppointmentsOfClinicById(@PathVariable("id") Long id) {
+	public List<AppointmentDto> getPredefinedAppointmentsOfClinicById(@PathVariable("id") Long id) {
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
@@ -164,7 +168,8 @@ public class PatientController {
 		
 		for (Appointment a: c.getAppointments()) {
 			if (a.getPatient() == null) {
-				appointments.add(new AppointmentDto());
+				appointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
+						a.getAppointmentType().getName(), a.getAppointmentType().getPrice()));
 			}
 		}
 		
@@ -175,6 +180,7 @@ public class PatientController {
 		//}
 		//System.out.println(appointments.size());
 		System.out.println(appointments.size());
+		return appointments;
 		
 	}
 	
@@ -195,6 +201,54 @@ public class PatientController {
 		return;
 		///return clinics;
 	}
+	
+	@GetMapping("/getUpcomingAppointments")
+	public List<AppointmentDto> getUpcomingAppointments() {
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		Patient p = (Patient) session.getAttribute("currentUser");
+		System.out.println(p.getFirstName());
+		System.out.println("da da ulogovan je");
+		List<AppointmentDto> upcomingAppointments = new ArrayList<AppointmentDto>();
+		
+		List<Appointment> appointments = appointmentService.findByPatientId(p.getId());
+		
+		Date now = new Date();
+		
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+
+		
+		
+		String dateString = format.format( new Date()   );
+		Date date = new Date();
+		try {
+			date = format.parse ( "2009-12-31" );
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			;
+		}  
+		
+		for (Appointment a: appointments) {
+			
+			Date today0 = new Date();
+			System.out.println(a.getDate());
+			if (a.getDate().after(now)) {
+				//if (a.getEnd() > today0.getMinutes()) {
+				upcomingAppointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
+						a.getAppointmentType().getName(), a.getAppointmentType().getPrice()));
+				//	}
+				}
+			}
+		
+		System.out.println("Upcoming appointments: " + upcomingAppointments.size());
+		
+		//return new ResponseEntity<>(session.getAttribute("currentUser"), HttpStatus.OK); 
+		//return "p";
+		return upcomingAppointments;
+	}
+	
 	
 	
 	

@@ -1,5 +1,7 @@
 package mrsisa_clinical_center.mrsisa_SW6_2017.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,11 @@ public class AppointmentImpl implements AppointmentService {
 	public void scheduleAppointment(Long appointmendId, Patient patient) {
 		rep.scheduleAppointment(appointmendId, patient);
 		
+	}
+
+	@Override
+	public List<Appointment> findByPatientId(Long id) {
+		// TODO Auto-generated method stub
+		return rep.findByPatientId(id);
 	}
 }

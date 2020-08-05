@@ -1,5 +1,7 @@
 package mrsisa_clinical_center.mrsisa_SW6_2017.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +20,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 	@Modifying
 	@Query("update Appointment a set a.patient=?2 where a.id=?1")
 	public void scheduleAppointment(Long appointmendId, Patient patient);
+
+	public List<Appointment> findByPatientId(Long id);
 	
 	
 //	@Modifying
