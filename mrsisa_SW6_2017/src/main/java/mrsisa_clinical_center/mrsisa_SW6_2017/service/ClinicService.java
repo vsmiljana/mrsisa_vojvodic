@@ -9,5 +9,9 @@ public interface ClinicService {
 	public List<Clinic> doSomething();
 	
 	public List<Clinic> findAll();
+
+	public Clinic findByName(String name);
+
+	public Clinic findById(Long id);
 	
 }

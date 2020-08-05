@@ -27,4 +27,16 @@ public class ClinicImpl implements ClinicService {
 		return rep.findAll();
 	}
 
+	@Override
+	public Clinic findByName(String name) {
+		// TODO Auto-generated method stub
+		return rep.findOneByName(name);
+	}
+
+	@Override
+	public Clinic findById(Long id) {
+		// TODO Auto-generated method stub
+		return rep.findOneById(id);
+	}
+
 }
