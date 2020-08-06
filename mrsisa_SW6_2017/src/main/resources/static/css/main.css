@@ -174,7 +174,9 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #f2f2f2;  
+  /*background: #f2f2f2;*/  
+  background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(145,145,216,1) 35%, rgba(200,246,255,0.5385504543614321) 100%);
+  
 }
 
 .wrap-login100 {

@@ -14,6 +14,19 @@ background-repeat: no-repeat;
 background-attachment: fixed;
     
   }
+  
+.main-pane {
+	width: 1100px; 
+	margin: 0 auto;  
+	box-shadow: 0 0 10px 10px #09072c8c;
+    background: #ffffff; /*
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(145,145,216,1) 35%, rgba(32,152,177,1) 100%); */ 
+    overflow: auto; 
+    bottom:150px;
+   	left:150px;
+   	
+    
+}
 
 
 .navbar-item{
@@ -75,8 +88,15 @@ background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(145,145,216,1) 35%, rg
       margin-top:20px;
   }
   
+  .card-appointment{
+  	width: 750px; 
+  	margin: 0 auto; 
+  	margin-top:30px; 
+  
+  }
   
   .cardy{
+  	vertical-align: middle;
   	/*box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.5)*/
   	/*box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
@@ -85,31 +105,20 @@ background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(145,145,216,1) 35%, rg
   -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);*/
   }
   
-  .carousel-indicators li {
-      border-radius: 12px;
-      width: 12px;
-      height: 12px;
-      background-color: #404040;
-  }
-  .carousel-indicators li {
-      border-radius: 12px;
-      width: 12px;
-      height: 12px;
-      background-color: #404040;
-  }
-  .carousel-indicators .active {
-      background-color: white;
-      max-width: 12px;
-      margin: 0 3px;
-      height: 12px;
-  }
-  .carousel-control-prev-icon {
-   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
-  }
-  
-  .carousel-control-next-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
-  }
+.apt-img-div {
+	width:150px;
+	 margin-left: 55px; 
+	 margin-top: 35px; 
+     vertical-align: middle; 
+     display: inline-block; 
+     position: relative;
+}
+
+.apt-img{
+	src:"/images/icons/upcoming_appts_ico.png";
+	 alt:"" ; 
+	 width:"115px;"
+}
 
   .btn {
     margin-top: auto;

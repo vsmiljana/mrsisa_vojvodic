@@ -11,6 +11,8 @@ public class AppointmentDto {
 	private String doctor;
 	private String appointmentName;
 	private Double price;
+	private String clinicName;
+	private String clinicAddress;
 	
 	
 	public AppointmentDto() {}
@@ -24,6 +26,22 @@ public class AppointmentDto {
 		this.doctor = doctor;
 		this.appointmentName = appointmentName;
 		this.price = price;
+	}
+	
+	
+
+	public AppointmentDto(Long id, Date date, int start, int end, String doctor, String appointmentName, Double price,
+			String clinicName, String clinicAddress) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.start = start;
+		this.end = end;
+		this.doctor = doctor;
+		this.appointmentName = appointmentName;
+		this.price = price;
+		this.clinicName = clinicName;
+		this.clinicAddress = clinicAddress;
 	}
 
 	public Long getId() {
@@ -80,6 +98,22 @@ public class AppointmentDto {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public String getClinicName() {
+		return clinicName;
+	}
+
+	public void setClinicName(String clinicName) {
+		this.clinicName = clinicName;
+	}
+
+	public String getClinicAddress() {
+		return clinicAddress;
+	}
+
+	public void setClinicAddress(String clinicAddress) {
+		this.clinicAddress = clinicAddress;
 	}
 
 }

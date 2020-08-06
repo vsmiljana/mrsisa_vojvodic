@@ -237,7 +237,8 @@ public class PatientController {
 			if (a.getDate().after(now)) {
 				//if (a.getEnd() > today0.getMinutes()) {
 				upcomingAppointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
-						a.getAppointmentType().getName(), a.getAppointmentType().getPrice()));
+						a.getAppointmentType().getName(), a.getAppointmentType().getPrice(), a.getClinic().getName(), 
+						a.getClinic().getAddress()));
 				//	}
 				}
 			}
@@ -250,7 +251,16 @@ public class PatientController {
 	}
 	
 	
-	
+	@PostMapping("/logOut")
+	public void logOut() {	// ili da ne bude void
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		session.invalidate();
+		//System.out.println("ima apojentmentova: " + patient.getAppointments().size());
+		return;
+		///return clinics;
+	}
 	
 	
 	
