@@ -120,7 +120,7 @@ function setUpClinicsAppointments(appts){
 
 function scheduleAppt(apptId){
 	
-	var appointmentDto = {"appointmentId": apptId};
+	var appointmentDto = {"appointmentId": apptId}; 
 	var appointment = JSON.stringify(appointmentDto);
 	
 	$.ajax({
