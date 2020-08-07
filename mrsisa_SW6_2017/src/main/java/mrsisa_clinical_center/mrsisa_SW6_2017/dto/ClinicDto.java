@@ -2,6 +2,7 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.dto;
 
 public class ClinicDto {
 	
+	private Long id;
 	private String name;
 	private String description;
 	private String address;
@@ -12,6 +13,16 @@ public class ClinicDto {
 
 	public ClinicDto(String name, String description, String address, String city, String country) {
 		super();
+		this.name = name;
+		this.description = description;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+	}
+
+	public ClinicDto(Long id, String name, String description, String address, String city, String country) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.address = address;
@@ -59,4 +70,12 @@ public class ClinicDto {
 		this.country = country;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 }

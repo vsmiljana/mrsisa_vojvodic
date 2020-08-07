@@ -112,7 +112,7 @@ public class PatientController {
 		
 		List<Clinic> clinics = clinicService.findAll();
 		for (Clinic c: clinics) {
-			clinicsDto.add(new ClinicDto(c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry()));
+			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry()));
 		}
 		Clinic c = clinics.get(0);
 		System.out.println("Doktora: " + c.getDoctors().size());
@@ -127,9 +127,13 @@ public class PatientController {
 	}
 	
 	
+	// srediti datume
+	
+	
+	// po imenu klinike upcoming preshceduled appointmentse
 	@RequestMapping(value = "/appointments/{name}", method=RequestMethod.GET)
 	@ResponseBody
-	public void getPredefinedAppointmentsOfClinic(@PathVariable("name") String name) {
+	public List<AppointmentDto> getPredefinedAppointmentsOfClinic(@PathVariable("name") String name) {
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
@@ -139,22 +143,24 @@ public class PatientController {
 		List<AppointmentDto> appointments = new ArrayList<AppointmentDto>();
 		
 		for (Appointment a: c.getAppointments()) {
-			if (a.getPatient() == null) {
-				appointments.add(new AppointmentDto());
+			if (a.getPatient() == null) {	// i ako je datum poslije danas
+				appointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
+						a.getAppointmentType().getName(), a.getAppointmentType().getPrice(), a.getClinic().getName(), 
+						a.getClinic().getAddress()));
 			}
 		}
-		
+		return appointments;
 		
 		//for (Appointment a: c.getAppointments()) {
 		//	appointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
 		//			a.getAppointmentType().getName(), a.getAppointmentType().getPrice()));
 		//}
 		//System.out.println(appointments.size());
-		System.out.println(appointments.size());
+		//return appointments;
 		
 	}
 	
-	
+	// po id-ju klinike upcoming appointmentse
 	@RequestMapping(value = "/appointmentsById/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<AppointmentDto> getPredefinedAppointmentsOfClinicById(@PathVariable("id") Long id) {
@@ -169,7 +175,8 @@ public class PatientController {
 		for (Appointment a: c.getAppointments()) {
 			if (a.getPatient() == null) {
 				appointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
-						a.getAppointmentType().getName(), a.getAppointmentType().getPrice()));
+						a.getAppointmentType().getName(), a.getAppointmentType().getPrice(), a.getClinic().getName(), 
+						a.getClinic().getAddress()));
 			}
 		}
 		
@@ -191,6 +198,7 @@ public class PatientController {
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
+		System.out.println("MOZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 		Patient patient = (Patient) session.getAttribute("currentUser");
 		//System.out.println(patientId);
 		System.out.println(appt.getAppointmentId());
