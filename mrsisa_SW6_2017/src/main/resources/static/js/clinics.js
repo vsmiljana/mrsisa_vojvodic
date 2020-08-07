@@ -125,7 +125,7 @@ function scheduleAppt(apptId){
 	
 	$.ajax({
 		url: "/usr/appointments/bookAnAppt",
-		type: "PUT",
+		type: "PUT", 
 		contentType: "application/json",
 		data: appointment,
 		error: function (response) {
