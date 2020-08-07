@@ -32,19 +32,23 @@ function setUpAppointments(data){
 	}
 	
 	for (var appointment of data){
-		 panel.append( `<div class="card card-appointment">
+		//var dateMs = new Date(appointment.dateLong);
+		//var date = dateMs.toLocaleDateString();
+		var date = setupDate(appointment.dateLong);
+		var timeStart = setupTime(appointment.start)
+		panel.append( `<div class="card card-appointment">
           <div class="row cardy" >
                 <div class="apt-img-div">
                    <img class="apt-img" src="/images/icons/upcoming_appts_ico.png" alt="" width="115px;"> 
                 </div> 
                 <div>
                   <div class="card-block">
-                    <h5 class="card-title">${appointment.appointmentName}: formatirati datum :( </h5> 
-                    <div style="display: inline-block">
+                    <h5 class="card-title">${appointment.appointmentName}: ${date} </h5> 
+                    <div style="display: inline-block;">
                     <p>Appointment type: appt</p>
-                    <p>Date: ${appointment.appointmentName}</p>
+                    <p>Date: ${date}</p>
                     <div style="border-bottom: 1px;">
-                      <p>Time: ${appointment.start}</p> </div>
+                      <p>Time: ${timeStart}</p> </div>
                       <p> Info: Lorem Ipsum </p>
                       <p> More Info: Lorem Ipsum </p>
                   </div>

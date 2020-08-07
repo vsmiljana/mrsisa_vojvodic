@@ -13,6 +13,7 @@ public class AppointmentDto {
 	private Double price;
 	private String clinicName;
 	private String clinicAddress;
+	private Long dateLong;
 	
 	
 	public AppointmentDto() {}
@@ -44,6 +45,21 @@ public class AppointmentDto {
 		this.clinicAddress = clinicAddress;
 	}
 
+	public AppointmentDto(Long id, Long dateLong, int start, int end, String doctor, String appointmentName, Double price,
+			String clinicName, String clinicAddress) {
+		super();
+		this.id = id;
+		this.dateLong = dateLong;
+		this.start = start;
+		this.end = end;
+		this.doctor = doctor;
+		this.appointmentName = appointmentName;
+		this.price = price;
+		this.clinicName = clinicName;
+		this.clinicAddress = clinicAddress;
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -114,6 +130,14 @@ public class AppointmentDto {
 
 	public void setClinicAddress(String clinicAddress) {
 		this.clinicAddress = clinicAddress;
+	}
+
+	public Long getDateLong() {
+		return dateLong;
+	}
+
+	public void setDateLong(Long dateLong) {
+		this.dateLong = dateLong;
 	}
 
 }

@@ -172,9 +172,14 @@ public class PatientController {
 		
 		List<AppointmentDto> appointments = new ArrayList<AppointmentDto>();
 		
+		
+		
 		for (Appointment a: c.getAppointments()) {
+			
+			Long dateLong = a.getDate().getTime();
+			System.out.println(a.getDate());
 			if (a.getPatient() == null) {
-				appointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
+				appointments.add(new AppointmentDto(a.getId(), dateLong, a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
 						a.getAppointmentType().getName(), a.getAppointmentType().getPrice(), a.getClinic().getName(), 
 						a.getClinic().getAddress()));
 			}
@@ -227,24 +232,15 @@ public class PatientController {
 		
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
-		
-		
-		String dateString = format.format( new Date()   );
-		Date date = new Date();
-		try {
-			date = format.parse ( "2009-12-31" );
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			;
-		}  
-		
 		for (Appointment a: appointments) {
+			
+			Long dateLong = a.getDate().getTime();
 			
 			Date today0 = new Date();
 			System.out.println(a.getDate());
 			if (a.getDate().after(now)) {
 				//if (a.getEnd() > today0.getMinutes()) {
-				upcomingAppointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
+				upcomingAppointments.add(new AppointmentDto(a.getId(), dateLong, a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
 						a.getAppointmentType().getName(), a.getAppointmentType().getPrice(), a.getClinic().getName(), 
 						a.getClinic().getAddress()));
 				//	}

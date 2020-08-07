@@ -105,7 +105,7 @@ INSERT INTO public.appointment(
 	id, date, ends, start, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
 	VALUES (2, TO_DATE('18/12/2020', 'DD/MM/YYYY'), 10, 11, 4, 10, 110, null, null);
 */
-
+/*
 INSERT INTO public.appointment(
 	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
 	VALUES (4, TO_DATE('21/12/2020', 'DD/MM/YYYY'), 720, 780, 4, 10, 110, null, null);
@@ -113,9 +113,16 @@ INSERT INTO public.appointment(
 INSERT INTO public.appointment(
 	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
 	VALUES (5, TO_DATE('22/12/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+*/
 
+/*
+INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (6, TO_DATE('24/12/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+*/
 update appointment set start=600;
 update appointment set ends=660;
+update appointment set patient_id=null where id=1 or id=2 or id=3;
 	
 --INSERT INTO patient(
 --	id, address, city, country, email, first_name, last_name, password, phone_number, social_security_number, clinical_center_id, medical_record_id)

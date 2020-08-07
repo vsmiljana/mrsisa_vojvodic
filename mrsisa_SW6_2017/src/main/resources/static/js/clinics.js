@@ -45,7 +45,7 @@ function setUpClinics(clinics){
                     <p>City: ${clinic.city}</p>
                     <p>Country: ${clinic.country}</p>
                     <br>
-                    <a class="btn btn-primary btn-sm float-right" href="javascript:getClinicsAppts(${clinic.id})">Apojntmenti<a/>
+                    <a class="btn btn-primary btn-sm float-right"  href="javascript:getClinicsAppts(${clinic.id})">Apojntmenti<a/>
                    
                     
                     
@@ -86,6 +86,8 @@ function setUpClinicsAppointments(appts){
 		panel.append(`<div>Nema ovde nicega :( </div>`)
 	}
 	for (appointment of appts){
+		var date = setupDate(appointment.dateLong);
+		var timeStart = setupTime(appointment.start)
 		panel.append(`<div class="card card-appointment">
         <div class="row cardy" >
               <div class="apt-img-div">
@@ -93,12 +95,12 @@ function setUpClinicsAppointments(appts){
               </div> 
               <div>
                 <div class="card-block">
-                  <h5 class="card-title">${appointment.appointmentName}: formatirati datum :( </h5> 
+                  <h5 class="card-title">${appointment.appointmentName}: ${date} </h5> 
                   <div style="display: inline-block">
                   <p>Appointment type: appt</p>
-                  <p>Date: ${appointment.appointmentName}</p>
+                  <p>Date: ${date}</p>
                   <div style="border-bottom: 1px;">
-                    <p>Time: ${appointment.start}</p> </div>
+                    <p>Time: ${timeStart}</p> </div>
                     <p> Info: Lorem Ipsum </p>
                     <p> More Info: Lorem Ipsum </p>
                 </div>
@@ -107,14 +109,48 @@ function setUpClinicsAppointments(appts){
                   <p>Clinic: ${appointment.clinicName}</p>
                   <p>Clinic Address: ${appointment.clinicAddress}</p>
                   <p>Appointment price: ${appointment.price}</p>
-                   <a class="btn btn-primary btn-sm float-right" href="javascript:scheduleAppt(${appointment.id})">Schedule<a/>
-                   
+                   <a class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#modalAppt" href="javascript:scheduleAppt(${appointment.id})">Schedulee<a/>
+                
                   <br>
                   
   </div> 
   </div></div></div></div>`);
 	}
 	
+}
+
+function activateModal1(nesto){
+	console.log(nesto);
+}
+
+function activateModal(appointment){
+	console.log("what");
+	
+	$("body").append(`<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalAppt" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onlick="javascript:scheduleAppt(${appointment.id})">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>`); 
 }
 
 

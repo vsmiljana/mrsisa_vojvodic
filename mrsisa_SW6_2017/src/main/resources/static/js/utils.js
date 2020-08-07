@@ -66,3 +66,20 @@ function logOut(){
 		
 	}); 
 }
+
+
+function setupDate(milisecs){
+	var dateMs = new Date(milisecs);
+	return dateMs.toLocaleDateString();
+}
+
+function setupTime(minutes){
+	var hours = Math.floor(minutes/60);
+	var minutes = minutes % 60;
+	var time = hours + ":";
+	if (minutes < 10){
+		time += "0";
+	}
+	time += minutes;
+	return time;
+}
