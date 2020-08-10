@@ -8,6 +8,7 @@ public class ClinicDto {
 	private String address;
 	private String city;
 	private String country;
+	private Double price;
 	
 	public ClinicDto() {}	
 
@@ -28,6 +29,18 @@ public class ClinicDto {
 		this.address = address;
 		this.city = city;
 		this.country = country;
+	}
+
+	public ClinicDto(Long id, String name, String description, String address, String city, String country,
+			Double price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.price = price;
 	}
 
 	public String getName() {
@@ -76,6 +89,14 @@ public class ClinicDto {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 	
 }

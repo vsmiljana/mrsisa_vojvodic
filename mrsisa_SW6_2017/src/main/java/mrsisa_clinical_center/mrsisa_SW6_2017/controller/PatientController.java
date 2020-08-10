@@ -3,9 +3,11 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,8 +26,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentScheduleDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentTimeDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.ClinicDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.ClinicsSetupDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.DoctorDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.LoginUserDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.RegisterUserDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.SearchAppointmentDto;
@@ -308,15 +312,70 @@ public class PatientController {
 	}
 	
 	
+	
 	@PutMapping("/searchAppts")
 	public List<ClinicDto> searchAppointment(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
 		
+		List<Object> objects = doSearch(search);
+		
+		List<ClinicDto> clinicsDto = (List<ClinicDto>) objects.get(0);
+		
+		//clinicsDto.addAll((List<ClinicDto>) objects.get(0));
+		
+		//@SuppressWarnings("unchecked")
+		//List<DoctorDto> doctorsDto = (List<DoctorDto>) objects.get(1);
+		
+		//System.out.println("Name: " + apptName + ", date: " + date);
+		
+		//List<Appointment> appointments = appointmentService.findByDate(date);
+		/*
+		for (DoctorDto d: doctorsDto) {
+			System.out.println(d.getFirstName() + " " + d.getLastName());
+			for (AppointmentTimeDto atd: d.getAvailableAppointments()) {
+				System.out.println("pocetak minuta: " + atd.getStart());
+				
+				System.out.println(atd.getStart()/60 + ":" + atd.getStart()%60);
+			}
+		}*/
+		
+		
+		//System.out.println(appointments.size());
+		
+		
+		return clinicsDto; 	// vratiti i cijenu
+		
+		//return null;
+		///return clinics;
+	}
+	
+	
+	
+	@PutMapping("/searchApptsClinic")
+	public List<DoctorDto> searchAppointmentClinics(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		List<Object> objects = doSearch(search);
+		
+		List<DoctorDto> doctorsDto = (List<DoctorDto>) objects.get(1);
+		
+		return doctorsDto; 	// vratiti i cijenu
+		
+	
+	}
+	
+	
+	public List<Object> doSearch(SearchAppointmentDto search){
+		
 		String apptName = search.getAppointmentName();
 		
 		AppointmentType apptType = appointmentTypeService.findByName(apptName);
+		
+		Double price = apptType.getPrice();
 		
 		List<Doctor> doctors = doctorService.findAllByAppointmentTypes(apptType);
 		
@@ -325,6 +384,8 @@ public class PatientController {
 		Date date = adjustDate(milliseconds);
 		
 		HashSet<Clinic> clinics = new HashSet<Clinic>();
+		
+		ArrayList<DoctorDto> doctorsDto = new ArrayList<DoctorDto>();
 		
 		for (Doctor d: doctors) {
 			System.out.println(d.getId() + " " + d.getEmail());
@@ -337,33 +398,30 @@ public class PatientController {
 			
 			System.out.println("*************************************");
 			System.out.println("appointments: " + appointments.size());
-			List<Integer> appointmentStarts = doctorService.makeSchedule(appointments, apptType.getDuration(), d.getStart(), d.getEnd());
+			List<AppointmentTimeDto> appointmentStarts = doctorService.makeSchedule(appointments, apptType.getDuration(), d.getStart(), d.getEnd());
 			
 			if (appointmentStarts.size() > 0) {
 				clinics.add(d.getClinic());
+				doctorsDto.add(new DoctorDto(d.getFirstName(), d.getLastName(), appointmentStarts));
 			}
 			
 			System.out.println(appointmentStarts);
 			
 		}
 		
-		List<ClinicDto> clinicDtos = new ArrayList<ClinicDto>();
-		
+		List<ClinicDto> clinicsDto = new ArrayList<ClinicDto>();
 		
 		for (Clinic c: clinics) {
-			System.out.println("Id klinike: " + c.getId());
+			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry(), price));
 		}
 		
-		System.out.println("Name: " + apptName + ", date: " + date);
-		
-		List<Appointment> appointments = appointmentService.findByDate(date);
-		
-		System.out.println(appointments.size());
-		
-		return clinicDtos; 	// vratiti i cijenu
-		///return clinics;
-	}
+		List<Object> clinicsDoctors = new ArrayList<Object>();
+		clinicsDoctors.add(clinicsDto);
+		clinicsDoctors.add(doctorsDto);
 	
+		
+		return clinicsDoctors;
+	}
 	
 	
 	//login(LoginUserDto )

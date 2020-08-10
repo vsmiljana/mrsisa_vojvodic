@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentTimeDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Appointment;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.AppointmentType;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Doctor;
@@ -27,9 +28,9 @@ public class DoctorImpl implements DoctorService {
 	}
 
 	@Override
-	public List<Integer> makeSchedule(List<Appointment> appointments, Integer duration, Integer start, Integer end) {
+	public List<AppointmentTimeDto> makeSchedule(List<Appointment> appointments, Integer duration, Integer start, Integer end) {
 		
-		List<Integer> starts = new ArrayList<Integer>();	// list of starts of appointments
+		List<AppointmentTimeDto> starts = new ArrayList<AppointmentTimeDto>();	// list of starts of appointments
 		
 		int pause = 10;
 		
@@ -51,7 +52,8 @@ public class DoctorImpl implements DoctorService {
 			starts.addAll(fitAppointments(timeStart, timeEnd, duration, pause));
 			
 			if (appointments.get(i).getPatient() == null) {		// if patient is null, the appointment is predefined and free
-				starts.add(appointments.get(i).getStart());	// so this is a valid start of appointment and will be returned
+				starts.add(new AppointmentTimeDto((long)(appointments.get(i).getStart()),
+						(long)(appointments.get(i).getEnd())));	// so this is a valid start of appointment and will be returned
 			}
 		
 			timeStart = appointments.get(i).getEnd() + pause;
@@ -64,12 +66,12 @@ public class DoctorImpl implements DoctorService {
 		
 	}
 
-	private List<Integer> fitAppointments(Integer start, Integer end, Integer duration, Integer pause) {
+	private List<AppointmentTimeDto> fitAppointments(Integer start, Integer end, Integer duration, Integer pause) {
 
-		List<Integer> list = new ArrayList<Integer>();	// list of starts of appointments
+		List<AppointmentTimeDto> list = new ArrayList<AppointmentTimeDto>();	// list of starts of appointments
 		int time = start;
 		while ((time + duration) <= end) {	// while an appointment can be fit 
-			list.add(time);					// add start
+			list.add(new AppointmentTimeDto((long)(time), (long)(time + duration)));					// add start
 			time += duration + pause;		// next fit time for an appointment is old start + duration of appt + break
 		}
 		return list; 
