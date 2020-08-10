@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Appointment;
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.AppointmentType;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Patient;
 import mrsisa_clinical_center.mrsisa_SW6_2017.repository.AppointmentRepository;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.AppointmentService;
@@ -34,4 +35,24 @@ public class AppointmentImpl implements AppointmentService {
 		// TODO Auto-generated method stub
 		return rep.findByDate(date);
 	}
+
+	@Override
+	public List<Appointment> findAllByDoctorId(Long id) {
+		// TODO Auto-generated method stub
+		return rep.findAllByDoctorId(id);
+	}
+
+	@Override
+	public List<Appointment> findAllByDoctorIdAndPatientIdIsNull(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Appointment> findAllByDoctorIdAndDate(Long id, Date date) {
+		// TODO Auto-generated method stub
+		return rep.findAllByDoctorIdAndDate(id, date);
+	}
+
+	
 }

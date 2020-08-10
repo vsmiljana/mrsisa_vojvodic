@@ -120,5 +120,23 @@ public class Clinic {
 		this.appointments = appointments;
 	}
 
-	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (obj == this) { 
+            return true; 
+        } 
+  
+        /* Check if o is an instance of Complex or not 
+          "null instanceof [type]" also returns false */
+        if (!(obj instanceof Clinic)) { 
+            return false; 
+        } 
+          
+        // typecast o to Complex so that we can compare data members  
+        Clinic c = (Clinic) obj; 
+          
+        // Compare the data members and return accordingly  
+        return this.id == c.id; 
+	}
 }

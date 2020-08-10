@@ -26,5 +26,11 @@ public class AppointmentTypeImpl implements AppointmentTypeService {
 		// TODO Auto-generated method stub
 		return rep.findAll();
 	}
+
+	@Override
+	public AppointmentType findByName(String apptName) {
+		// TODO Auto-generated method stub
+		return rep.findByName(apptName);
+	}
 	
 }

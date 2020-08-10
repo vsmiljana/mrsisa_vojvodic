@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -36,6 +37,7 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.model.Patient;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.AppointmentService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.AppointmentTypeService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.ClinicService;
+import mrsisa_clinical_center.mrsisa_SW6_2017.service.DoctorService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.PatientService;
 
 @RestController
@@ -53,12 +55,15 @@ public class PatientController {
 	
 	private AppointmentTypeService appointmentTypeService;
 	
+	private DoctorService doctorService;
+	
 	public PatientController(PatientService patientService, ClinicService clinicService, AppointmentService appointmentService,
-			AppointmentTypeService appointmentTypeService) {
+			AppointmentTypeService appointmentTypeService, DoctorService doctorService) {
 		this.patientService = patientService;
 		this.clinicService = clinicService;
 		this.appointmentService = appointmentService;
 		this.appointmentTypeService = appointmentTypeService;
+		this.doctorService = doctorService;
 	}
 	
 	
@@ -304,34 +309,58 @@ public class PatientController {
 	
 	
 	@PutMapping("/searchAppts")
-	public void searchAppointment(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
+	public List<ClinicDto> searchAppointment(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
 		
 		String apptName = search.getAppointmentName();
+		
+		AppointmentType apptType = appointmentTypeService.findByName(apptName);
+		
+		List<Doctor> doctors = doctorService.findAllByAppointmentTypes(apptType);
+		
 		Long milliseconds = search.getDate();
 		
-		/*Date date = new Date(milliseconds);
+		Date date = adjustDate(milliseconds);
 		
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		cal.set(Calendar.HOUR_OF_DAY,0);
-		cal.set(Calendar.MINUTE,0);
-		cal.set(Calendar.SECOND,0);
-		cal.set(Calendar.MILLISECOND,0);
-
-		Date d = cal.getTime();*/
+		HashSet<Clinic> clinics = new HashSet<Clinic>();
 		
-		Date d = adjustDate(milliseconds);
+		for (Doctor d: doctors) {
+			System.out.println(d.getId() + " " + d.getEmail());
+			List<Appointment> appointments = appointmentService.findAllByDoctorIdAndDate(d.getId(), date);
+			
+			//for (Appointment a: appointments) {
+			//	System.out.println(a.getId() + " " + a.getDate());
+			//}
+			
+			
+			System.out.println("*************************************");
+			System.out.println("appointments: " + appointments.size());
+			List<Integer> appointmentStarts = doctorService.makeSchedule(appointments, apptType.getDuration(), d.getStart(), d.getEnd());
+			
+			if (appointmentStarts.size() > 0) {
+				clinics.add(d.getClinic());
+			}
+			
+			System.out.println(appointmentStarts);
+			
+		}
 		
-		System.out.println("Name: " + apptName + ", date: " + d);
+		List<ClinicDto> clinicDtos = new ArrayList<ClinicDto>();
 		
-		List<Appointment> appointments = appointmentService.findByDate(d);
+		
+		for (Clinic c: clinics) {
+			System.out.println("Id klinike: " + c.getId());
+		}
+		
+		System.out.println("Name: " + apptName + ", date: " + date);
+		
+		List<Appointment> appointments = appointmentService.findByDate(date);
 		
 		System.out.println(appointments.size());
 		
-		return;
+		return clinicDtos; 	// vratiti i cijenu
 		///return clinics;
 	}
 	

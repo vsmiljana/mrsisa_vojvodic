@@ -123,6 +123,31 @@ INSERT INTO public.appointment(
 update appointment set start=600;
 update appointment set ends=660;
 update appointment set patient_id=null where id=1 or id=2 or id=3;
+
+update doctor set start=480;
+update doctor set ends=960;
+
+/*
+INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (8, TO_DATE('24/12/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+*/
+update appointment set start=860 where id=8;
+update appointment set ends=890 where id=8;
+update appointment set patient_id = 142 where id=8;
+update appointment set start=510  where id=7;
+update appointment set ends=540  where id=7;
+update appointment set patient_id=142 where id=6;
+	
+/*
+INSERT INTO public.appointment_type_doctor(
+	appointment_type_id, doctor_id)
+	VALUES (1, 112);	
+	
+INSERT INTO public.appointment_type_doctor(
+	appointment_type_id, doctor_id)
+	VALUES (1, 113);	
+*/	
 	
 --INSERT INTO patient(
 --	id, address, city, country, email, first_name, last_name, password, phone_number, social_security_number, clinical_center_id, medical_record_id)

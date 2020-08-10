@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Appointment;
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.AppointmentType;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Patient;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
@@ -25,6 +26,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 	public List<Appointment> findByPatientId(Long id);
 
 	public List<Appointment> findByDate(Date date);
+
+	public List<Appointment> findAllByDoctorId(Long id);
+
+	public List<Appointment> findAllByDoctorIdAndDate(Long id, Date date);
+
+	
 	
 	
 //	@Modifying

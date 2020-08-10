@@ -11,4 +11,6 @@ public interface AppointmentTypeService {
 
 	List<AppointmentType> findAllByNameAsc();
 
+	AppointmentType findByName(String apptName);
+
 }
