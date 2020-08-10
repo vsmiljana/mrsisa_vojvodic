@@ -1,6 +1,5 @@
 package mrsisa_clinical_center.mrsisa_SW6_2017.controller;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,13 +24,17 @@ import org.springframework.web.server.ResponseStatusException;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentScheduleDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.ClinicDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.ClinicsSetupDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.LoginUserDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.RegisterUserDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.SearchAppointmentDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Appointment;
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.AppointmentType;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Clinic;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Doctor;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Patient;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.AppointmentService;
+import mrsisa_clinical_center.mrsisa_SW6_2017.service.AppointmentTypeService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.ClinicService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.PatientService;
 
@@ -48,10 +51,14 @@ public class PatientController {
 	
 	private AppointmentService appointmentService;
 	
-	public PatientController(PatientService patientService, ClinicService clinicService, AppointmentService appointmentService) {
+	private AppointmentTypeService appointmentTypeService;
+	
+	public PatientController(PatientService patientService, ClinicService clinicService, AppointmentService appointmentService,
+			AppointmentTypeService appointmentTypeService) {
 		this.patientService = patientService;
 		this.clinicService = clinicService;
 		this.appointmentService = appointmentService;
+		this.appointmentTypeService = appointmentTypeService;
 	}
 	
 	
@@ -123,6 +130,35 @@ public class PatientController {
 		
 		System.out.println("Ima ih " + clinics.size());
 		return clinicsDto;
+		///return clinics;
+	}
+	
+	
+	
+	@GetMapping("/clinicsPage")
+	public ClinicsSetupDto getClinicsAndAppointmentTypes() {
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		ArrayList<ClinicDto> clinicsDto = new ArrayList<ClinicDto>();
+		
+		ArrayList<Clinic> clinics = (ArrayList<Clinic>) clinicService.findAll();
+		for (Clinic c: clinics) {
+			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry()));
+		}
+		
+		List<AppointmentType> appointmentTypes = appointmentTypeService.findAllByNameAsc();
+		ArrayList<String> appointments = new ArrayList<String>();
+		
+		for (AppointmentType type: appointmentTypes) {
+			appointments.add(type.getName());
+		}
+		
+		
+		
+		ClinicsSetupDto setup = new ClinicsSetupDto(clinicsDto, appointments);
+		return setup;
 		///return clinics;
 	}
 	
@@ -267,11 +303,56 @@ public class PatientController {
 	}
 	
 	
+	@PutMapping("/searchAppts")
+	public void searchAppointment(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		String apptName = search.getAppointmentName();
+		Long milliseconds = search.getDate();
+		
+		/*Date date = new Date(milliseconds);
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY,0);
+		cal.set(Calendar.MINUTE,0);
+		cal.set(Calendar.SECOND,0);
+		cal.set(Calendar.MILLISECOND,0);
+
+		Date d = cal.getTime();*/
+		
+		Date d = adjustDate(milliseconds);
+		
+		System.out.println("Name: " + apptName + ", date: " + d);
+		
+		List<Appointment> appointments = appointmentService.findByDate(d);
+		
+		System.out.println(appointments.size());
+		
+		return;
+		///return clinics;
+	}
+	
+	
 	
 	//login(LoginUserDto )
 	//Patient korisnik = service.findOneByEmailAndPassword
 	//if null
 	//throw
 	//else sve ok predje na homepage
+	
+	
+	public Date adjustDate(Long ms) {
+		Date date = new Date(ms);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY,0);
+		cal.set(Calendar.MINUTE,0);
+		cal.set(Calendar.SECOND,0);
+		cal.set(Calendar.MILLISECOND,0);
+		return cal.getTime();	
+	}
 
 }

@@ -36,7 +36,7 @@ function setUpAppointments(data){
 		//var date = dateMs.toLocaleDateString();
 		var date = setupDate(appointment.dateLong);
 		var timeStart = setupTime(appointment.start)
-		panel.append( `<div class="card card-appointment">
+		panel.append( `<div class="card card-appointment upcomingAppointment">
           <div class="row cardy" >
                 <div class="apt-img-div">
                    <img class="apt-img" src="/images/icons/upcoming_appts_ico.png" alt="" width="115px;"> 

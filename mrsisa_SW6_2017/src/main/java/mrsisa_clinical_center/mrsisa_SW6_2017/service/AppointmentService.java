@@ -1,5 +1,6 @@
 package mrsisa_clinical_center.mrsisa_SW6_2017.service;
 
+import java.util.Date;
 import java.util.List;
 
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Appointment;
@@ -10,5 +11,7 @@ public interface AppointmentService {
 	void scheduleAppointment(Long appointmendId, Patient patient);
 
 	List<Appointment> findByPatientId(Long id);
+
+	List<Appointment> findByDate(Date date);
 
 }

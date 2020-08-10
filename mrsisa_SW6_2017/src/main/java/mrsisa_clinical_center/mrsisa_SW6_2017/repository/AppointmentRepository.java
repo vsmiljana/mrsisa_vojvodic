@@ -1,5 +1,6 @@
 package mrsisa_clinical_center.mrsisa_SW6_2017.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 	public void scheduleAppointment(Long appointmendId, Patient patient);
 
 	public List<Appointment> findByPatientId(Long id);
+
+	public List<Appointment> findByDate(Date date);
 	
 	
 //	@Modifying

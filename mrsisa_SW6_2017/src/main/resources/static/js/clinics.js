@@ -20,12 +20,58 @@ function getClinics(){
 	}); 
 }
 
+function setUpClinicsPage(){
+	$.ajax({
+		url: "/usr/clinicsPage",
+		type: "GET",
+		contentType: "application/json",
+		//dataType: "json",
+		
+		error: function (response) {
+			window.location.replace("/login.html");
+		},
+		success : function (data) {
+			//d = JSON.parse(data.responseText);
+//			$("body").show();
+			setUpClinics(data.clinics);
+			setUpSearch(data.appointmentTypes);
+			//window.location = "/usr/clinics"
+			
+		}
+		
+	}); 
+	
+}
+
+
+function setUpSearch(appointmentTypes){
+	
+	$('#selectAppointments').children().not(':first').remove();
+	
+	for (type of appointmentTypes){
+		$('#selectAppointments').append($('<option>', {
+		    value: 1,
+		    text: type
+		}));
+	}
+}
 
 function setUpClinics(clinics){
 	console.log("setup clinics");
 	//$('#panel').not(':first').remove();
 	//$('#panel div').empty();
-	$('#panel').children().not(':first').remove();
+	
+	//$('#panel').children().not(':first').remove();
+	
+	
+	$('#panel').children().not('#navbarId, #searchDiv').remove();
+	$("#searchDiv").show();
+	
+	//$( ".upcomingAppointment" ).remove();
+	
+	//$("not:#panel").not( document.getElementById( "#navbarId" ) ).remove();
+	//$("not:#panel").remove();
+	
 	var panel = $("#panel");
 	for (clinic of clinics){
 		panel.append(`<div class="card card-appointment">
@@ -109,7 +155,12 @@ function setUpClinicsAppointments(appts){
                   <p>Clinic: ${appointment.clinicName}</p>
                   <p>Clinic Address: ${appointment.clinicAddress}</p>
                   <p>Appointment price: ${appointment.price}</p>
-                   <a class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#modalAppt" href="javascript:scheduleAppt(${appointment.id})">Schedulee<a/>
+                   <a class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#modalAppt" 
+                   data-id=5 data-name="smiljana" data-whatever="@getbootstrap"
+                   href="javascript:scheduleAppt(${appointment.id})">Schedulee<a/>
+                
+              <!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+					-->
                 
                   <br>
                   
