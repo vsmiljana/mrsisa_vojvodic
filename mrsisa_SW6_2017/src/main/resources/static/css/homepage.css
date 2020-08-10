@@ -31,6 +31,26 @@ background-attachment: fixed;
 
 .navbar-item{
 	font-size: 16px;
+	
+}
+
+a.navbar-item:hover{
+   /* background-color:#aaa;
+    color:white;*/
+    color:inherit;
+}
+
+li.active{
+	font-size: 18px;
+	border-radius: 10px;
+	/*background-color: rgba(2,0,36, 0.1);
+    /*background-color: rgb(ff, ff, ff);*/
+    /*text-shadow:0px 0px 1px gray;*/
+    font-weight: bold;
+    text-decoration: underline;
+  	text-decoration-color: red;
+  	color: white; 
+    /*color:black;*/
 }
 
 .helper {

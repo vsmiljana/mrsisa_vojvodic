@@ -71,7 +71,30 @@ $( document ).ready(function() {
 });
 </script>
 
+<script>
+// Add active class to the current button (highlight it)
+//var navbar = document.getElementById("navbarId");
+//var options = navbar.getElementsByClassName("btn");
+//for (var i = 0; i < options.length; i++) {
+//  options[i].addEventListener("click", function() {
+//  var current = document.getElementsByClassName("active");
+//  current[0].className = current[0].className.replace(" active", "");
+//  this.className += " active";
+//  });
+//}
 
+//$(".nav .navbar-item").on("click", function(){
+//   $(".nav").find(".active").removeClass("active");
+//   $(this).addClass("active");
+//});
+
+$(document).ready(function() {
+    $(document).on('click', '.nav-item a', function (e) {
+        $(this).parent().addClass('active').siblings().removeClass('active');
+    });
+});
+
+</script>
 
 
 </head>
@@ -95,7 +118,7 @@ $( document ).ready(function() {
           <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link navbar-item" href="/homepage.html">Upcoming appointments <span class="sr-only">(current)</span></a>
+                <a class="nav-link navbar-item"  href="/homepage.html">Upcoming appointments <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link navbar-item" href="javascript:setUpClinicsPage()">Clinics</a>
