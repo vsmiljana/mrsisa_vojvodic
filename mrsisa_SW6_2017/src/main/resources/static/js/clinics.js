@@ -48,6 +48,8 @@ function setUpSearch(appointmentTypes){
 	
 	$('#selectAppointments').children().not(':first').remove();
 	
+	$("#searchButton").val("");
+	
 	for (type of appointmentTypes){
 		$('#selectAppointments').append($('<option>', {
 		    value: 1,

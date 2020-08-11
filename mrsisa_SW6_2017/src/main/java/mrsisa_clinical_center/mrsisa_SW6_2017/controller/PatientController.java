@@ -352,9 +352,8 @@ public class PatientController {
 	}
 	
 	
-	
-	@PutMapping("/searchApptsClinic")
-	public List<DoctorDto> searchAppointmentClinics(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
+	@PutMapping("/searchApptsOneClinic")
+	public List<DoctorDto> searchAppointmentOneClinic(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
@@ -364,20 +363,50 @@ public class PatientController {
 		List<DoctorDto> doctorsDto = (List<DoctorDto>) objects.get(1);
 		
 		return doctorsDto; 	// vratiti i cijenu
+	
+	}
+	
+	
+	@PutMapping("/searchApptsClinic")
+	public List<ClinicDto> searchAppointmentClinics(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
 		
+		System.out.println("seatch appointment clinic");
+		
+		List<Object> objects = doSearch(search);
+		
+		//List<DoctorDto> doctorsDto = (List<DoctorDto>) objects.get(1);
+		
+		//return doctorsDto; 	// vratiti i cijenu
+		List<ClinicDto> clinicsDto = (List<ClinicDto>) objects.get(0);
+		return clinicsDto;
 	
 	}
 	
 	
 	public List<Object> doSearch(SearchAppointmentDto search){
 		
+		Long clinicId = search.getClinicId();
+		
+		System.out.println("clinic id " + clinicId);
+		
+		if (clinicId == null) {
+			clinicId = -1l;
+		}
+		
 		String apptName = search.getAppointmentName();
+		
+		System.out.println("*************apt name**********" + apptName);
 		
 		AppointmentType apptType = appointmentTypeService.findByName(apptName);
 		
 		Double price = apptType.getPrice();
 		
 		List<Doctor> doctors = doctorService.findAllByAppointmentTypes(apptType);
+		System.out.println("--\n---\n--"+ doctors.size() + "--\n---\n" + clinicId + "\n---");
+		
 		
 		Long milliseconds = search.getDate();
 		
@@ -390,19 +419,12 @@ public class PatientController {
 		for (Doctor d: doctors) {
 			System.out.println(d.getId() + " " + d.getEmail());
 			List<Appointment> appointments = appointmentService.findAllByDoctorIdAndDate(d.getId(), date);
-			
-			//for (Appointment a: appointments) {
-			//	System.out.println(a.getId() + " " + a.getDate());
-			//}
-			
-			
-			System.out.println("*************************************");
-			System.out.println("appointments: " + appointments.size());
 			List<AppointmentTimeDto> appointmentStarts = doctorService.makeSchedule(appointments, apptType.getDuration(), d.getStart(), d.getEnd());
-			
 			if (appointmentStarts.size() > 0) {
 				clinics.add(d.getClinic());
-				doctorsDto.add(new DoctorDto(d.getFirstName(), d.getLastName(), appointmentStarts));
+				if (d.getClinic().getId().equals(clinicId)) {	// if we are searching only the doctors of a certain clinic
+					doctorsDto.add(new DoctorDto(d.getFirstName(), d.getLastName(), appointmentStarts));
+				}
 			}
 			
 			System.out.println(appointmentStarts);

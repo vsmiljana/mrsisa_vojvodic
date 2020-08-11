@@ -6,6 +6,8 @@ public class SearchAppointmentDto {
 	
 	private Long date;
 	
+	private Long clinicId;
+	
 	public SearchAppointmentDto() {
 		super();
 	}
@@ -14,6 +16,13 @@ public class SearchAppointmentDto {
 		super();
 		this.appointmentName = appointmentName;
 		this.date = date;
+	}
+	
+	public SearchAppointmentDto(String appointmentName, Long date, Long clinicId) {
+		super();
+		this.appointmentName = appointmentName;
+		this.date = date;
+		this.clinicId = clinicId;
 	}
 
 	public String getAppointmentName() {
@@ -30,6 +39,14 @@ public class SearchAppointmentDto {
 
 	public void setDate(Long date) {
 		this.date = date;
+	}
+
+	public Long getClinicId() {
+		return clinicId;
+	}
+
+	public void setClinicId(Long clinicId) {
+		this.clinicId = clinicId;
 	}
 	
 }
