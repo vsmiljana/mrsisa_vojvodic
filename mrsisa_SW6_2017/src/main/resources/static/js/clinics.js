@@ -56,6 +56,8 @@ function setUpSearch(appointmentTypes){
 		    text: type
 		}));
 	}
+	//$("#searchDiv").show();
+	
 }
 
 function setUpClinics(clinics){
@@ -94,6 +96,7 @@ function setUpClinics(clinics){
                     <p>Country: ${clinic.country}</p>
                     <br>
                     <a class="btn btn-primary btn-sm float-right"  href="javascript:getClinicsAppts(${clinic.id})">Apojntmenti<a/>
+                   <a class="btn btn-primary btn-sm float-right"  href="javascript:getDoctors(${clinic.id})">Doctors<a/>
                    
                     
                     
@@ -101,6 +104,32 @@ function setUpClinics(clinics){
     </div></div></div></div>`);
 	}
 }
+
+
+function getDoctors(clinicId){
+	console.log(clinicId + " klinika ");
+	$.ajax({
+		url: "/usr/clinicsPage",
+		type: "GET",
+		contentType: "application/json",
+		//dataType: "json",
+		
+		error: function (response) {
+			window.location.replace("/login.html");
+		},
+		success : function (data) {
+			//d = JSON.parse(data.responseText);
+//			$("body").show();
+			setUpClinics(data.clinics);
+			setUpSearch(data.appointmentTypes);
+			//window.location = "/usr/clinics"
+			
+		}
+		
+	}); 
+	
+}
+
 
 function getClinicsAppts(clinicId){
 	
@@ -127,7 +156,10 @@ function getClinicsAppts(clinicId){
 
 function setUpClinicsAppointments(appts){
 	console.log(appts);
-	$('#panel').children().not(':first').remove();
+	$('#searchDiv').hide();
+	$('#panel').children().not('#navbarId, #searchDiv').remove();
+	//$('#panel').children().not(':first').remove();
+	
 	var panel = $("#panel");
 	// treba prikazati mozda na vrhu detalje klinike, kako da ih dobijem/prikazen
 	if (appts.length == 0) {
