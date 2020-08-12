@@ -172,6 +172,53 @@ public class PatientController {
 	}
 	
 	
+	@GetMapping("/current")
+	public RegisterUserDto getCurrentUser() {
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		Patient patient = (Patient) session.getAttribute("currentUser");
+		
+		RegisterUserDto user = new RegisterUserDto(patient.getEmail(), null, patient.getFirstName(), patient.getLastName(),
+				patient.getSocialSecurityNumber(), patient.getPhoneNumber(), patient.getAddress(), patient.getCity(), patient.getCountry());
+		
+		return user;
+		///return clinics;
+	}
+	
+	
+	@PutMapping("/editProfileInfo")
+	public void editProfileInfo(@RequestBody RegisterUserDto user) {	// ili da ne bude void
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		Patient patient = (Patient) session.getAttribute("currentUser");
+		//System.out.println(patientId);
+		//System.out.println(appt.getAppointmentId());
+		
+		System.out.println("*****************\n********\n" + user.getEmail() + user.getFirstName() + user.getLastName());
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String address = user.getAddress();
+		String city = user.getCity();
+		String country = user.getCountry();
+		String phoneNumber = user.getPhoneNumber();
+	
+		patient.setAddress(address);
+		patient.setFirstName(firstName);
+		patient.setLastName(lastName);
+		patient.setCity(city);
+		patient.setCountry(country);
+		patient.setPhoneNumber(phoneNumber);
+		//appointmentService.scheduleAppointment(appt.getAppointmentId(), patient);
+		patientService.updatePatient(patient.getEmail(), firstName, lastName, address, city, country, phoneNumber);
+		//System.out.println("ima apojentmentova: " + patient.getAppointments().size());
+		return;
+		///return clinics;
+	}
+	
+	
 	// srediti datume
 	
 	

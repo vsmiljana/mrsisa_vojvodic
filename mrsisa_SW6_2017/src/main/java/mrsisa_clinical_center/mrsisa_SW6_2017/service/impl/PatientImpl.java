@@ -30,4 +30,17 @@ public class PatientImpl implements PatientService {
 		
 	}
 
+	@Override
+	public void updatePatient(String firstName, String lastName, String email) {
+		rep.updatePatient(firstName, lastName, email);
+		
+	}
+
+	@Override
+	public void updatePatient(String email, String firstName, String lastName, String address, String city,
+			String country, String phoneNumber) {
+		rep.updatePatient(email, firstName, lastName, address, city, country, phoneNumber);
+		
+	}
+
 }
