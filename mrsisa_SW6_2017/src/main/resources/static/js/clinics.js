@@ -108,26 +108,53 @@ function setUpClinics(clinics){
 
 function getDoctors(clinicId){
 	console.log(clinicId + " klinika ");
+	
+	
+	
 	$.ajax({
-		url: "/usr/clinicsPage",
+		url: "/usr/doctors/" + clinicId,
 		type: "GET",
 		contentType: "application/json",
 		//dataType: "json",
 		
 		error: function (response) {
-			window.location.replace("/login.html");
+			console.log("Desila se neka greska pri dobavljanju lekara na osnovu id-ja klinike");
 		},
 		success : function (data) {
 			//d = JSON.parse(data.responseText);
 //			$("body").show();
-			setUpClinics(data.clinics);
-			setUpSearch(data.appointmentTypes);
+			setUpDoctorsRegular(data);
 			//window.location = "/usr/clinics"
 			
 		}
 		
 	}); 
 	
+}
+
+
+function setUpDoctorsRegular(doctors){
+	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv').remove();
+	var panel = $("#panel");
+	
+	for (doctor of doctors){
+	
+		panel.append(`<div class="card card-appointment">
+          <div class="row cardy" >
+                <div class="apt-img-div">
+                   <img class="apt-img" src="https://www.freeiconspng.com/uploads/physician-icon-png-28.png"; alt="" width="115px;"> 
+                </div> 
+                <div>
+                  <div class="card-block">
+                    <h5 class="card-title clinic-name">Dr. ${doctor.firstName} ${doctor.lastName}</h5> 
+                    <div style="display: inline-block; max-width: 200px;">
+                      <p>Name: ${doctor.firstName} ${doctor.lastName}</p>
+                    </div>
+                    <div style="display: inline-block; margin-left: 50px; margin-right: 30px;max-width: 200px;">
+                      <br>
+     </div> 
+    </div></div></div></div>`);
+	}
 }
 
 

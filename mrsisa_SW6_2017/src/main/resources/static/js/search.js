@@ -136,7 +136,7 @@ function displayDoctors(doctors) {
 		for (apptTime of doctor.availableAppointments){
 			time = setupTime(apptTime.start) + " - " + setupTime(apptTime.end);
 			$(this).closest("selectTime").append($('<option>', {
-			    value: 1,
+			    value: apptTime.start,
 			    text: time 
 			}));
 		}
@@ -223,6 +223,8 @@ function setupClinicInfo(id, name, address, price, appointmentName){
 	
 	//dosomething.then()
 	
-	panel.append(`<div id="clinicInfoDiv" style="margin: 0 auto; width: 500px;">${name}, address: ${address}</div>`);
+	panel.append(`<div id="clinicInfoDiv" style="margin: 0 auto; width: 500px;">${name}, address: ${address}
+	<p id="appointmentName">${appointmentName}</p>
+	</div>`);
 	
 }

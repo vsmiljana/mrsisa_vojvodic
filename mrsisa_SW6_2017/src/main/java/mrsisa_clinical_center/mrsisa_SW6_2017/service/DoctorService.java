@@ -13,4 +13,6 @@ public interface DoctorService {
 
 	List<AppointmentTimeDto> makeSchedule(List<Appointment> appointments, Integer duration, Integer start, Integer end);
 
+	List<Doctor> findAllByClinicId(Long id);
+
 }

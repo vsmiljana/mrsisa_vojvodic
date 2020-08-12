@@ -242,6 +242,28 @@ public class PatientController {
 	}
 	
 	
+	@RequestMapping(value = "/doctors/{clinicId}", method=RequestMethod.GET)
+	@ResponseBody
+	public List<DoctorDto> getDoctorsOfClinic(@PathVariable("clinicId") Long id) {
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		//Clinic c = clinicService.findById(id);
+			
+		List<Doctor> doctors = doctorService.findAllByClinicId(id);
+		
+		List<DoctorDto> doctorsDto = new ArrayList<DoctorDto>(); 
+		
+		for (Doctor d: doctors) {
+			doctorsDto.add(new DoctorDto(d.getFirstName(), d.getLastName()));		
+		}
+		
+		return doctorsDto;
+		
+	}
+	
+	
 
 	@PutMapping("/appointments/bookAnAppt")
 	public void scheduleAppointment(@RequestBody AppointmentScheduleDto appt) {	// ili da ne bude void
