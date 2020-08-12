@@ -216,9 +216,9 @@ function setUpClinicsAppointments(appts){
                   <p>Clinic: ${appointment.clinicName}</p>
                   <p>Clinic Address: ${appointment.clinicAddress}</p>
                   <p>Appointment price: ${appointment.price}</p>
-                   <a class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#modalAppt" 
-                   data-id=5 data-name="smiljana" data-whatever="@getbootstrap"
-                   href="javascript:scheduleAppt(${appointment.id})">Schedulee<a/>
+                   <a class="btn btn-primary btn-sm float-right open-ModalAppt" data-toggle="modal" data-target="#modalAppt" 
+                   data-id=${appointment.id} data-name="smiljana" data-whatever="@getbootstrap"
+                   href="#modalAppt">Schedulee<a/>
                 
               <!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
 					-->

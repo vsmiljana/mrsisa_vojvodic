@@ -70,6 +70,25 @@ $( document ).ready(function() {
     //checkIfLogged();
     setUpPatient();
 });
+
+
+$(document).on("click", ".open-AddBookDialog", function () {
+    var myBookId = $(this).data('id');
+    $(".modal-body #bookId").val( myBookId );
+    // As pointed out in comments, 
+    // it is unnecessary to have to manually call the modal.
+    // $('#addBookDialog').modal('show');
+});
+
+$(document).on("click", ".open-ModalAppt", function () {
+    var myBookId = $(this).data('id');
+    console.log(myBookId);
+    $(".modal-body #clinicId").html(myBookId);
+    // As pointed out in comments, 
+    // it is unnecessary to have to manually call the modal.
+    // $('#addBookDialog').modal('show');
+    $('#buttonConfirmAppt').attr('onClick', "activateModal1(" + myBookId + ")");
+});
 </script>
 
 <script>
@@ -182,17 +201,17 @@ $(document).ready(function() {
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Appointment Confirmation</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <div id="clinicId"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onlick="javascript:scheduleAppt()">Save changes</button>
+        <button type="button" class="btn btn-primary" id="buttonConfirmAppt" onclick="javascript:scheduleAppt()">Confirm</button>
       </div>
     </div>
   </div>
@@ -256,7 +275,25 @@ $(document).ready(function() {
   </div>
 </div>
 
+<p>Link 1</p>
+<a data-toggle="modal" data-id="ISBN564541" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#addBookDialog">test</a>
 
+<p>&nbsp;</p>
+
+
+<p>Link 2</p>
+<a data-toggle="modal" data-id="ISBN-001122" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#addBookDialog">test</a>
+
+<div class="modal hide" id="addBookDialog">
+ <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Modal header</h3>
+  </div>
+    <div class="modal-body">
+        <p>some content</p>
+        <input type="text" name="bookId" id="bookId" value=""/>
+    </div>
+</div>
 
 </body>
 </html>
