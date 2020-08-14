@@ -493,7 +493,7 @@ public class PatientController {
 			if (appointmentStarts.size() > 0) {
 				clinics.add(d.getClinic());
 				if (d.getClinic().getId().equals(clinicId)) {	// if we are searching only the doctors of a certain clinic
-					doctorsDto.add(new DoctorDto(d.getFirstName(), d.getLastName(), appointmentStarts));
+					doctorsDto.add(new DoctorDto(d.getId(), d.getFirstName(), d.getLastName(), appointmentStarts));
 				}
 			}
 			

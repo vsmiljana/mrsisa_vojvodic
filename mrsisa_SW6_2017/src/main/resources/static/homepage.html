@@ -95,14 +95,38 @@ $(document).on("click", ".open-ModalAppt", function () {
 	var time = $(this).data('time');
 	//moze, tou can  see it in your list of upcoming 
 	var date = $(this).data('date');
+	 var sth = $(this).data('sth');
 	$(".modal-body #clinicId").html("<p>Appointment Type: " + appt + "</p>"
-			+"<p>Date: "+ date + "</p><p>Time: " + time + "</p><p>Doctor: " + doctor + "</p><p>Price: " + price + "</p>");
+			+"<p>Date: "+ date + "</p><p>Time: " + time + "</p><p>Doctor: " + doctor + "</p><p>Price: " + price + "</p>"
+			+ "<p> sth" + sth + "</p>");
     
     // As pointed out in comments, 
     // it is unnecessary to have to manually call the modal.
     // $('#addBookDialog').modal('show');
     $('#buttonConfirmAppt').attr('onClick', "activateModal1(" + myBookId + ")");
     $('#buttonConfirmAppt').attr('onClick', "scheduleAppt(" + myBookId + ")");
+
+});
+
+
+$(document).on("click", ".open-ModalAppt2", function () {
+   
+	console.log(this);
+   	var name = $(this).data('name');
+   	var selectId = $(this).data("selectid");
+   	console.log(selectId);
+   	var selected = $("#" + selectId + " option:selected").text();
+   //	var mrs = $("#select1 option:selected").text();
+   //	console.log(mrs);
+   	console.log("selektovano vrijeme: "  + selected); 
+   	console.log("vrijeme " + time);
+	console.log("ime doktora: " + name);
+	$(".modal-body #clinicId").html("<h1>This is new</h1><p>Appointment Type: " + "</p>"
+			+"<p>Date: "+  "</p><p>Time: "+ "</p><p>Doctor: " + "</p><p>Price: " + "</p>"
+			+ "<p> sth" +"</p>");
+    
+    //$('#buttonConfirmAppt').attr('onClick', "activateModal1(" + myBookId + ")");
+    //$('#buttonConfirmAppt').attr('onClick', "scheduleAppt(" + myBookId + ")");
 
 });
 </script>
@@ -233,6 +257,27 @@ $(document).ready(function() {
   </div>
 </div>
 
+    <!-- Modal -->
+<div class="modal fade" id="modalAppt2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Appointment Confirmation on Regulars</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="clinicId"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="buttonConfirmAppt" onclick="javascript:scheduleAppt()">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="modalFeedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
@@ -308,14 +353,6 @@ $(document).ready(function() {
   </div>
 </div>
 
-<p>Link 1</p>
-<a data-toggle="modal" data-id="ISBN564541" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#addBookDialog">test</a>
-
-<p>&nbsp;</p>
-
-
-<p>Link 2</p>
-<a data-toggle="modal" data-id="ISBN-001122" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#addBookDialog">test</a>
 
 <div class="modal hide" id="addBookDialog">
  <div class="modal-header">

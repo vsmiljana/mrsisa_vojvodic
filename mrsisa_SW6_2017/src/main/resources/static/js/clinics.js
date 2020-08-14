@@ -217,7 +217,9 @@ function setUpClinicsAppointments(appts){			// predefined
                   <p>Clinic Address: ${appointment.clinicAddress}</p>
                   <p>Appointment price: ${appointment.price}</p>
                    <a class="btn btn-primary btn-sm float-right open-ModalAppt" data-toggle="modal" data-target="#modalAppt" 
-                   data-id=${appointment.id} data-name="smiljana" data-whatever = ${appointment.appointmentName}
+                   data-id=${appointment.id} data-name="smiljana"
+                   data-sth = 'javascript:makeAppointment(${appointment.clinicName})'
+                    data-whatever = ${appointment.appointmentName}
                    data-date = ${date} data-appointmentType = '${appointment.appointmentName}' data-price = ${appointment.price}
                    data-time = ${timeStart} data-doctor = '${appointment.doctor}'
                    href="#modalAppt">Schedulee<a/>

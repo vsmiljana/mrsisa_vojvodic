@@ -4,6 +4,7 @@ import java.util.List;
 
 public class DoctorDto {
 	
+	private Long id;
 	private String firstName;
 	private String lastName;
 	private Double rating;
@@ -27,10 +28,28 @@ public class DoctorDto {
 		this.lastName = lastName;
 		this.availableAppointments = availableAppointments;
 	}
+	
+	public DoctorDto(Long id, String firstName, String lastName, Double rating,
+			List<AppointmentTimeDto> availableAppointments) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.rating = rating;
+		this.availableAppointments = availableAppointments;
+	}
 
 	public DoctorDto(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
+	}
+
+	public DoctorDto(Long id, String firstName, String lastName, List<AppointmentTimeDto> availableAppointments) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.availableAppointments = availableAppointments;
 	}
 
 	public String getFirstName() {
@@ -64,5 +83,14 @@ public class DoctorDto {
 	public void setAvailableAppointments(List<AppointmentTimeDto> availableAppointments) {
 		this.availableAppointments = availableAppointments;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	
 }

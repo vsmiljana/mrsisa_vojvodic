@@ -77,7 +77,7 @@ function searchDoctors(searchParams){
 		},
 		success : function (data) {
 			console.log(data);
-			
+			updateHeadingClinic(searchParams);
 			displayDoctors(data);
 		}
 		
@@ -85,14 +85,22 @@ function searchDoctors(searchParams){
 	
 }
 
+function updateHeadingClinic(searchParams){
+	$("#appointmentName").text(searchParams.appointmentName);
+	$("#appointmentDate").text(searchParams.date);
+}
+
 
 function displayDoctors(doctors) {
 	
 	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv').remove();
 	var panel = $("#panel");
-	
+	var i = 0;
 	for (doctor of doctors){
-	
+		i = i + 1;
+		var divId = "doctor" + i;
+		var divIdString = divId.toString();
+		console.log("HELOOOOOOOOOOOOOOO" + divIdString);
 		var times = ""
 		for (apptTime of doctor.availableAppointments){
 			times += setupTime(apptTime.start) + " - " + setupTime(apptTime.end) + "&#13;";
@@ -108,15 +116,16 @@ function displayDoctors(doctors) {
 			 //   text: time 
 			//}));
 		}
-	
+		
 		panel.append(`<div class="card card-appointment">
-          <div class="row cardy" >
+          <div class="row cardy doctor-card" id=${divId} >
                 <div class="apt-img-div">
                    <img class="apt-img" src="https://www.freeiconspng.com/uploads/physician-icon-png-28.png"; alt="" width="115px;"> 
                 </div> 
                 <div>
                   <div class="card-block">
                     <h5 class="card-title clinic-name">Dr. ${doctor.firstName} ${doctor.lastName}</h5> 
+                    <p class="doctorId" style="display: none">${doctor.id}</p>
                     <div style="display: inline-block; max-width: 200px;">
                       <p>Name: ${doctor.firstName} ${doctor.lastName}</p>
                     </div>
@@ -124,14 +133,18 @@ function displayDoctors(doctors) {
                    	 <div class="form-group mb-2">
     <label class="" for="inputAppointments">Appointment: </label>
   </div>
-  <select class="custom-select selectTime">
+  <select class="custom-select selectTime" id=select${i}>
     <option selected>Choose...</option>
     ${options}
   </select>
                     
                     <br>
-                    <a class="btn btn-primary btn-sm float-right"  href="#">Make appointment<a/>
-                   
+                    <a class="btn btn-primary btn-sm float-right">Make appointment<a/>
+                     <a class="btn btn-primary btn-sm float-right"  href="javascript:makeAppointment(divIdString)">Make appointment<a/>
+                
+                   <a class="btn btn-primary btn-sm float-right open-ModalAppt2" data-toggle="modal" data-target="#modalAppt2" 
+                	data-name='${doctor.firstName}' data-selectId = select${i}
+                   href="#modalAppt2">Make appointment<a/>
                     
                     
     </div> 
@@ -202,7 +215,7 @@ function setUpDoctorDisplay(id, name, address, price, appointmentName, date){
 	console.log(id + name + address + price + appointmentName + date);
 	//javascript:setUpDoctorDisplay(${clinic.id}, '${clinic.name}', '${clinic.address}', ${clinic.price}, '${searchParams.appointmentName}', ${searchParams.date})
 	$.ajax({
-		   url:setupClinicInfo(id, name, address, price, appointmentName),
+		   url:setupClinicInfo(id, name, address, price, appointmentName, date, price),
 		   success:function(){
 		   setUpDoctors1(appointmentName, date, id);
 		}
@@ -218,7 +231,7 @@ function setUpDoctors1(appointmentName, date, id){
 	searchDoctors(searchAppts)
 }
 
-function setupClinicInfo(id, name, address, price, appointmentName){
+function setupClinicInfo(id, name, address, price, appointmentName, date, price){
 	
 	$("#searchButton").val(id);
 	console.log("da vidim jesam li namjestila" + $("#searchButton").val());
@@ -228,7 +241,14 @@ function setupClinicInfo(id, name, address, price, appointmentName){
 	//dosomething.then()
 	
 	panel.append(`<div id="clinicInfoDiv" style="margin: 0 auto; width: 500px;">${name}, address: ${address}
-	<p id="appointmentName">${appointmentName}</p>
+	<p id="appointmentName">${appointmentName}</p><p id="appointmentDate">${date}</p><p id="appointmentPrice">${price}</p>
 	</div>`);
 	
+}
+
+
+
+function makeAppointment(divId){
+	console.log(divId);
+	//$("#" + divId).closest(".doctorId").show();
 }
