@@ -20,8 +20,11 @@ function searchAppointments(){
 	if (clinicIdVal === "") {
 		clinicId = null;
 	} 
+	else {
+		clinicId = parseInt(clinicId);
+	}
 	
-	var searchAppts = {"appointmentName": apptType, "date": dateToSend, "clinicId:": clinicId};
+	var searchAppts = {"appointmentName": apptType, "date": dateToSend, "clinicId": clinicId};
 
 	
 	if (clinicId == null) {
@@ -29,6 +32,7 @@ function searchAppointments(){
 	}
 	
 	else {
+		console.log(searchAppts);
 		searchDoctors(searchAppts);
 	}
 	

@@ -465,6 +465,7 @@ public class PatientController {
 			clinicId = -1l;
 		}
 		
+		
 		String apptName = search.getAppointmentName();
 		
 		System.out.println("*************apt name**********" + apptName);

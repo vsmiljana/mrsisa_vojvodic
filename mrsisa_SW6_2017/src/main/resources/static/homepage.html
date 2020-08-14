@@ -39,7 +39,7 @@
 
 
 
-<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!-- <script src="vendor/jquery/jquery-3.2.1.min.js"></script> -->
 
 <script src="js/utils.js"></script>
 <script src="js/homepage.js"></script>
@@ -84,10 +84,26 @@ $(document).on("click", ".open-ModalAppt", function () {
     var myBookId = $(this).data('id');
     console.log(myBookId);
     $(".modal-body #clinicId").html(myBookId);
+    var apptIt = $(this).data('id');
+    var appt = $(this).data('appointmentType');
+    var appt = $(this).data('whatever');
+    
+	console.log("trebalo bi da je apojntment " + appt); 
+	var doctor = $(this).data('doctor');
+	console.log("trebalo bi da je doktor " + doctor); 
+	var price = $(this).data('price');
+	var time = $(this).data('time');
+	//moze, tou can  see it in your list of upcoming 
+	var date = $(this).data('date');
+	$(".modal-body #clinicId").html("<p>Appointment Type: " + appt + "</p>"
+			+"<p>Date: "+ date + "</p><p>Time: " + time + "</p><p>Doctor: " + doctor + "</p><p>Price: " + price + "</p>");
+    
     // As pointed out in comments, 
     // it is unnecessary to have to manually call the modal.
     // $('#addBookDialog').modal('show');
     $('#buttonConfirmAppt').attr('onClick', "activateModal1(" + myBookId + ")");
+    $('#buttonConfirmAppt').attr('onClick', "scheduleAppt(" + myBookId + ")");
+
 });
 </script>
 
@@ -137,11 +153,11 @@ $(document).ready(function() {
 
           <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link navbar-item"  href="/homepage.html">Upcoming appointments <span class="sr-only">(current)</span></a>
+              <li class="nav-item active" id="homeNavBarItem">
+                <a class="nav-link navbar-item" href="/homepage.html">Upcoming appointments <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link navbar-item" href="javascript:setUpClinicsPage()">Clinics</a>
+              <li class="nav-item" id="clinicsNavBarItem">
+                <a class="nav-link navbar-item"  href="javascript:setUpClinicsPage()">Clinics</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link navbar-item" href="#" data-toggle="tooltip" title="Hooray!">My Record</a>
@@ -186,7 +202,7 @@ $(document).ready(function() {
   
     <div class="title-div" style="margin: 0 auto; width: 750px; margin-top: 30px;">
       <p class="card-title" style="text-align: left; font-size: 25px; float: left;">Upcoming Appointments</p>
-      <p style="text-align: right; text-decoration: none; float: right">Want to make another appointment? Click here.</p>
+      <p style="text-align: right; text-decoration: none; float: right">Want to make another appointment? Click <a href="javascript:goToClinics()">here</a>.</p>
     </div> 
     
     
@@ -217,6 +233,23 @@ $(document).ready(function() {
   </div>
 </div>
 
+<div class="modal fade" id="modalFeedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+    	 <div class="modal-header">
+          <h4 class="modal-title">Success</h4>
+        </div>
+      <div class="modal-body">
+        <div id="message"></div>
+      	<p> You have successfully scheduled an appointment. All your scheduled appointments can be seen in your list of
+      	upcoming appointments.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.replace('/homepage.html')">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <div class="modal fade" id="myModal" role="dialog">

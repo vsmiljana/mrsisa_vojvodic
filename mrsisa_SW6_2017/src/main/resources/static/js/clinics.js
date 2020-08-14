@@ -181,7 +181,7 @@ function getClinicsAppts(clinicId){
 }
 
 
-function setUpClinicsAppointments(appts){
+function setUpClinicsAppointments(appts){			// predefined
 	console.log(appts);
 	$('#searchDiv').hide();
 	$('#panel').children().not('#navbarId, #searchDiv').remove();
@@ -217,7 +217,9 @@ function setUpClinicsAppointments(appts){
                   <p>Clinic Address: ${appointment.clinicAddress}</p>
                   <p>Appointment price: ${appointment.price}</p>
                    <a class="btn btn-primary btn-sm float-right open-ModalAppt" data-toggle="modal" data-target="#modalAppt" 
-                   data-id=${appointment.id} data-name="smiljana" data-whatever="@getbootstrap"
+                   data-id=${appointment.id} data-name="smiljana" data-whatever = ${appointment.appointmentName}
+                   data-date = ${date} data-appointmentType = '${appointment.appointmentName}' data-price = ${appointment.price}
+                   data-time = ${timeStart} data-doctor = '${appointment.doctor}'
                    href="#modalAppt">Schedulee<a/>
                 
               <!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
@@ -284,8 +286,16 @@ function scheduleAppt(apptId){
 		success : function (data) {
 		//d = JSON.parse(data.responseText);
 //			$("body").show();
-			alert("zakazo si lol");
+			//alert("zakazo si lol");
+			$("#modalAppt").modal("hide").then($("#modalFeedback").modal("show"));
+			//window.location.replace("/homepage.html")
 		}
 		
 	}); 
+}
+
+function goToClinics(){
+	setUpClinicsPage();
+	$("#homeNavBarItem").removeClass("active");
+	$("#clinicsNavBarItem").addClass("active");
 }
