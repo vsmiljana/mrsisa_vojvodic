@@ -87,7 +87,8 @@ function searchDoctors(searchParams){
 
 function updateHeadingClinic(searchParams){
 	$("#appointmentName").text(searchParams.appointmentName);
-	$("#appointmentDate").text(searchParams.date);
+	var dateString = setupDate(searchParams.date);
+	$("#appointmentDate").text(dateString);
 }
 
 
@@ -143,7 +144,7 @@ function displayDoctors(doctors) {
                      <a class="btn btn-primary btn-sm float-right"  href="javascript:makeAppointment(divIdString)">Make appointment<a/>
                 
                    <a class="btn btn-primary btn-sm float-right open-ModalAppt2" data-toggle="modal" data-target="#modalAppt2" 
-                	data-name='${doctor.firstName}' data-selectId = select${i}
+                	data-name='${doctor.firstName} ${doctor.lastName}' data-doctor-id=${doctor.id} data-selectId = select${i}
                    href="#modalAppt2">Make appointment<a/>
                     
                     
@@ -237,11 +238,12 @@ function setupClinicInfo(id, name, address, price, appointmentName, date, price)
 	console.log("da vidim jesam li namjestila" + $("#searchButton").val());
 	$('#panel').children().not('#navbarId, #searchDiv').remove();
 	var panel = $("#panel");
-	
+	var date1 = setupDate(date);
+	console.log("date1  " + date1);
 	//dosomething.then()
 	
 	panel.append(`<div id="clinicInfoDiv" style="margin: 0 auto; width: 500px;">${name}, address: ${address}
-	<p id="appointmentName">${appointmentName}</p><p id="appointmentDate">${date}</p><p id="appointmentPrice">${price}</p>
+	<p id="appointmentName">${appointmentName}</p><p id="appointmentDate">${date1}</p><p id="appointmentPrice">${price}</p>
 	</div>`);
 	
 }

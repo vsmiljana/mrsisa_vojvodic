@@ -52,6 +52,19 @@ public class Appointment {
 		this.date = date;
 	}
 
+	public Appointment(Long id, Integer start, Integer end, Date date, Patient patient, Doctor doctor, Clinic clinic,
+			AppointmentType appointmentType) {
+		super();
+		this.id = id;
+		this.start = start;
+		this.end = end;
+		this.date = date;
+		this.patient = patient;
+		this.doctor = doctor;
+		this.clinic = clinic;
+		this.appointmentType = appointmentType;
+	}
+
 	public Long getId() {
 		return id;
 	}

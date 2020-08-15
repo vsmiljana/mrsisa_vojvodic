@@ -21,6 +21,8 @@ public interface AppointmentService {
 
 	List<Appointment> findAllByDoctorIdAndDate(Long id, Date date);
 
+	void save(Appointment a);
+
 
 
 }

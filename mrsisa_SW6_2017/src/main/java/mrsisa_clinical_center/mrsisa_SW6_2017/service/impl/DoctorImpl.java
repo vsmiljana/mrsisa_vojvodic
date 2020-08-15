@@ -82,5 +82,11 @@ public class DoctorImpl implements DoctorService {
 		// TODO Auto-generated method stub
 		return rep.findAllByClinicId(id);
 	}
+
+	@Override
+	public Doctor findById(Long doctorId) {
+		// TODO Auto-generated method stub
+		return rep.findOneById(doctorId);
+	}
 	
 }

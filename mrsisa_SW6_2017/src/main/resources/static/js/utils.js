@@ -70,7 +70,8 @@ function logOut(){
 
 function setupDate(milisecs){
 	var dateMs = new Date(milisecs);
-	return dateMs.toLocaleDateString();
+	var dateString = dateMs.getDate() + "/" + (dateMs.getMonth()+1) + "/" + dateMs.getFullYear();
+	return dateString;
 }
 
 function setupTime(minutes){
@@ -82,4 +83,27 @@ function setupTime(minutes){
 	}
 	time += minutes;
 	return time;
+}
+
+function dateToMs(dateString){
+	// date is in dd/mm/yyyy format
+	console.log(dateString);
+	var elements = dateString.split("/");
+	var day = elements[0];
+	var month = elements[1];
+	var year = elements[2];
+	console.log(day +  " " + month + " " + year);
+	var date = new Date(year + "-" + month + "-" + day);
+	console.log(date);
+	console.log(date.getTime());
+	return date.getTime();
+}
+
+
+function timeToMins(timeString){
+	var elements = timeString.split(":");
+	var hours = parseInt(elements[0]);
+	var minutes = parseInt(elements[1]);
+	var res = hours*60 + minutes;
+	return res;
 }

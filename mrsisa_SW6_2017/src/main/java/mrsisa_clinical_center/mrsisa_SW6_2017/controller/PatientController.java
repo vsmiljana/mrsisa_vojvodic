@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentRegScheduleDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentScheduleDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentTimeDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.ClinicDto;
@@ -311,6 +312,35 @@ public class PatientController {
 	}
 	
 	
+	@PostMapping("/appointments/scheduleRegular")
+	public void scheduleRegular(@RequestBody AppointmentRegScheduleDto appt) {
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		if (checkAppointment(appt) == false) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad request body!");
+		}
+		
+		Patient p = (Patient) session.getAttribute("currentUser");
+		int start = appt.getStart();
+		int end = appt.getEnds();
+		Date date = new Date(appt.getDate());
+		Doctor d = doctorService.findById(appt.getDoctorId());
+		Clinic c = d.getClinic();
+		AppointmentType at = appointmentTypeService.findByName(appt.getAppointmentName());
+		Double price = at.getPrice();
+		long id = (long) (Math.random() * 1000);
+		
+		Appointment a = new Appointment(id, start, end, date, p, d, c, at);
+		appointmentService.save(a);
+		
+		return;
+	}
+
+	public boolean checkAppointment(AppointmentRegScheduleDto appt) {
+		return true;
+	}
 
 	@PutMapping("/appointments/bookAnAppt")
 	public void scheduleAppointment(@RequestBody AppointmentScheduleDto appt) {	// ili da ne bude void

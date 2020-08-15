@@ -15,4 +15,6 @@ public interface DoctorService {
 
 	List<Doctor> findAllByClinicId(Long id);
 
+	Doctor findById(Long long1);
+
 }

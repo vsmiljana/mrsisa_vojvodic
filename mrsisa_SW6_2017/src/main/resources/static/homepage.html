@@ -46,6 +46,7 @@
 <script src="js/clinics.js"></script>
 <script src="js/search.js"></script>
 <script src="js/editProfile.js"></script>
+<script src="js/appointments.js"></script>
 
 
 <script>
@@ -114,6 +115,8 @@ $(document).on("click", ".open-ModalAppt2", function () {
 	console.log(this);
    	var name = $(this).data('name');
    	var selectId = $(this).data("selectid");
+   	var doctorId = $(this).data("doctor-id");
+   	console.log("id doktora: " + doctorId);
    	console.log(selectId);
    	var selected = $("#" + selectId + " option:selected").text();
    //	var mrs = $("#select1 option:selected").text();
@@ -121,13 +124,19 @@ $(document).on("click", ".open-ModalAppt2", function () {
    	console.log("selektovano vrijeme: "  + selected); 
    	console.log("vrijeme " + time);
 	console.log("ime doktora: " + name);
-	$(".modal-body #clinicId").html("<h1>This is new</h1><p>Appointment Type: " + "</p>"
-			+"<p>Date: "+  "</p><p>Time: "+ "</p><p>Doctor: " + "</p><p>Price: " + "</p>"
-			+ "<p> sth" +"</p>");
+	var apptName = $("#appointmentName").text();
+	var apptDateString = $("#appointmentDate").text();
+	var price = $("#appointmentPrice").text();
+	console.log("apojtnemtnt" + apptName + ", dateum " + apptDateString);
+	$(".modal-body #clinicId").html("<h1>Appointment Details</h1><p>Appointment Type: " + apptName + "</p>"
+			+"<p>Date: "+ apptDateString + "</p><p>Time: "+ selected + "</p><p>Doctor: " + name + "</p><p>Price: " + price + "</p>");
     
     //$('#buttonConfirmAppt').attr('onClick', "activateModal1(" + myBookId + ")");
-    //$('#buttonConfirmAppt').attr('onClick', "scheduleAppt(" + myBookId + ")");
+   
+    $('#buttonConfirmAppt1').attr('onClick', "scheduleApptReg(" + doctorId + ",'" + apptName + "','" + apptDateString + "','" + selected +"')");
+    //$('#buttonConfirmAppt1').attr('onClick', "console.log('nesto')");
 
+    
 });
 </script>
 
@@ -272,7 +281,7 @@ $(document).ready(function() {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="buttonConfirmAppt" onclick="javascript:scheduleAppt()">Confirm</button>
+        <button type="button" class="btn btn-primary" id="buttonConfirmAppt1" onclick="javascript:scheduleAppt()">Confirmm</button>
       </div>
     </div>
   </div>

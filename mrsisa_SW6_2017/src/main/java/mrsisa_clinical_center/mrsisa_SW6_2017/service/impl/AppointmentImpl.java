@@ -54,5 +54,11 @@ public class AppointmentImpl implements AppointmentService {
 		return rep.findAllByDoctorIdAndDate(id, date);
 	}
 
+	@Override
+	public void save(Appointment a) {
+		rep.save(a);
+		
+	}
+
 	
 }
