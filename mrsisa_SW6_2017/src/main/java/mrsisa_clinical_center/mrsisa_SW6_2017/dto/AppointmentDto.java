@@ -27,6 +27,7 @@ public class AppointmentDto {
 		this.doctor = doctor;
 		this.appointmentName = appointmentName;
 		this.price = price;
+		
 	}
 	
 	
@@ -60,6 +61,11 @@ public class AppointmentDto {
 	}
 	
 	
+	public AppointmentDto(Long date, String appointmentName) {
+		this.dateLong = date;
+		this.appointmentName = appointmentName;
+	}
+
 	public Long getId() {
 		return id;
 	}

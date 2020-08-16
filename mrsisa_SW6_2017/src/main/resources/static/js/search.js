@@ -1,5 +1,8 @@
 function searchAppointments(){
-	console.log("search appointments");
+	
+	
+	
+	console.log("klikno na search");
 
 	var apptType = $('#selectAppointments').find(":selected").text();
 	//console.log("Appointment Type: "  + apptType);
@@ -13,7 +16,7 @@ function searchAppointments(){
 	var dateToSend = date.getTime();
 	
 	var clinicIdVal = $("#searchButton").val();
-	console.log(clinicIdVal);
+	console.log("clinicIdVal: " + clinicIdVal);
 	
 	var clinicId = clinicIdVal;
 	
@@ -32,6 +35,7 @@ function searchAppointments(){
 	}
 	
 	else {
+		console.log("USOOOOOO SAM OVDEEEEEEEEEEEEEEEEEEEEE")
 		console.log(searchAppts);
 		searchDoctors(searchAppts);
 	}
@@ -54,11 +58,23 @@ function searchClinics(searchParams){
 		},
 		success : function (data) {
 			console.log(data);
-			displayClinics(data, searchParams);
+			setupHead(data.searchedAppointment);
+			displayClinics(data.foundClinics, searchParams);
 		}
 		
 	}); 
 	
+}
+
+
+function setupHead(appt){
+	$('#panel').children().not('#navbarId, #searchDiv').remove();
+	var panel = $("#panel");
+	var dateStr = setupDate(appt.dateLong);
+	var name = appt.appointmentName;
+	panel.append(`<div id="apptInfo" style="width: 600px; margin: 0 auto;"><h5>Search results for ${name} on ${dateStr}</h5>
+	<p id="appointmentName" style="display: none">${name}</p><p id="appointmentDate" style="display: none">${dateStr}</p>
+	</div>`);
 }
 
 function searchDoctors(searchParams){
@@ -76,9 +92,13 @@ function searchDoctors(searchParams){
             console.log("greska");
 		},
 		success : function (data) {
-			console.log(data);
-			updateHeadingClinic(searchParams);
-			displayDoctors(data);
+			console.log("u dobroj sam funkciji");
+			setupHead(data.searchedAppointment);
+			//updateHeadingClinic(searchParams);
+			//displayDoctors(data);
+			setUpClinicInfo(data.clinic);
+			displayDoctors(data.doctors);
+
 		}
 		
 	}); 
@@ -94,7 +114,7 @@ function updateHeadingClinic(searchParams){
 
 function displayDoctors(doctors) {
 	
-	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv, #apptInfo').remove();
 	var panel = $("#panel");
 	var i = 0;
 	for (doctor of doctors){
@@ -166,7 +186,7 @@ function displayDoctors(doctors) {
 
 
 function displayClinics(clinics, searchParams){ 		// i need search params for when i click on display doctors
-	$('#panel').children().not('#navbarId, #searchDiv').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo').remove();
 	var panel = $("#panel");
 	
 	for (clinic of clinics){

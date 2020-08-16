@@ -3,11 +3,9 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,6 +32,8 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.dto.DoctorDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.LoginUserDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.RegisterUserDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.SearchAppointmentDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.SearchClinicsResultDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.SearchDoctorsResultDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Appointment;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.AppointmentType;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Clinic;
@@ -292,7 +292,7 @@ public class PatientController {
 	
 	@RequestMapping(value = "/doctors/{clinicId}", method=RequestMethod.GET)
 	@ResponseBody
-	public List<DoctorDto> getDoctorsOfClinic(@PathVariable("clinicId") Long id) {
+	public SearchDoctorsResultDto getDoctorsOfClinic(@PathVariable("clinicId") Long id) {
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
@@ -307,11 +307,36 @@ public class PatientController {
 			doctorsDto.add(new DoctorDto(d.getFirstName(), d.getLastName()));		
 		}
 		
-		return doctorsDto;
+		List<String> appointmentNames = getAppointmentsDoctorsCanPerform(doctors);
+		
+		Clinic c = clinicService.findById(id);
+		
+		ClinicDto clinicDto = new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(),
+				c.getCountry(), appointmentNames);
+		
+		SearchDoctorsResultDto result = new SearchDoctorsResultDto(clinicDto, doctorsDto);
+		
+		return result;
 		
 	}
 	
 	
+	private List<String> getAppointmentsDoctorsCanPerform(List<Doctor> doctors) {
+		HashSet<String> apptTypesSet = new HashSet<String>();
+		for (Doctor d: doctors) {
+			if (d.getAppointmentTypes().isEmpty()) {
+				continue;
+			}
+			for (AppointmentType at: d.getAppointmentTypes()) {
+				apptTypesSet.add(at.getName());
+			}
+		}
+		List<String> apptTypesList = new ArrayList<String>(apptTypesSet);
+		return apptTypesList;
+	}
+
+
+
 	@PostMapping("/appointments/scheduleRegular")
 	public void scheduleRegular(@RequestBody AppointmentRegScheduleDto appt) {
 		if (session.getAttribute("currentUser") == null) {
@@ -370,7 +395,8 @@ public class PatientController {
 		System.out.println("da da ulogovan je");
 		List<AppointmentDto> upcomingAppointments = new ArrayList<AppointmentDto>();
 		
-		List<Appointment> appointments = appointmentService.findByPatientId(p.getId());
+		//List<Appointment> appointments = appointmentService.findByPatientId(p.getId());
+		List<Appointment> appointments = appointmentService.findByPatientIdOrderByDateAsc(p.getId());
 		
 		Date now = new Date();
 		
@@ -412,8 +438,8 @@ public class PatientController {
 	
 	
 	
-	@PutMapping("/searchAppts")
-	public List<ClinicDto> searchAppointment(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
+	@PutMapping("/searchApptsClinic")
+	public SearchClinicsResultDto searchAppointment(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
@@ -421,6 +447,9 @@ public class PatientController {
 		List<Object> objects = doSearch(search);
 		
 		List<ClinicDto> clinicsDto = (List<ClinicDto>) objects.get(0);
+		AppointmentDto appt = new AppointmentDto(search.getDate(), search.getAppointmentName());
+		
+		SearchClinicsResultDto result = new SearchClinicsResultDto(appt, clinicsDto);
 		
 		//clinicsDto.addAll((List<ClinicDto>) objects.get(0));
 		
@@ -444,7 +473,7 @@ public class PatientController {
 		//System.out.println(appointments.size());
 		
 		
-		return clinicsDto; 	// vratiti i cijenu
+		return result; 	// vratiti i cijenu
 		
 		//return null;
 		///return clinics;
@@ -452,21 +481,32 @@ public class PatientController {
 	
 	
 	@PutMapping("/searchApptsOneClinic")
-	public List<DoctorDto> searchAppointmentOneClinic(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
+	public SearchDoctorsResultDto searchAppointmentOneClinic(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
 		
 		List<Object> objects = doSearch(search);
 		
-		List<DoctorDto> doctorsDto = (List<DoctorDto>) objects.get(1);
+		List<Doctor> doctors = (List<Doctor>) objects.get(1);
+		List<DoctorDto> doctorsDto = (List<DoctorDto>) objects.get(2);
+		List<String> appointmentNames = getAppointmentsDoctorsCanPerform(doctors);
+		Double price = (Double) objects.get(3);
 		
-		return doctorsDto; 	// vratiti i cijenu
+		
+		AppointmentDto appt = new AppointmentDto(search.getDate(), search.getAppointmentName());
+		Clinic c = clinicService.findById(search.getClinicId());
+		ClinicDto clinicDto = new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(),
+				c.getCountry(),price, appointmentNames);
+		SearchDoctorsResultDto result = new SearchDoctorsResultDto(appt, clinicDto, doctorsDto);
+		
+		return result; 	// vratiti i cijenu
 	
 	}
 	
 	
-	@PutMapping("/searchApptsClinic")
+	
+	@PutMapping("/searchApptsClinic2")
 	public List<ClinicDto> searchAppointmentClinics(@RequestBody SearchAppointmentDto search) {	// ili da ne bude void
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
@@ -515,6 +555,7 @@ public class PatientController {
 		HashSet<Clinic> clinics = new HashSet<Clinic>();
 		
 		ArrayList<DoctorDto> doctorsDto = new ArrayList<DoctorDto>();
+		ArrayList<Doctor> doctors2 = new ArrayList<Doctor>();
 		
 		for (Doctor d: doctors) {
 			System.out.println(d.getId() + " " + d.getEmail());
@@ -524,6 +565,7 @@ public class PatientController {
 				clinics.add(d.getClinic());
 				if (d.getClinic().getId().equals(clinicId)) {	// if we are searching only the doctors of a certain clinic
 					doctorsDto.add(new DoctorDto(d.getId(), d.getFirstName(), d.getLastName(), appointmentStarts));
+					doctors2.add(d);
 				}
 			}
 			
@@ -539,8 +581,9 @@ public class PatientController {
 		
 		List<Object> clinicsDoctors = new ArrayList<Object>();
 		clinicsDoctors.add(clinicsDto);
-		clinicsDoctors.add(doctorsDto);
-	
+		clinicsDoctors.add(doctors2);
+		clinicsDoctors.add(doctorsDto);	
+		clinicsDoctors.add(price);
 		
 		return clinicsDoctors;
 	}

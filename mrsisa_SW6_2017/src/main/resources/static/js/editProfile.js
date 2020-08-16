@@ -15,13 +15,25 @@ function setupProfile(){
 			window.location.replace("/login.html");
 		},
 		success : function (data) {
+			// $.getScript("js/validateEdit.js").then(displayUserInformation(data));
 			displayUserInformation(data);
+			//whatev(data);
 		}
 		
 	}); 
 }
 
+function whatev(data){
+	 $.ajax({
+		   url: $.getScript("js/validateEdit.js"),
+		   success:function(){
+		   displayUserInformation(data);
+		}
+	})
+}
+
 function displayUserInformation(user){
+	//function1();
 	$('#panel').children().not('#navbarId').remove();
 	$("#panel").append(`<div>EDIT PROFILE</div>`)
 	$("#panel").append(`
@@ -62,11 +74,15 @@ function displayUserInformation(user){
               <label for="inputCountry">Country</label>
               <input type="text" class="form-control" id="inputCountry" value='${user.country}'>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 validate-input">
               <label for="inputPhoneNumber">Phone Number</label>
               <input type="text" class="form-control" id="inputPhoneNumber" value=${user.phoneNumber}>
             </div>
           </div>
+          <div class="wrap-input50 validate-input" data-validate = "Enter Address">
+						<input id="address_input" class="input100" type="text" name="address">
+						<span class="focus-input100" data-placeholder="Address"></span>
+					</div>
 
         <button type="" class="btn btn-primary" onclick="javascript:submitChanges()"style="margin: 0 auto;">Save changes</button>
       </form>

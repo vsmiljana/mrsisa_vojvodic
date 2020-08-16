@@ -34,7 +34,7 @@ function setUpClinicsPage(){
 			//d = JSON.parse(data.responseText);
 //			$("body").show();
 			setUpClinics(data.clinics);
-			setUpSearch(data.appointmentTypes);
+			setUpSearch(data.appointmentTypes, "");
 			//window.location = "/usr/clinics"
 			
 		}
@@ -44,11 +44,11 @@ function setUpClinicsPage(){
 }
 
 
-function setUpSearch(appointmentTypes){
+function setUpSearch(appointmentTypes, clinicId){
 	
 	$('#selectAppointments').children().not(':first').remove();
 	
-	$("#searchButton").val("");
+	$("#searchButton").val(clinicId);
 	
 	for (type of appointmentTypes){
 		$('#selectAppointments').append($('<option>', {
@@ -107,6 +107,10 @@ function setUpClinics(clinics){
 
 
 function getDoctors(clinicId){
+	
+	$("#searchButton").val(clinicId);
+	
+	
 	console.log(clinicId + " klinika ");
 	
 	
@@ -123,7 +127,10 @@ function getDoctors(clinicId){
 		success : function (data) {
 			//d = JSON.parse(data.responseText);
 //			$("body").show();
-			setUpDoctorsRegular(data);
+			alert("sad sam azurirala i search!!")
+			setUpClinicInfo(data.clinic);
+			setUpSearch(data.clinic.appointmentNames, data.clinic.id);
+			setUpDoctorsRegular(data.doctors);
 			//window.location = "/usr/clinics"
 			
 		}
@@ -132,6 +139,22 @@ function getDoctors(clinicId){
 	
 }
 
+function setUpClinicInfo(clinic){
+	$("#searchButton").val(clinic.id);
+	console.log("da vidim jesam li namjestilaaaaaaaaaaaaaaaaaaaaaaaa" + $("#searchButton").val());
+	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo').remove();	// ovde sam dodala apptinfo
+	var panel = $("#panel");
+	var price = clinic.price;
+	if (price != null || price != 0){
+		panel.append(`<div id="clinicInfoDiv" style="margin: 0 auto; width: 500px;">${clinic.name}, address: ${clinic.address}, price: ${price}
+		<p id="appointmentPrice" style="display: none">${price}</p></div>`);
+	}
+	else {
+		panel.append(`<div id="clinicInfoDiv" style="margin: 0 auto; width: 500px;">${clinic.name}, address: ${clinic.address}</div>`);
+
+	}
+
+}
 
 function setUpDoctorsRegular(doctors){
 	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv').remove();

@@ -172,6 +172,11 @@
                 return false;
             }
         }
+        else if ($(input).attr('name') == "ssn"){
+        	if($(input).val().trim().match('^\\d+$') == null) {
+                return false;
+            }
+        }
         else {
             if($(input).val().trim() == ''){
                 return false;

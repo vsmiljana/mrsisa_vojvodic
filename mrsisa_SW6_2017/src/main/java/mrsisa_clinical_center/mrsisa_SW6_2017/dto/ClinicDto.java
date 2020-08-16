@@ -1,5 +1,7 @@
 package mrsisa_clinical_center.mrsisa_SW6_2017.dto;
 
+import java.util.List;
+
 public class ClinicDto {
 	
 	private Long id;
@@ -9,7 +11,10 @@ public class ClinicDto {
 	private String city;
 	private String country;
 	private Double price;
+	private List<String> appointmentNames;
 	
+	
+
 	public ClinicDto() {}	
 
 	public ClinicDto(String name, String description, String address, String city, String country) {
@@ -41,6 +46,32 @@ public class ClinicDto {
 		this.city = city;
 		this.country = country;
 		this.price = price;
+	}
+	
+
+	public ClinicDto(Long id, String name, String description, String address, String city, String country,
+			Double price, List<String> appointmentNames) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.price = price;
+		this.appointmentNames = appointmentNames;
+	}
+	
+	public ClinicDto(Long id, String name, String description, String address, String city, 
+			String country, List<String> appointmentNames) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.appointmentNames = appointmentNames;
 	}
 
 	public String getName() {
@@ -99,4 +130,11 @@ public class ClinicDto {
 		this.price = price;
 	}
 	
+	public List<String> getAppointmentNames() {
+		return appointmentNames;
+	}
+
+	public void setAppointmentNames(List<String> appointmentNames) {
+		this.appointmentNames = appointmentNames;
+	}
 }

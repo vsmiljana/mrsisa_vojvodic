@@ -23,6 +23,8 @@ public interface AppointmentService {
 
 	void save(Appointment a);
 
+	List<Appointment> findByPatientIdOrderByDateAsc(Long id);
+
 
 
 }
