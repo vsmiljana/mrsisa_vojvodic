@@ -128,6 +128,46 @@ update doctor set start=480;
 update doctor set ends=960;
 
 /*
+INSERT INTO public.medication(id, name) VALUES (1, 'Paracetamol');
+INSERT INTO public.medication(id, name) VALUES (2, 'Ibuprofen');
+INSERT INTO public.medication(id, name) VALUES (3, 'Aspirin');
+INSERT INTO public.medication(id, name) VALUES (4, 'Amoxicilin');
+INSERT INTO public.medication(id, name) VALUES (5, 'Cephalexin');
+INSERT INTO public.medication(id, name) VALUES (6, 'Erythromycin');
+INSERT INTO public.medication(id, name) VALUES (7, 'Pantoprazole');
+INSERT INTO public.medication(id, name) VALUES (8, 'Buscopan');
+INSERT INTO public.medication(id, name) VALUES (9, 'Bromazepam');
+INSERT INTO public.medication(id, name) VALUES (10, 'Valium');
+INSERT INTO public.medication(id, name) VALUES (11, 'Enalapril');
+INSERT INTO public.medication(id, name) VALUES (12, 'Nebivolol');
+INSERT INTO public.medication(id, name) VALUES (13, 'Canesten');
+INSERT INTO public.medication(id, name) VALUES (14, 'Chloramphenicol');
+INSERT INTO public.medication(id, name) VALUES (15, 'Garamycin');
+*/
+
+/*
+INSERT INTO public.diagnosis(id, name) VALUES (1, 'Gastritis');
+INSERT INTO public.diagnosis(id, name) VALUES (2, 'Hypertension');
+INSERT INTO public.diagnosis(id, name) VALUES (3, 'Angina Pectoris');
+INSERT INTO public.diagnosis(id, name) VALUES (4, 'Myocardial Infarction');
+INSERT INTO public.diagnosis(id, name) VALUES (5, 'Pityriasis Rosea');
+INSERT INTO public.diagnosis(id, name) VALUES (6, 'Otitis Media');
+INSERT INTO public.diagnosis(id, name) VALUES (7, 'Encephalitis');
+INSERT INTO public.diagnosis(id, name) VALUES (8, 'Colitis');
+INSERT INTO public.diagnosis(id, name) VALUES (9, 'Arthritis');
+INSERT INTO public.diagnosis(id, name) VALUES (10, 'Laryngitis');
+INSERT INTO public.diagnosis(id, name) VALUES (11, 'Infectious Mononucleosis');
+INSERT INTO public.diagnosis(id, name) VALUES (12, 'Meningitis');
+INSERT INTO public.diagnosis(id, name) VALUES (13, 'Hyperthyroidism');
+INSERT INTO public.diagnosis(id, name) VALUES (14, 'Influenza');
+INSERT INTO public.diagnosis(id, name) VALUES (15, 'Streptococcal pharyngitis');
+*/
+
+
+
+
+
+/*
 INSERT INTO public.appointment(
 	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
 	VALUES (8, TO_DATE('24/12/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);

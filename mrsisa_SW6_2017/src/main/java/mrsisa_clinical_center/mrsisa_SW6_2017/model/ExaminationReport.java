@@ -25,10 +25,18 @@ public class ExaminationReport {
 	
 	@ManyToMany
     @JoinTable(name = "examination_report_diagnosis", 
-      joinColumns = @JoinColumn(name = "diagnosis_id", referencedColumnName = "id"), 
-      inverseJoinColumns = @JoinColumn(name = "examination_report_id", 
+      joinColumns = @JoinColumn(name = "examination_report_id", referencedColumnName = "id"), 
+      inverseJoinColumns = @JoinColumn(name = "diagnosis_id", 
       referencedColumnName = "id"))
 	private Set<Diagnosis> diagnoses;
+	
+	@ManyToMany
+	@JoinTable(name = "examination_report_medication", 
+    	joinColumns = @JoinColumn(name = "examination_report_id", referencedColumnName = "id"), 
+    	inverseJoinColumns = @JoinColumn(name = "medication_id", 
+    	referencedColumnName = "id"))
+	private Set<Medication> medications;
+	
 	
 	public ExaminationReport() {}
 
@@ -67,6 +75,14 @@ public class ExaminationReport {
 
 	public void setDiagnoses(Set<Diagnosis> diagnoses) {
 		this.diagnoses = diagnoses;
+	}
+
+	public Set<Medication> getMedications() {
+		return medications;
+	}
+
+	public void setMedications(Set<Medication> medications) {
+		this.medications = medications;
 	}
 	
 	

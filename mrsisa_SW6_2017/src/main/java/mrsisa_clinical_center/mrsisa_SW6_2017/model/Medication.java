@@ -20,6 +20,9 @@ public class Medication {
 	@ManyToMany(mappedBy = "medications")
 	private Set<Diagnosis> diagnoses;
 	
+	@ManyToMany(mappedBy = "medications")
+	private Set<ExaminationReport> examinationReports;
+	
 	public Medication() {}
 
 	public Medication(Long id, String name) {
@@ -50,6 +53,16 @@ public class Medication {
 	public void setDiagnoses(Set<Diagnosis> diagnoses) {
 		this.diagnoses = diagnoses;
 	}
+
+	public Set<ExaminationReport> getExaminationReports() {
+		return examinationReports;
+	}
+
+	public void setExaminationReports(Set<ExaminationReport> examinationReports) {
+		this.examinationReports = examinationReports;
+	}
+	
+	
 	
 	
 }

@@ -155,7 +155,7 @@ function displayDoctors(doctors) {
     <label class="" for="inputAppointments">Appointment: </label>
   </div>
   <select class="custom-select selectTime" id=select${i}>
-    <option selected>Choose...</option>
+    <!--<option selected>Choose...</option>-->
     ${options}
   </select>
                     

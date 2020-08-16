@@ -1,11 +1,14 @@
 package mrsisa_clinical_center.mrsisa_SW6_2017.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -42,6 +45,8 @@ public class Appointment {
 	@OneToOne
 	@JoinColumn(name = "examination_report_id")
 	private ExaminationReport examinationReport;
+	
+	
 	
 	public Appointment() {}
 
