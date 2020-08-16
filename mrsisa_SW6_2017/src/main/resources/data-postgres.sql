@@ -162,9 +162,11 @@ INSERT INTO public.diagnosis(id, name) VALUES (13, 'Hyperthyroidism');
 INSERT INTO public.diagnosis(id, name) VALUES (14, 'Influenza');
 INSERT INTO public.diagnosis(id, name) VALUES (15, 'Streptococcal pharyngitis');
 */
+ALTER TABLE examination_report
+ALTER COLUMN description type varchar(4000);
 
-
-
+/*INSERT INTO public.examination_report(id, description) VALUES (1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet laoreet est. Sed hendrerit maximus sem, sed molestie sapien volutpat eget. Aliquam efficitur aliquet nisl, vel sagittis ex. Proin tellus nisl, pharetra eget libero nec, pretium mollis odio. Aenean justo neque, commodo eu arcu sed, iaculis lacinia turpis. Aenean faucibus convallis orci ac ultricies. Donec vehicula massa nibh, eu tristique nisl cursus id. Aliquam erat volutpat. Vivamus ac quam viverra, pellentesque ligula molestie, bibendum nisi.');
+*/
 
 
 /*
