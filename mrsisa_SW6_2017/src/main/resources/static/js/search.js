@@ -72,7 +72,7 @@ function setupHead(appt){
 	var panel = $("#panel");
 	var dateStr = setupDate(appt.dateLong);
 	var name = appt.appointmentName;
-	panel.append(`<div id="apptInfo" style="width: 600px; margin: 0 auto;"><h5>Search results for ${name} on ${dateStr}</h5>
+	panel.append(`<div id="apptInfo" data-appointment-name='${name}' data-appointment-date=${dateStr} style="width: 600px; margin: 0 auto;"><h5>Search results for ${name} on ${dateStr}</h5>
 	<p id="appointmentName" style="display: none">${name}</p><p id="appointmentDate" style="display: none">${dateStr}</p>
 	</div>`);
 }

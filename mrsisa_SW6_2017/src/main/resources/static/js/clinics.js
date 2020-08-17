@@ -145,8 +145,8 @@ function setUpClinicInfo(clinic){
 	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo').remove();	// ovde sam dodala apptinfo
 	var panel = $("#panel");
 	var price = clinic.price;
-	if (price != null || price != 0){
-		panel.append(`<div id="clinicInfoDiv" style="margin: 0 auto; width: 500px;">${clinic.name}, address: ${clinic.address}, price: ${price}
+	if (price != null && price != 0){
+		panel.append(`<div id="clinicInfoDiv" data-price=${price} style="margin: 0 auto; width: 500px;">${clinic.name}, address: ${clinic.address}, price: ${price}
 		<p id="appointmentPrice" style="display: none">${price}</p></div>`);
 	}
 	else {
@@ -312,7 +312,13 @@ function scheduleAppt(apptId){
 		//d = JSON.parse(data.responseText);
 //			$("body").show();
 			//alert("zakazo si lol");
-			$("#modalAppt").modal("hide").then($("#modalFeedback").modal("show"));
+			
+			// the below code works fine!!
+			$.when( $("#modalAppt").modal("hide")).done(function() {
+				$("#modalFeedback").modal("show")
+			});
+			
+			//$("#modalAppt").modal("hide").then($("#modalFeedback").modal("show"));
 			//window.location.replace("/homepage.html")
 		}
 		

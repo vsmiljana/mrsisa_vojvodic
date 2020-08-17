@@ -29,11 +29,11 @@
   <link rel="stylesheet" type="text/css" href="css/homepage.css">
 
 
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
  
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
 
@@ -124,9 +124,13 @@ $(document).on("click", ".open-ModalAppt2", function () {
    	console.log("selektovano vrijeme: "  + selected); 
    	console.log("vrijeme " + time);
 	console.log("ime doktora: " + name);
-	var apptName = $("#appointmentName").text();
-	var apptDateString = $("#appointmentDate").text();
-	var price = $("#appointmentPrice").text();
+	//var apptName = $("#appointmentName").text();
+	//var apptDateString = $("#appointmentDate").text();
+	//var price = $("#appointmentPrice").text();
+	var apptName = $("#apptInfo").data("appointment-name");
+	var apptDateString = $("#apptInfo").data("appointment-date");
+	var price = $("#clinicInfoDiv").data("price");
+	//console.log("DA VIDIM JEL OVO VALJA: " + a + b);
 	console.log("apojtnemtnt" + apptName + ", dateum " + apptDateString);
 	$(".modal-body #clinicId").html("<h1>Appointment Details</h1><p>Appointment Type: " + apptName + "</p>"
 			+"<p>Date: "+ apptDateString + "</p><p>Time: "+ selected + "</p><p>Doctor: " + name + "</p><p>Price: " + price + "</p>");
