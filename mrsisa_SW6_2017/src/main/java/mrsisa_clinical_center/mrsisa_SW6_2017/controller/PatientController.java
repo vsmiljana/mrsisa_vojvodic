@@ -618,6 +618,10 @@ public class PatientController {
 		Patient p = (Patient) session.getAttribute("currentUser");
 		MedicalRecord md = p.getMedicalRecord();
 		
+		if (md == null) {
+			return null;
+		}
+		
 		Date date = new Date();
 		date = adjustDate(date.getTime());
 		

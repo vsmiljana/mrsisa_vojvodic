@@ -1,5 +1,5 @@
 function getRecord(){
-	alert("neprijatno");
+	
 	
 	$.ajax({
 		url: "/usr/record",
@@ -10,7 +10,12 @@ function getRecord(){
             console.log("greska");
 		},
 		success : function (data) {
-			showRecord(data);
+			if (data == null || data === "") {
+				showEmptyRecord();
+			}
+			else {
+				showRecord(data);
+			}
 		}
 		
 	}); 
@@ -23,13 +28,29 @@ function showRecord(record){
 	console.log(record);
 	$("#panel").append(`<div><h1>Medical record</h1></div>`);
 	var i = 0;
+	$("#panel").append(`<div><h2>General info</h2><p>Blood type: ${record.bloodType}</p>
+	<p>Height: ${record.height}</p><p>Weight: ${record.weight}</p><p>Dioptre: ${record.dioptre}</p>
+	<p>Allergies: ${record.allergies}</p></div>`);
+	if (record.pastAppointments.length > 0) {
+		$("#panel").append(`<div><h2>Past Appointments</h2></div>`);
+	}
+	else {
+		$("#panel").append(`<div><h2>You have no past appointments</h2></div>`);
+	}
 	for (appointment of record.pastAppointments) {
 		i = i + 1;
 		var idd = "divAppt" + i;
 		var date = setupDate(appointment.date);
-		$("#panel").append(`<div id=divAppt${i}><h1>${appointment.appointmentName} ${date}</h1>
+		$("#panel").append(`<div id=divAppt${i}><h3>${appointment.appointmentName} ${date}</h3>
 		<button onclick="getReportOnAppointment('${idd}', ${appointment.id})">Show details</button></div>`);
 	}
+}
+
+function showEmptyRecord(){
+	$('#searchDiv').hide();		
+	$('#panel').children().not('#navbarId, #searchDiv').remove(); 		
+	$("#panel").append(`<div><h1>Your medical record has not been set up yet!</h1><h2> Because i have no clinic administrator (he does this)
+	and you probably just registered so understand me :( </h2></div>`);
 }
 
 

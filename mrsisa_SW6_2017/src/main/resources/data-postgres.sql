@@ -199,7 +199,8 @@ UPDATE public.appointment SET examination_report_id=1, date=TO_DATE('24/7/2020',
 --INSERT INTO public.medical_record( id, allergies, blood_type, dipotre, height, weight) VALUES (100, 'None', 'A', -1.5, 185, 80);
 
 UPDATE public.patient SET medical_record_id=100 WHERE id=1000;
-
+INSERT INTO public.medical_record( id, allergies, blood_type, dipotre, height, weight) VALUES (101, 'None', 'AB', 0, 162, 60);
+UPDATE public.patient SET medical_record_id=101 WHERE id=33;
 /*
 INSERT INTO public.appointment_type_doctor(
 	appointment_type_id, doctor_id)
