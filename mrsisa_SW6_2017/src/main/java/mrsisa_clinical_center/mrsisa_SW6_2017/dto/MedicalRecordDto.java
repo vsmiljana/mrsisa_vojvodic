@@ -2,6 +2,8 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.dto;
 
 import java.util.List;
 
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.MedicalRecord;
+
 public class MedicalRecordDto {
 
 	private Long id;
@@ -26,6 +28,16 @@ public class MedicalRecordDto {
 		this.allergies = allergies;
 		this.dioptre = dioptre;
 		this.pastAppointments = pastAppointments;
+	}
+
+	public MedicalRecordDto(MedicalRecord md, List<PastAppointmentDto> pastAppointmentsDto) {
+		this.id = md.getId();
+		this.bloodType = md.getBloodType();
+		this.height = md.getHeight();
+		this.weight = md.getWeight();
+		this.allergies = md.getAllergies();
+		this.dioptre = md.getDioptre();
+		this.pastAppointments = pastAppointmentsDto;
 	}
 
 	public Long getId() {

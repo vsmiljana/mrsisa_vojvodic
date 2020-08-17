@@ -72,5 +72,11 @@ public class AppointmentImpl implements AppointmentService {
 		return rep.findByPatientIdAndDateBefore(id, date);
 	}
 
+	@Override
+	public Appointment findById(Long apptId) {
+		// TODO Auto-generated method stub
+		return rep.getOne(apptId);
+	}
+
 	
 }

@@ -46,6 +46,7 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.model.Clinic;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Diagnosis;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Doctor;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.ExaminationReport;
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.MedicalRecord;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Medication;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Patient;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.AppointmentService;
@@ -71,6 +72,8 @@ public class PatientController {
 	
 	private DoctorService doctorService;
 	
+	
+	
 	public PatientController(PatientService patientService, ClinicService clinicService, AppointmentService appointmentService,
 			AppointmentTypeService appointmentTypeService, DoctorService doctorService) {
 		this.patientService = patientService;
@@ -78,6 +81,7 @@ public class PatientController {
 		this.appointmentService = appointmentService;
 		this.appointmentTypeService = appointmentTypeService;
 		this.doctorService = doctorService;
+		
 	}
 	
 	
@@ -606,8 +610,59 @@ public class PatientController {
 	
 	@GetMapping("/record")
 	public MedicalRecordDto getRecord() {
-		MedicalRecordDto record = new MedicalRecordDto();
+		
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		Patient p = (Patient) session.getAttribute("currentUser");
+		MedicalRecord md = p.getMedicalRecord();
+		
+		Date date = new Date();
+		date = adjustDate(date.getTime());
+		
+		List<Appointment> pastAppointments = appointmentService.findByPatientIdAndDateBefore(p.getId(), date);
+		
+		List<PastAppointmentDto> pastAppointmentsDto = new ArrayList<PastAppointmentDto>();
+		
+		for (Appointment a: pastAppointments) {
+			PastAppointmentDto paDto = new PastAppointmentDto(a);
+			pastAppointmentsDto.add(paDto);
+		}
+		
+		MedicalRecordDto record = new MedicalRecordDto(md, pastAppointmentsDto);
+		
 		return record;
+	}
+	
+	@RequestMapping(value = "/pastAppointmentReport/{id}", method=RequestMethod.GET)
+	@ResponseBody
+	public ExaminationReportDto getExamReport(@PathVariable("id") Long apptId) {
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		Appointment appt = appointmentService.findById(apptId);
+		ExaminationReport er = appt.getExaminationReport();
+		
+		if (er == null) {
+			System.out.println("yes examination report is null");
+			return null;
+		}
+		
+		Set<Diagnosis> diagnoses = er.getDiagnoses();
+		Set<Medication> medications = er.getMedications();
+		List<DiagnosisDto> diagnosesDto = new ArrayList<DiagnosisDto>();
+		List<MedicationDto> medicationsDto = new ArrayList<MedicationDto>();
+		for (Diagnosis d: diagnoses) {
+			diagnosesDto.add(new DiagnosisDto(d));
+		}
+		for (Medication m: medications) {
+			medicationsDto.add(new MedicationDto(m));
+		}
+		
+		ExaminationReportDto erDto = new ExaminationReportDto(er.getDescription(), diagnosesDto, medicationsDto);
+		
+		return erDto;
 	}
 	
 	
