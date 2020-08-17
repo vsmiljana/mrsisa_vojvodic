@@ -2,6 +2,8 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.dto;
 
 import java.util.Date;
 
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.Appointment;
+
 public class AppointmentDto {
 
 	private Long id;
@@ -65,6 +67,20 @@ public class AppointmentDto {
 		this.dateLong = date;
 		this.appointmentName = appointmentName;
 	}
+	
+	public AppointmentDto(Appointment a) {
+		this.id = a.getId();
+		this.date = a.getDate();
+		this.start = a.getStart();
+		this.end = a.getStart();
+		this.doctor = a.getDoctor().getFirstName() + " " + a.getDoctor().getLastName();
+		this.appointmentName = a.getAppointmentType().getName();
+		this.price = a.getAppointmentType().getPrice();
+		this.clinicName = a.getClinic().getName();
+		this.clinicAddress = a.getClinic().getAddress();
+		this.dateLong = a.getDate().getTime();
+	}
+	
 
 	public Long getId() {
 		return id;

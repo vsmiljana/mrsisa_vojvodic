@@ -24,14 +24,14 @@ public class ExaminationReport {
 	private Appointment appointment;
 	
 	@ManyToMany
-    @JoinTable(name = "examination_report_diagnosis", 
+    @JoinTable(name = "diagnosis_examination_report", 
       joinColumns = @JoinColumn(name = "examination_report_id", referencedColumnName = "id"), 
       inverseJoinColumns = @JoinColumn(name = "diagnosis_id", 
       referencedColumnName = "id"))
 	private Set<Diagnosis> diagnoses;
 	
 	@ManyToMany
-	@JoinTable(name = "examination_report_medication", 
+	@JoinTable(name = "medication_examination_report", 
     	joinColumns = @JoinColumn(name = "examination_report_id", referencedColumnName = "id"), 
     	inverseJoinColumns = @JoinColumn(name = "medication_id", 
     	referencedColumnName = "id"))

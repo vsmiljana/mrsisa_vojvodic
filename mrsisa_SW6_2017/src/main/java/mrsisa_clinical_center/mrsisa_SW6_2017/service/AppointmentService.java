@@ -25,6 +25,8 @@ public interface AppointmentService {
 
 	List<Appointment> findByPatientIdOrderByDateAsc(Long id);
 
+	List<Appointment> findByPatientIdAndDateBefore(Long id, Date date);
+
 
 
 }

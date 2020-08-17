@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,8 +29,13 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentScheduleDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentTimeDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.ClinicDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.ClinicsSetupDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.DiagnosisDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.DoctorDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.ExaminationReportDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.LoginUserDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.MedicalRecordDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.MedicationDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.PastAppointmentDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.RegisterUserDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.SearchAppointmentDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.SearchClinicsResultDto;
@@ -37,7 +43,10 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.dto.SearchDoctorsResultDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Appointment;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.AppointmentType;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Clinic;
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.Diagnosis;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Doctor;
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.ExaminationReport;
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.Medication;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Patient;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.AppointmentService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.AppointmentTypeService;
@@ -594,6 +603,53 @@ public class PatientController {
 	//if null
 	//throw
 	//else sve ok predje na homepage
+	
+	@GetMapping("/record")
+	public MedicalRecordDto getRecord() {
+		MedicalRecordDto record = new MedicalRecordDto();
+		return record;
+	}
+	
+	
+	@GetMapping("/pastAppointments")
+	public List<PastAppointmentDto> dobijProslePreglede(){
+		
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		Patient p = (Patient) session.getAttribute("currentUser");
+		Date date = new Date();
+		date = adjustDate(date.getTime());
+		
+		List<Appointment> pastAppointments = appointmentService.findByPatientIdAndDateBefore(p.getId(), date);
+		
+		List<PastAppointmentDto> pastAppointmentsDto = new ArrayList<PastAppointmentDto>();
+		
+		for (Appointment a: pastAppointments) {
+			PastAppointmentDto paDto = new PastAppointmentDto(a);
+			if (a.getExaminationReport() == null ) {
+				continue;
+			}
+			ExaminationReport er = a.getExaminationReport();
+			Set<Diagnosis> diagnoses = er.getDiagnoses();
+			Set<Medication> medications = er.getMedications();
+			List<DiagnosisDto> diagnosesDto = new ArrayList<DiagnosisDto>();
+			List<MedicationDto> medicationsDto = new ArrayList<MedicationDto>();
+			for (Diagnosis d: diagnoses) {
+				diagnosesDto.add(new DiagnosisDto(d));
+			}
+			for (Medication m: medications) {
+				medicationsDto.add(new MedicationDto(m));
+			}
+			
+			ExaminationReportDto erDto = new ExaminationReportDto(er.getDescription(), diagnosesDto, medicationsDto);
+			//paDto.setExaminationReport(erDto);
+			pastAppointmentsDto.add(paDto);
+		}
+		
+		return pastAppointmentsDto;
+	}
 	
 	
 	public Date adjustDate(Long ms) {

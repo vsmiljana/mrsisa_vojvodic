@@ -120,10 +120,11 @@ INSERT INTO public.appointment(
 	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
 	VALUES (6, TO_DATE('24/12/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
 */
+/*
 update appointment set start=600;
 update appointment set ends=660;
 update appointment set patient_id=null where id=1 or id=2 or id=3;
-
+*/
 update doctor set start=480;
 update doctor set ends=960;
 
@@ -174,13 +175,27 @@ INSERT INTO public.appointment(
 	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
 	VALUES (8, TO_DATE('24/12/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
 */
+
+/*
 update appointment set start=860 where id=8;
 update appointment set ends=890 where id=8;
 update appointment set patient_id = 142 where id=8;
 update appointment set start=510  where id=7;
 update appointment set ends=540  where id=7;
 update appointment set patient_id=142 where id=6;
-	
+	*/
+
+--INSERT INTO public.examination_report_diagnosis(diagnosis_id, examination_report_id) VALUES (7, 1);
+
+--INSERT INTO public.diagnosis_examination_report(examination_report_id, diagnosis_id) VALUES (1, 7);
+
+--drop table examination_report_diagnosis;
+--drop table examination_report_medication;
+
+--INSERT INTO public.medication_examination_report(examination_report_id, medication_id) VALUES (1, 7);
+
+UPDATE public.appointment SET examination_report_id=1, date=TO_DATE('24/7/2020', 'DD/MM/YYYY') WHERE id=189;
+
 /*
 INSERT INTO public.appointment_type_doctor(
 	appointment_type_id, doctor_id)
