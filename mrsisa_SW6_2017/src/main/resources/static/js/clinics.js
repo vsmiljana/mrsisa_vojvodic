@@ -68,7 +68,7 @@ function setUpClinics(clinics){
 	//$('#panel').children().not(':first').remove();
 	
 	
-	$('#panel').children().not('#navbarId, #searchDiv').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics').remove();
 	$("#searchDiv").show();
 	
 	//$( ".upcomingAppointment" ).remove();
@@ -78,8 +78,10 @@ function setUpClinics(clinics){
 	
 	var panel = $("#panel");
 	for (clinic of clinics){
-		panel.append(`<div class="card card-appointment">
-          <div class="row cardy" >
+		panel.append(`<div class="card card-appointment clinic" data-name='${clinic.name}' data-address='${clinic.address}'
+          data-city='${clinic.city}' data-country='${clinic.country}'>
+          <div class="row cardy clinicRegular clinic" data-name='${clinic.name}' data-address='${clinic.address}'
+          data-city='${clinic.city}' data-country='${clinic.country}'>
                 <div class="apt-img-div">
                    <img class="apt-img" src="https://image.flaticon.com/icons/png/512/511/511079.png"; alt="" width="115px;"> 
                 </div> 

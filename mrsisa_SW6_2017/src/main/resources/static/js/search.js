@@ -274,3 +274,24 @@ function makeAppointment(divId){
 	console.log(divId);
 	//$("#" + divId).closest(".doctorId").show();
 }
+
+
+
+
+function searchClinicsFromForm() {
+	var input = $("#clinicNameInput").val().toUpperCase();
+	//var input = $("#clinicNameInput").val();
+	console.log(input);
+	var divs = $("div.clinic");
+    console.log(divs);
+    for (div1 of divs){
+        var contentA = $(div1).data('name');
+        if (!contentA.toUpperCase().includes(input)){
+            $(div1).hide();
+        }
+        else {
+        	 $(div1).show();
+        }
+    }
+	
+}
