@@ -8,6 +8,7 @@ public class DoctorDto {
 	private String firstName;
 	private String lastName;
 	private Double rating;
+	private Integer votes;
 	private List<AppointmentTimeDto> availableAppointments;
 	
 	public DoctorDto() {
@@ -51,6 +52,17 @@ public class DoctorDto {
 		this.lastName = lastName;
 		this.availableAppointments = availableAppointments;
 	}
+	
+	public DoctorDto(Long id, String firstName, String lastName, Double rating, Integer votes,
+			List<AppointmentTimeDto> availableAppointments) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.rating = rating;
+		this.votes = votes;
+		this.availableAppointments = availableAppointments;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -90,6 +102,14 @@ public class DoctorDto {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Integer getVotes() {
+		return votes;
+	}
+
+	public void setVotes(Integer votes) {
+		this.votes = votes;
 	}
 	
 	

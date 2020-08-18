@@ -308,3 +308,26 @@ function hideAdvancedSearch(){
 	$("#toggleAdvancedClinicSearch").attr("href", "javascript:showAdvancedSearch()");
 	$("#toggleAdvancedClinicSearch").html("Show advanced search");
 }
+
+
+function searchClinicsAll(){
+	var input = $("#searchClinicsAllInput").val().toUpperCase();
+	var divs = $("div.clinic");
+    console.log(divs);
+    for (div1 of divs){
+        var name = $(div1).data('name').toUpperCase();
+        var address = $(div1).data('address').toUpperCase();
+        var city = $(div1).data('city').toUpperCase();
+        var country = $(div1).data('country').toUpperCase();
+        var rating = $(div1).data('rating').toString();
+        console.log(rating);
+        console.log($(div1).data('rating'));
+        
+        if (name.includes(input) || address.includes(input) || city.includes(input) || country.includes(input) || rating.includes(input)){
+            $(div1).show();
+        }
+        else {
+        	 $(div1).hide();
+        }
+    }
+}

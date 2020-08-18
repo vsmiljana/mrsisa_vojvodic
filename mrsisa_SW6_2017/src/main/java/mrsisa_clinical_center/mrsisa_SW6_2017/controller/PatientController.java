@@ -49,11 +49,13 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.model.ExaminationReport;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.MedicalRecord;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Medication;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Patient;
+import mrsisa_clinical_center.mrsisa_SW6_2017.model.Rating;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.AppointmentService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.AppointmentTypeService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.ClinicService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.DoctorService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.PatientService;
+import mrsisa_clinical_center.mrsisa_SW6_2017.service.RatingService;
 
 @RestController
 @RequestMapping("/usr")
@@ -72,15 +74,18 @@ public class PatientController {
 	
 	private DoctorService doctorService;
 	
+	private RatingService ratingService;
+	
 	
 	
 	public PatientController(PatientService patientService, ClinicService clinicService, AppointmentService appointmentService,
-			AppointmentTypeService appointmentTypeService, DoctorService doctorService) {
+			AppointmentTypeService appointmentTypeService, DoctorService doctorService, RatingService ratingService) {
 		this.patientService = patientService;
 		this.clinicService = clinicService;
 		this.appointmentService = appointmentService;
 		this.appointmentTypeService = appointmentTypeService;
 		this.doctorService = doctorService;
+		this.ratingService = ratingService;
 		
 	}
 	
@@ -142,7 +147,13 @@ public class PatientController {
 		
 		List<Clinic> clinics = clinicService.findAll();
 		for (Clinic c: clinics) {
-			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry()));
+			
+			List<Rating> ratings = ratingService.findAllByClinicId(c.getId());
+			System.out.println(ratings.size());
+			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
+			int votes = ratings.size();
+			double average = sum/votes;
+			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry(), average, votes));
 		}
 		Clinic c = clinics.get(0);
 		System.out.println("Doktora: " + c.getDoctors().size());
@@ -168,7 +179,12 @@ public class PatientController {
 		
 		ArrayList<Clinic> clinics = (ArrayList<Clinic>) clinicService.findAll();
 		for (Clinic c: clinics) {
-			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry()));
+			List<Rating> ratings = ratingService.findAllByClinicId(c.getId());
+			System.out.println(ratings.size());
+			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
+			int votes = ratings.size();
+			double average = sum/votes;
+			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry(), average, votes));
 		}
 		
 		List<AppointmentType> appointmentTypes = appointmentTypeService.findAllByNameAsc();
@@ -607,6 +623,9 @@ public class PatientController {
 	//if null
 	//throw
 	//else sve ok predje na homepage
+	
+	
+	// u past appts
 	
 	@GetMapping("/record")
 	public MedicalRecordDto getRecord() {

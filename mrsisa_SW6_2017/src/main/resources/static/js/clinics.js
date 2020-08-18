@@ -78,9 +78,16 @@ function setUpClinics(clinics){
 	
 	var panel = $("#panel");
 	for (clinic of clinics){
+		var rating = clinic.rating;
+		var ratingText = clinic.rating;
+		if (isNaN(clinic.rating)){
+			ratingText = "-";
+			rating = 0;
+		}
+		
 		panel.append(`<div class="card card-appointment clinic" data-name='${clinic.name}' data-address='${clinic.address}'
-          data-city='${clinic.city}' data-country='${clinic.country}'>
-          <div class="row cardy clinicRegular clinic" data-name='${clinic.name}' data-address='${clinic.address}'
+          data-city='${clinic.city}' data-country='${clinic.country}' data-rating=${rating}>
+          <div class="row cardy clinicRegular" data-name='${clinic.name}' data-address='${clinic.address}'
           data-city='${clinic.city}' data-country='${clinic.country}'>
                 <div class="apt-img-div">
                    <img class="apt-img" src="https://image.flaticon.com/icons/png/512/511/511079.png"; alt="" width="115px;"> 
@@ -96,9 +103,10 @@ function setUpClinics(clinics){
                     <p>Address: ${clinic.address} </p>
                     <p>City: ${clinic.city}</p>
                     <p>Country: ${clinic.country}</p>
+                    <p>Rating: ${ratingText} <i class="fas fa-star"></i> (${clinic.votes} votes)</p>   
                     <br>
-                    <a class="btn btn-primary btn-sm float-right"  href="javascript:getClinicsAppts(${clinic.id})">Apojntmenti<a/>
-                   <a class="btn btn-primary btn-sm float-right"  href="javascript:getDoctors(${clinic.id})">Doctors<a/>
+                    <a class="btn btn-primary btn-sm"  href="javascript:getClinicsAppts(${clinic.id})">Apojntmenti<a/>
+                   <a class="btn btn-primary btn-sm "  href="javascript:getDoctors(${clinic.id})">Doctors<a/>
                    
                     
                     

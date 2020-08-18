@@ -31,6 +31,7 @@
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
  
@@ -275,9 +276,9 @@ $(document).ready(function() {
        <div style="width: 500px; margin: 0 auto; " id="searchClinics">
         <form class="form-inline" onsubmit="event.preventDefault();">  
           <div class="form-group mx-sm-3 mb-2 input-group-sm">
-            <input type="text" class="form-control" id="inputPassword2" placeholder="Enter keyword...">
+            <input type="text" class="form-control" id="searchClinicsAllInput" placeholder="Enter keyword...">
           </div>
-          <button onclick="searchClinicsFromForm()" class="btn btn-primary  mb-2 btn-sm">Search</button>
+          <button onclick="searchClinicsAll()" class="btn btn-primary  mb-2 btn-sm">Search</button>
          <div class="form-group mx-sm-3 mb-2 input-group-sm">
          <a href="javascript:showAdvancedSearch()" id="toggleAdvancedClinicSearch">Advanced Search</a>
          </div>

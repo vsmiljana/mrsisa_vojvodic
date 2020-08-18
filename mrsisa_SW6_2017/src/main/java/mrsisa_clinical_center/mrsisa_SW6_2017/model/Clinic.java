@@ -37,6 +37,9 @@ public class Clinic {
 	@OneToMany(mappedBy = "clinic")
 	private Set<Appointment> appointments;
 	
+	@OneToMany(mappedBy = "clinic")
+	private Set<Rating> ratings;
+	
 	public Clinic() {}
 
 	public Clinic(Long id, String name, String address, String city, String country, String description) {
@@ -138,5 +141,13 @@ public class Clinic {
           
         // Compare the data members and return accordingly  
         return this.id == c.id; 
+	}
+
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
 	}
 }

@@ -12,6 +12,8 @@ public class ClinicDto {
 	private String country;
 	private Double price;
 	private List<String> appointmentNames;
+	private Double rating;
+	private Integer votes;
 	
 	
 
@@ -72,6 +74,39 @@ public class ClinicDto {
 		this.city = city;
 		this.country = country;
 		this.appointmentNames = appointmentNames;
+	}
+	
+	
+
+	public ClinicDto(Long id, String name, String description, String address, String city, String country,
+			Double rating, Integer votes) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.rating = rating;
+		this.votes = votes;
+	}
+
+	
+	
+	public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
+
+	public Integer getVotes() {
+		return votes;
+	}
+
+	public void setVotes(Integer votes) {
+		this.votes = votes;
 	}
 
 	public String getName() {

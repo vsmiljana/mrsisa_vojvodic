@@ -24,6 +24,9 @@ public class Patient extends User {
 	@OneToMany(mappedBy = "patient")
 	private Set<Appointment> appointments;
 	
+	@OneToMany(mappedBy = "patient")
+	private Set<Rating> ratings;
+	
 	public Patient() {}
 	
 	public Patient(Long id, String email, String password, String firstName, String lastName, String phoneNumber,
@@ -53,6 +56,14 @@ public class Patient extends User {
 
 	public void setAppointments(Set<Appointment> appointments) {
 		this.appointments = appointments;
+	}
+
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
 	}
 	
 	

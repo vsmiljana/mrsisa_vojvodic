@@ -201,6 +201,25 @@ UPDATE public.appointment SET examination_report_id=1, date=TO_DATE('24/7/2020',
 UPDATE public.patient SET medical_record_id=100 WHERE id=1000;
 --INSERT INTO public.medical_record( id, allergies, blood_type, dipotre, height, weight) VALUES (101, 'None', 'AB', 0, 162, 60);
 UPDATE public.patient SET medical_record_id=101 WHERE id=33;
+
+
+--INSERT INTO public.rating(id, duration, clinic_id, doctor_id, patient_id) VALUES (1, ?, ?, ?, ?);
+/*INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (1, 10, null, 1000, 4);
+INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (2, 11, null, 1000, 4);
+INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (3, 12, null, 1000, 5);
+
+INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (4, 10, null, 142, 3);
+INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (5, 11, null, 142, 5);
+INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (6, 12, null, 142, 4);*/
+
+/*
+INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (7, null, 110, 1000, 4);
+INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (8, null, 111, 1000, 4);
+INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (9, null, 110, 142, 3);
+INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (10, null, 112, 142, 4); */
+
+delete from rating where clinic_id=12;
+
 /*
 INSERT INTO public.appointment_type_doctor(
 	appointment_type_id, doctor_id)

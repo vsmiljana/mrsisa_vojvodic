@@ -34,6 +34,9 @@ public class Doctor extends User {
 		      referencedColumnName = "id"))
 	private Set<AppointmentType> appointmentTypes;
 	
+	@OneToMany(mappedBy = "doctor")
+	private Set<Rating> ratings;
+	
 	public Doctor() {}
 	
 	public Doctor(Long id, String email, String password, String firstName, String lastName, String phoneNumber,
@@ -85,6 +88,14 @@ public class Doctor extends User {
 
 	public void setEnd(Integer end) {
 		this.end = end;
+	}
+
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
 	}
 	
 	
