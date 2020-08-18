@@ -68,7 +68,7 @@ function setUpClinics(clinics){
 	//$('#panel').children().not(':first').remove();
 	
 	
-	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced').remove();
 	$("#searchDiv").show();
 	
 	//$( ".upcomingAppointment" ).remove();

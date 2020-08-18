@@ -272,35 +272,42 @@ $(document).ready(function() {
       
       
       
+       <div style="width: 500px; margin: 0 auto; " id="searchClinics">
+        <form class="form-inline" onsubmit="event.preventDefault();">  
+          <div class="form-group mx-sm-3 mb-2 input-group-sm">
+            <input type="text" class="form-control" id="inputPassword2" placeholder="Enter keyword...">
+          </div>
+          <button onclick="searchClinicsFromForm()" class="btn btn-primary  mb-2 btn-sm">Search</button>
+         <div class="form-group mx-sm-3 mb-2 input-group-sm">
+         <a href="javascript:showAdvancedSearch()" id="toggleAdvancedClinicSearch">Advanced Search</a>
+         </div>
+        </form>
+      </div>
       
-      <div style="width: 1100px; margin: 0 auto; " id="searchClinics">
+      
+      <div style="width: 1100px; margin: 0 auto; display: none " id="searchClinicsAdvanced">
         <form class="form-inline" onsubmit="event.preventDefault();">
           
           <div class="form-group mx-sm-3 mb-2 input-group-sm">
+            <label for="clinicNameInput" class="">Name: </label>
             <input style="width: 130px;" type="text" class="form-control " id="clinicNameInput" placeholder="Clinic Name">
           </div>
-          <button  onclick="searchClinicsFromForm()" class="btn btn-primary  mb-2 btn-sm">Search By Name</button>
-
 <div class="form-group mx-sm-3 mb-2 input-group-sm">
-            <input style="width: 130px;" type="text" class="form-control " id="inputPassword2" placeholder="Clinic Address">
+			 <label for="clinicAddressInput" class="">Address: </label>
+            <input style="width: 130px;" type="text" class="form-control " id="clinicAddressInput" placeholder="Clinic Address">
           </div>
-          <button type="submit" class="btn btn-primary  mb-2 btn-sm">Search By Address</button>
 
-
+         
           <div class="form-group mx-sm-3 mb-2 input-group-sm">
-            <input type="text" class="form-control" id="inputPassword2" placeholder="Search...">
-          </div>
-          <button onclick="searchClinicsFromForm()" class="btn btn-primary  mb-2 btn-sm">Search</button>
-          
-          <div class="form-group mx-sm-3 mb-2 input-group-sm">
-            <select class="form-control" id="sel1">
-                <option>Rating</option>
-                <option>2+</option>
-              <option>3+</option>
-              <option>4+</option>
+             <label for="ratingSelect" class="">Rating: </label>
+            <select class="form-control" id="ratingSelect">
+                <option>Choose rating</option>
+                <option>2 and higher</option>
+              <option>3 and higher</option>
+              <option>4 and higher</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary  mb-2 btn-sm">Search</button>
+          <button  class="btn btn-primary  mb-2 btn-sm" onclick="searchClinicsFromForm()">Search</button>
         </form>
       </div>
       

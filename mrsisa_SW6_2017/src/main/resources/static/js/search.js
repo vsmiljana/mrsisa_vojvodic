@@ -295,3 +295,16 @@ function searchClinicsFromForm() {
     }
 	
 }
+
+function showAdvancedSearch(){
+	console.log("why are you like this")
+	$("#searchClinicsAdvanced").show();
+	$("#toggleAdvancedClinicSearch").attr("href", "javascript:hideAdvancedSearch()");
+	$("#toggleAdvancedClinicSearch").html("Hide advanced search");
+}
+
+function hideAdvancedSearch(){
+	$("#searchClinicsAdvanced").hide();
+	$("#toggleAdvancedClinicSearch").attr("href", "javascript:showAdvancedSearch()");
+	$("#toggleAdvancedClinicSearch").html("Show advanced search");
+}
