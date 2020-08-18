@@ -93,6 +93,19 @@ public class ClinicDto {
 
 	
 	
+	public ClinicDto(Long id, String name, String description, String address, String city, String country,
+			Double price, double rating, int votes) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.rating = rating;
+		this.votes = votes;
+		this.price = price;
+	}
+
 	public Double getRating() {
 		return rating;
 	}

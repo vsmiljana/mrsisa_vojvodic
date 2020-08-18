@@ -294,21 +294,24 @@ $(document).ready(function() {
             <input style="width: 130px;" type="text" class="form-control " id="clinicNameInput" placeholder="Clinic Name">
           </div>
 <div class="form-group mx-sm-3 mb-2 input-group-sm">
-			 <label for="clinicAddressInput" class="">Address: </label>
-            <input style="width: 130px;" type="text" class="form-control " id="clinicAddressInput" placeholder="Clinic Address">
+			 <label for="clinicAddressInput" class="">Location: </label>
+            <input style="width: 130px;" type="text" class="form-control " id="clinicAddressInput" placeholder="Clinic Location">
           </div>
 
          
           <div class="form-group mx-sm-3 mb-2 input-group-sm">
-             <label for="ratingSelect" class="">Rating: </label>
-            <select class="form-control" id="ratingSelect">
-                <option>Choose rating</option>
-                <option>2 and higher</option>
-              <option>3 and higher</option>
-              <option>4 and higher</option>
+             <label for="clinicRatingSelect" class="">Rating: </label>
+            <select class="form-control" id="clinicRatingSelect">
+                <option value = 1 selected>Choose rating</option>
+                <option value = 2>2 and higher</option>
+              <option value = 3>3 and higher</option>
+              <option value = 4>4 and higher</option>
             </select>
           </div>
           <button  class="btn btn-primary  mb-2 btn-sm" onclick="searchClinicsFromForm()">Search</button>
+          <div class="form-group mx-sm-3 mb-2 input-group-sm">
+          <a href="javascript:clearAdvancedSearch()">Clear search</a>
+          </div>
         </form>
       </div>
       

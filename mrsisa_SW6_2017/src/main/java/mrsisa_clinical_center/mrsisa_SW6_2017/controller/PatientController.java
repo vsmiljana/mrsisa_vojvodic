@@ -605,7 +605,12 @@ public class PatientController {
 		List<ClinicDto> clinicsDto = new ArrayList<ClinicDto>();
 		
 		for (Clinic c: clinics) {
-			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry(), price));
+			List<Rating> ratings = ratingService.findAllByClinicId(c.getId());
+			System.out.println(ratings.size());
+			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
+			int votes = ratings.size();
+			double average = sum/votes;
+			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry(), price, average, votes));
 		}
 		
 		List<Object> clinicsDoctors = new ArrayList<Object>();

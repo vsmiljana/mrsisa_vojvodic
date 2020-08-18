@@ -68,7 +68,7 @@ function searchClinics(searchParams){
 
 
 function setupHead(appt){
-	$('#panel').children().not('#navbarId, #searchDiv').remove();
+	$('#panel').children().not('#navbarId, #searchDiv,  #searchClinics, #searchClinicsAdvanced').remove();
 	var panel = $("#panel");
 	var dateStr = setupDate(appt.dateLong);
 	var name = appt.appointmentName;
@@ -186,13 +186,20 @@ function displayDoctors(doctors) {
 
 
 function displayClinics(clinics, searchParams){ 		// i need search params for when i click on display doctors
-	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo, #searchClinics, #searchClinicsAdvanced').remove();
 	var panel = $("#panel");
 	
 	for (clinic of clinics){
 		var info = {"clinic": clinic, "searchParams": searchParams};
 		var name = clinic.name;
-		panel.append(`<div class="card card-appointment">
+		var rating = clinic.rating;
+		var ratingText = clinic.rating;
+		if (isNaN(clinic.rating)){
+			ratingText = "-";
+			rating = 0;
+		}
+		panel.append(`<div class="card card-appointment clinic" data-name='${clinic.name}' data-address='${clinic.address}'
+          data-city='${clinic.city}' data-country='${clinic.country}' data-rating=${rating}>
 		          <div class="row cardy" >
 		                <div class="apt-img-div">
 		                   <img class="apt-img" src="https://image.flaticon.com/icons/png/512/511/511079.png"; alt="" width="115px;"> 
@@ -208,6 +215,7 @@ function displayClinics(clinics, searchParams){ 		// i need search params for wh
 		                    <p>Address: ${clinic.address} </p>
 		                    <p>City: ${clinic.city}</p>
 		                    <p>Country: ${clinic.country}</p>
+		                     <p>Rating: ${ratingText} <i class="fas fa-star"></i> (${clinic.votes} votes)</p>   
 		                    <br>
 		                     <a class="btn btn-primary btn-sm"  href="javascript:setUpDoctorDisplay(${clinic.id}, '${clinic.name}', '${clinic.address}', ${clinic.price}, '${searchParams.appointmentName}', ${searchParams.date})
 ">See doctors<a/>
@@ -279,16 +287,32 @@ function makeAppointment(divId){
 
 
 function searchClinicsFromForm() {
-	var input = $("#clinicNameInput").val().toUpperCase();
+	var inputName = $("#clinicNameInput").val().toUpperCase();
+	var inputAddress = $("#clinicAddressInput").val().toUpperCase();
+	var inputRating = $("#clinicRatingSelect").find(":selected").val();
 	//var input = $("#clinicNameInput").val();
-	console.log(input);
+
 	var divs = $("div.clinic");
     console.log(divs);
     for (div1 of divs){
-        var contentA = $(div1).data('name');
-        if (!contentA.toUpperCase().includes(input)){
+        var name = $(div1).data('name').toUpperCase();
+        var address = $(div1).data('address').toUpperCase();
+        var city = $(div1).data('city').toUpperCase();
+        var country = $(div1).data('country').toUpperCase();
+        var rating = $(div1).data('rating');
+        if (!name.includes(inputName)){
             $(div1).hide();
+            continue;
         }
+        if (!address.includes(inputAddress) && !city.includes(inputAddress) && !country.includes(inputAddress)){
+        	$(div1).hide();
+        	continue;
+        }
+        if (rating < inputRating && rating != 0){
+        	$(div1).hide();
+        	continue;
+        }
+        
         else {
         	 $(div1).show();
         }
@@ -324,10 +348,26 @@ function searchClinicsAll(){
         console.log($(div1).data('rating'));
         
         if (name.includes(input) || address.includes(input) || city.includes(input) || country.includes(input) || rating.includes(input)){
-            $(div1).show();
+        	//$( "div:contains('" + input + "')" ).css( "text-decoration", "underline" );
+        	//$(div1).find("p:contains(" + input + ")").css("background-color", "gray");
+        	$(div1).show();
         }
         else {
         	 $(div1).hide();
         }
     }
+}
+
+function clearAdvancedSearch(){
+	$("#clinicNameInput").val("");
+	var inputAddress = $("#clinicAddressInput").val("");
+	//var inputRating = $("#clinicRatingSelect").find(":selected").val();
+	$('#clinicRatingSelect select').val(1);
+	var inputRating = $("#clinicRatingSelect").find(":selected").val();
+	$('#clinicRatingSelect option[value=1]').attr('selected','selected');
+	$('#clinicRatingSelect option[value=1]').prop('selected', true);
+	var inputRating2 = $("#clinicRatingSelect").find(":selected").val();
+	
+	console.log("hoces li " + inputRating2);
+	searchClinicsFromForm();
 }
