@@ -83,6 +83,28 @@ $(document).on("click", ".open-AddBookDialog", function () {
     // $('#addBookDialog').modal('show');
 });
 
+
+$(document).on("click", ".open-ModalRating", function () {
+    var whatIsRated = $(this).data('rate');
+    var rating = $("#userRatingSelect").val();
+    if (whatIsRated === "doctor") {
+    	$(".modal-title").text("Rating a doctor");
+    	var doctorId = $(this).data('doctor-id');
+    	var name = $(this).data('name');
+    	$('#ratingInfo').text("Doctor: " + name);
+    	console.log("doctors is" + doctorId + ', rating: ' + rating + "name " + name);
+    	$('#buttonRate').attr('onClick', "rateDoctor(" + doctorId + ")");
+    }
+    else {
+    	$(".modal-title").text("Rating a clinic");
+    	var clinicId = $(this).data('clinic-id');
+    	var name = $(this).data('name');
+    	$('#ratingInfo').text("Clinic: " + name);
+    	console.log("clinic is" + clinicId + ', rating: ' + rating);
+    	$('#buttonRate').attr('onClick', "rateClinic(" + clinicId + ")");
+    }
+});
+
 $(document).on("click", ".open-ModalAppt", function () {
     var myBookId = $(this).data('id');
     console.log(myBookId);
@@ -375,6 +397,7 @@ $(document).ready(function() {
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
     	 <div class="modal-header">
+    	 
           <h4 class="modal-title">Success</h4>
         </div>
       <div class="modal-body">
@@ -389,6 +412,37 @@ $(document).ready(function() {
   </div>
 </div>
 
+
+<div class="modal fade" id="modalRating" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered " role="document">
+  
+    <div class="modal-content">
+    	 <div class="modal-header">
+          <h4 class="modal-title"></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+      <div class="modal-body">
+        <p id="ratingInfo"></p>
+      	<div class="form-group mx-sm-3 mb-2 input-group-sm row">
+             <label for="userRatingSelect" class="">Choose rating: </label>
+            <select class="form-control" id="userRatingSelect" style="width: 70px; margin-left: 10px">
+                <option value = 5 selected>5</option>
+                <option value = 4>4</option>
+              <option value = 3>3</option>
+              <option value = 2>2</option>
+              <option value = 1>1</option>
+            </select>
+          </div>
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="buttonRate" type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.replace('/homepage.html')">Rate</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">

@@ -55,18 +55,29 @@ function showRecord(record){
 			doctorRating = 0;
 		}
 		console.log(appointment.hisClinicRating);
+		var doctorRate;
+		var clinicRate
 		if (appointment.hisClinicRating == 0) {
 			console.log("moze da ocijeni kliniku " + appointment.clinicDto.name);
+			  clinicRate="<a class='open-ModalRating' data-rate=clinic " +
+				  " data-clinic-id= " + appointment.clinicDto.id + " data-name = '" + appointment.clinicDto.name + "'" +
+              " data-toggle='modal' data-target='#modalRating'  href='#modalRating'>Rate clinic</a>";
 		}
 		else {
 			console.log(" ne moze da ocijeni  kliniku "+ appointment.clinicDto.name)
+			clinicRate = "<p>You rated this clinic with " + appointment.hisClinicRating + "<i class='fas fa-star'></i></p>";
 		}
 		
 		if (appointment.hisDoctorRating == 0) {
 			console.log("moze da ocijeni doktora " + appointment.doctorDto.firstName);
+			  doctorRate="<a class='open-ModalRating' data-rate=doctor " +
+			 " data-doctor-id=" + appointment.doctorDto.id + " data-name = '" + appointment.doctorDto.firstName +" "+ appointment.doctorDto.lastName + "'" +
+        " data-toggle='modal' data-target='#modalRating'  href='#modalRating'>Rate doctor</a>";
 		}
 		else {
 			console.log("ne moze da ocijeni doktora "+ appointment.doctorDto.firstName)
+			doctorRate = "<p>You rated this doctor with " + appointment.hisDoctorRating + "<i class='fas fa-star'></i></p>";
+			
 		}
 		//$("#panel").append(`<div id=divAppt${i}><h3>${appointment.appointmentName} ${date}</h3>
 		//<button onclick="getReportOnAppointment('${idd}', ${appointment.id})">Show details</button></div>`);
@@ -85,7 +96,10 @@ function showRecord(record){
 		                   <p>Doctor: ${appointment.doctorDto.firstName} + ${appointment.doctorDto.lastName}</p>
 		                  <p>Doctor Rating: ${doctorRatingText} <i class="fas fa-star"></i> (${appointment.doctorDto.votes} votes)</p>    
 		                 
-		                    <button>Ocijeni doktora</button>
+		            <!--        <a class="open-ModalRating" data-rate=doctor 
+		                    data-doctor-id=${appointment.doctorDto.id} data-name = '${appointment.doctorDto.firstName} ${appointment.doctorDto.lastName}'
+		                    data-toggle="modal" data-target="#modalRating"  href="#modalRating">Rate doctor</a> -->
+		                   ${doctorRate}
 		                    </div>
 		                    <div style="display: inline-block; margin-left: 50px; margin-right: 30px; max-width: 200px;">
 		                     
@@ -95,11 +109,13 @@ function showRecord(record){
 		                    <p>Country: ${appointment.clinicDto.country}</p>
 		                   <p>Clinic Rating: ${clinicRatingText} <i class="fas fa-star"></i> (${appointment.clinicDto.votes} votes)</p>   
 		                
-		                      <button>Ocijeni kliniku</button>
-		                    
+		             <!--     <a class="open-ModalRating" data-rate=clinic 
+		                    data-clinic-id=${appointment.clinicDto.id} data-name = '${appointment.clinicDto.name}'
+		                    data-toggle="modal" data-target="#modalRating"  href="#modalRating">Rate clinic</a> -->
+		                ${clinicRate}     
 		                    <br>
 		                   
-				<button class="examDetails" onclick="getReportOnAppointment('${idd}', ${appointment.id})">Show details</button>
+				<button class="examDetails btn btn-primary btn-sm" onclick="getReportOnAppointment('${idd}', ${appointment.id})">Show details</button>
 		    </div> 
 		    </div></div></div></div>`);
 	}
@@ -181,4 +197,15 @@ function hideExaminationReport(divId){
 	$("#" + divId).find("button.examDetails").css("background-color", "blue" );
 	$("#" + divId).find("button.examDetails").attr("onclick", "showExaminationReport('" + divId + "','')");
 	$("#" + divId).find("button.examDetails").text("Show details");
+}
+
+
+function rateDoctor(doctorId){
+	var rating = $("#userRatingSelect").val();
+	console.log("doctor id: " + doctorId + " rating " + rating);
+}
+
+function rateClinic(clinicId){
+	var rating = $("#userRatingSelect").val();
+	console.log("clinic id: " + clinicId + " rating " + rating);
 }

@@ -165,7 +165,7 @@ function displayDoctors(doctors) {
                 
                    <a class="btn btn-primary btn-sm float-right open-ModalAppt2" data-toggle="modal" data-target="#modalAppt2" 
                 	data-name='${doctor.firstName} ${doctor.lastName}' data-doctor-id=${doctor.id} data-selectId = select${i}
-                   href="#modalAppt2">Make appointment<a/>
+                   href="#modalAppt2">Make appointment<a/> 
                     
                     
     </div> 
