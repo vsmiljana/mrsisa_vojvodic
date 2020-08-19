@@ -349,7 +349,10 @@ function searchClinicsAll(){
         
         if (name.includes(input) || address.includes(input) || city.includes(input) || country.includes(input) || rating.includes(input)){
         	//$( "div:contains('" + input + "')" ).css( "text-decoration", "underline" );
-        	//$(div1).find("p:contains(" + input + ")").css("background-color", "gray");
+        	//var elements = $(div1).find("p:contains(" + input + ")").css("background-color", "yellow");
+        	//var elements1 = $(div1).find("p:contains(" + input + ")");
+        	//console.log(elements1);
+        	//highlight(elements1, input)
         	$(div1).show();
         }
         else {
@@ -371,3 +374,22 @@ function clearAdvancedSearch(){
 	console.log("hoces li " + inputRating2);
 	searchClinicsFromForm();
 }
+
+
+function highlight(elements, text) {
+	for (e of elements){
+		var el = $(e);
+		console.log(e);
+		// ili samo da mijenjam cisto e?
+		//var inputText = document.getElementById("inputText");
+		  //var innerHTML = inputText.innerHTML;
+		  var innerHTML = e.innerHTML;
+		  
+		  var index = innerHTML.toUpperCase().indexOf(text.toUpperCase());
+		  if (index >= 0) { 
+		   innerHTML = innerHTML.substring(0,index) + "<span class='highlight' style='background-color: blue'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+		   e.innerHTML = innerHTML;
+		  }
+	}
+	  
+	}

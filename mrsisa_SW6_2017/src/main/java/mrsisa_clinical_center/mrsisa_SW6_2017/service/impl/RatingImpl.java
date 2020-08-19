@@ -20,5 +20,17 @@ public class RatingImpl implements RatingService {
 		// TODO Auto-generated method stub
 		return rep.findAllByClinicId(id);
 	}
+
+	@Override
+	public Rating findOneByPatientIdAndDoctorId(Long id, Long id2) {
+		// TODO Auto-generated method stub
+		return rep.findOneByPatientIdAndDoctorId(id, id2);
+	}
+
+	@Override
+	public Rating findOneByPatientIdAndClinicId(Long id, Long id2) {
+		// TODO Auto-generated method stub
+		return rep.findOneByPatientIdAndClinicId(id, id2);
+	}
 	
 }

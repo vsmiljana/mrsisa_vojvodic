@@ -41,8 +41,40 @@ function showRecord(record){
 		i = i + 1;
 		var idd = "divAppt" + i;
 		var date = setupDate(appointment.date);
-		$("#panel").append(`<div id=divAppt${i}><h3>${appointment.appointmentName} ${date}</h3>
-		<button onclick="getReportOnAppointment('${idd}', ${appointment.id})">Show details</button></div>`);
+		//$("#panel").append(`<div id=divAppt${i}><h3>${appointment.appointmentName} ${date}</h3>
+		//<button onclick="getReportOnAppointment('${idd}', ${appointment.id})">Show details</button></div>`);
+		$("#panel").append(`<div class="card card-appointment" id=divAppt${i}>
+		          <div class="row cardy">
+		                <div class="apt-img-div">
+		                   <img class="apt-img" src="https://cdn3.iconfinder.com/data/icons/cute-icon-weather/512/Untitled-4-16-512.png"; alt="" width="115px;"> 
+		                </div> 
+		                <div>
+		                  <div class="card-block">
+		                    <h5 class="card-title clinic-name">${appointment.appointmentName}: ${date}: Dr. ${appointment.doctorDto.firstName} ${appointment.doctorDto.lastName}</h5> 
+		                    <div style="display: inline-block; max-width: 200px;">
+		                   <p>AppointmentType: ${appointment.appointmentName}</p>
+		                   <p>Date: ${date}</p>
+		                   <p>Time: ${appointment.start}</p>
+		                   <p>Doctor: ${appointment.doctorDto.firstName} + ${appointment.doctorDto.lastName}</p>
+		                   
+		                   <p>Rating: nek bude 5 <i class="fas fa-star"></i> (nek bude 1 votes)</p>   
+		                    <button>Ocijeni doktora</button>
+		                    </div>
+		                    <div style="display: inline-block; margin-left: 50px; margin-right: 30px; max-width: 200px;">
+		                     
+		                     <p>Clinic: ${appointment.clinicDto.name}</p>
+		                    <p>Address: ${appointment.clinicDto.address} </p>
+		                    <p>City: ${appointment.clinicDto.city}</p>
+		                    <p>Country: ${appointment.clinicDto.country}</p>
+		                  
+		                   <p>Rating: nek bude 5 <i class="fas fa-star"></i> (nek bude 1 votes)</p>   
+		                    <button>Ocijeni kliniku</button>
+		                    
+		                    <br>
+		                   
+				<button class="examDetails" onclick="getReportOnAppointment('${idd}', ${appointment.id})">Show details</button>
+		    </div> 
+		    </div></div></div></div>`);
 	}
 }
 
@@ -86,16 +118,32 @@ function showExaminationReport(divId, examinationReport){
 		if (examinationReport == null || examinationReport === ""){
 			myDiv.append(`<div class="details"><h2>Nema ovde niceg lmaoooo</h2></div>`);	
 		}
-		else {
-			myDiv.append(`<div class="details"><h2>${examinationReport.description}</h2></div>`);		
+		else {	// staviti gore neku liniju nesto
+			var diagnoses = "Diagnoses: ";
+			console.log(examinationReport.diagnoses.length + 'dijagnozeeeeeee');
+			for (d of examinationReport.diagnoses){
+				diagnoses += d.name +  ", "
+				console.log(d);
+			}	
+		   diagnoses1 = diagnoses.substring(0, diagnoses.length-2);
+			console.log(diagnoses + "dijatnogee");
+			var medications = "Medications: ";
+			for (m of examinationReport.medications){
+				medications += m.name +  ", "
+			}	
+			console.log(diagnoses + medications);
+			medications1 = medications.substring(0, medications.length-2);
+			//console.log( medications1 + diagnoses1);
+			myDiv.append(`<div class="details"><h2>Examination report</h2>
+			<p>${examinationReport.description}</p><p>lolsie</p><p>${diagnoses1}</p><p>${medications1}</p></div>`);		
 		}
 	}
 	//console.log(examinationReport);
 	
 	
-	$("#" + divId).find("button").css("background-color", "red" );
-	$("#" + divId).find("button").attr("onclick", "hideExaminationReport(" + "'" + nesto + "'" + ")");
-	$("#" + divId).find("button").text("Hide details");
+	$("#" + divId).find("button.examDetails").css("background-color", "red" );
+	$("#" + divId).find("button.examDetails").attr("onclick", "hideExaminationReport(" + "'" + nesto + "'" + ")");
+	$("#" + divId).find("button.examDetails").text("Hide details");
 }
 
 function hideExaminationReport(divId){
@@ -103,7 +151,7 @@ function hideExaminationReport(divId){
 	var myDiv = $("#" + divId);
 	$("#" + divId).find(".details").hide();
 	//$("#" + divId).closest("button").attr("onclick", "showExaminationReport(" + divId + ",'')");
-	$("#" + divId).find("button").css("background-color", "blue" );
-	$("#" + divId).find("button").attr("onclick", "showExaminationReport('" + divId + "','')");
-	$("#" + divId).find("button").text("Show details");
+	$("#" + divId).find("button.examDetails").css("background-color", "blue" );
+	$("#" + divId).find("button.examDetails").attr("onclick", "showExaminationReport('" + divId + "','')");
+	$("#" + divId).find("button.examDetails").text("Show details");
 }

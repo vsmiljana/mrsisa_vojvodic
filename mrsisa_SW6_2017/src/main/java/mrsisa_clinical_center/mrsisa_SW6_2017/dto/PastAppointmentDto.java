@@ -5,6 +5,8 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.model.Appointment;
 public class PastAppointmentDto extends AppointmentDto {
 	
 	private ExaminationReportDto examinationReport;
+	private Integer hisDoctorRating;
+	private Integer hisClinicRating;
 	
 	public PastAppointmentDto() {}
 	
@@ -29,6 +31,27 @@ public class PastAppointmentDto extends AppointmentDto {
 	public void setExaminationReport(ExaminationReportDto examinationReport) {
 		this.examinationReport = examinationReport;
 	}
-	
 
+
+	public Integer getHisDoctorRating() {
+		return hisDoctorRating;
+	}
+
+
+	public void setHisDoctorRating(Integer hisDoctorRating) {
+		this.hisDoctorRating = hisDoctorRating;
+	}
+
+
+	public Integer getHisClinicRating() {
+		return hisClinicRating;
+	}
+
+
+	public void setHisClinicRating(Integer hisClinicRating) {
+		this.hisClinicRating = hisClinicRating;
+	}
+	
+	
+	
 }

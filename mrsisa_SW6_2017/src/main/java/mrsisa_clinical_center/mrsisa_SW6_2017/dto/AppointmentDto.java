@@ -16,6 +16,8 @@ public class AppointmentDto {
 	private String clinicName;
 	private String clinicAddress;
 	private Long dateLong;
+	private DoctorDto doctorDto;
+	private ClinicDto clinicDto;
 	
 	
 	public AppointmentDto() {}
@@ -160,6 +162,22 @@ public class AppointmentDto {
 
 	public void setDateLong(Long dateLong) {
 		this.dateLong = dateLong;
+	}
+
+	public DoctorDto getDoctorDto() {
+		return doctorDto;
+	}
+
+	public void setDoctorDto(DoctorDto doctorDto) {
+		this.doctorDto = doctorDto;
+	}
+
+	public ClinicDto getClinicDto() {
+		return clinicDto;
+	}
+
+	public void setClinicDto(ClinicDto clinicDto) {
+		this.clinicDto = clinicDto;
 	}
 
 }

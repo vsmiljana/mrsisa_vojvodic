@@ -655,6 +655,36 @@ public class PatientController {
 		
 		for (Appointment a: pastAppointments) {
 			PastAppointmentDto paDto = new PastAppointmentDto(a);
+			Doctor d = a.getDoctor();
+			Set<Rating> ratings = d.getRatings();
+			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
+			int votes = ratings.size();
+			double rating = sum/votes;
+			DoctorDto dDto = new DoctorDto(d.getId(), d.getFirstName(), d.getLastName(), rating, votes);
+			paDto.setDoctorDto(dDto);
+			Clinic c = a.getClinic();
+			Set<Rating> ratings2 = c.getRatings();
+			double sum2 = ratings.stream().mapToInt(rating2 -> rating2.getRating()).sum();
+			int votes2 = ratings2.size();
+			double rating2 = sum2/votes2;
+			ClinicDto cDto = new ClinicDto(c.getId(), c.getName(), c.getAddress(), c.getCity(), c.getCountry(), rating2, votes2);
+			paDto.setClinicDto(cDto);
+		
+			Rating ratingOfDoctor = ratingService.findOneByPatientIdAndDoctorId(p.getId(), d.getId());
+			Rating ratingOfClinic = ratingService.findOneByPatientIdAndClinicId(p.getId(), c.getId());
+			if (ratingOfDoctor == null) {
+				paDto.setHisDoctorRating(0);
+			}
+			else {
+				paDto.setHisDoctorRating(ratingOfDoctor.getRating());
+			}
+			if (ratingOfClinic == null) {
+				paDto.setHisClinicRating(0);
+			}
+			else {
+				paDto.setHisClinicRating(ratingOfClinic.getRating());
+			}
+			
 			pastAppointmentsDto.add(paDto);
 		}
 		
