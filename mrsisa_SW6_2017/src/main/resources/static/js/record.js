@@ -200,12 +200,3 @@ function hideExaminationReport(divId){
 }
 
 
-function rateDoctor(doctorId){
-	var rating = $("#userRatingSelect").val();
-	console.log("doctor id: " + doctorId + " rating " + rating);
-}
-
-function rateClinic(clinicId){
-	var rating = $("#userRatingSelect").val();
-	console.log("clinic id: " + clinicId + " rating " + rating);
-}

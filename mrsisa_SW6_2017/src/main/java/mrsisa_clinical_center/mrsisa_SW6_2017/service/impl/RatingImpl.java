@@ -38,5 +38,11 @@ public class RatingImpl implements RatingService {
 		// TODO Auto-generated method stub
 		return rep.findAllByDoctorId(id);
 	}
+
+	@Override
+	public void save(Rating userRating) {
+		rep.save(userRating);
+		
+	}
 	
 }

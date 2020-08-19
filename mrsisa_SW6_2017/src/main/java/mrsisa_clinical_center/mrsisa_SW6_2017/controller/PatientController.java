@@ -36,6 +36,7 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.dto.LoginUserDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.MedicalRecordDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.MedicationDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.PastAppointmentDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.RatingDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.RegisterUserDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.SearchAppointmentDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.SearchClinicsResultDto;
@@ -775,6 +776,74 @@ public class PatientController {
 		return pastAppointmentsDto;
 	}
 	
+	@PostMapping("/rateDoctor")
+	public void rateDoctor(@RequestBody RatingDto rating) {
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		if (!checkRatingDto(rating, "doctor")) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad request!");
+		}
+		
+		Patient p = (Patient) session.getAttribute("currentUser");
+		
+		Long doctorId = rating.getId();
+		
+		Rating r = ratingService.findOneByPatientIdAndDoctorId(p.getId(), doctorId);
+		
+		if (r != null) { 	// conflict
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already rated!");
+		}
+		else {
+			Doctor d = doctorService.findById(doctorId);
+			Long id = generateLong();
+			Rating userRating = new Rating(id, d, null, p, rating.getRating());
+			ratingService.save(userRating);
+		}
+		
+	}
+	
+	@PostMapping("/rateClinic")
+	public void rateClinic(@RequestBody RatingDto rating) {
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		
+		if (!checkRatingDto(rating, "clinic")) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad request!");
+		}
+		
+		Patient p = (Patient) session.getAttribute("currentUser");
+		
+		Long clinicId = rating.getId();
+		
+		Rating r = ratingService.findOneByPatientIdAndClinicId(p.getId(), clinicId);
+		
+		if (r != null) { 	// conflict
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already rated!");
+		}
+		else {
+			Clinic c = clinicService.findById(clinicId);
+			Long id = generateLong();
+			Rating userRating = new Rating(id, null, c, p, rating.getRating());
+			ratingService.save(userRating);
+		}
+		
+	}
+	
+	
+	private boolean checkRatingDto(RatingDto rating, String string) {
+		return true;
+	}
+
+
+	public long generateLong() {
+	    long leftLimit = 1L;
+	    long rightLimit = 1000000L;
+	    long generatedLong = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+	    return generatedLong;
+	}
 	
 	public Date adjustDate(Long ms) {
 		Date date = new Date(ms);

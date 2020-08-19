@@ -220,6 +220,8 @@ INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (
 
 delete from rating where clinic_id=12;
 
+delete from rating where patient_id = 1000;
+
 /*
 INSERT INTO public.appointment_type_doctor(
 	appointment_type_id, doctor_id)

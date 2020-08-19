@@ -14,4 +14,6 @@ public interface RatingService {
 
 	List<Rating> findAllByDoctorId(Long id);
 
+	void save(Rating userRating);
+
 }
