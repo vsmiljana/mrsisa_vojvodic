@@ -70,8 +70,8 @@ function searchClinics(searchParams){
 function setupHead(appt){
 	$('#panel').children().not('#navbarId, #searchDiv,  #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
 	var panel = $("#panel");
-	$("#searchDoctors").hide();
-	$("#searchDoctors").hide();
+	//$("#searchClinics").hide();
+	//$("#searchClinicsAdvanced").hide();
 	var dateStr = setupDate(appt.dateLong);
 	var name = appt.appointmentName;
 	panel.append(`<div id="apptInfo" data-appointment-name='${name}' data-appointment-date=${dateStr} style="width: 600px; margin: 0 auto;"><h5>Search results for ${name} on ${dateStr}</h5>
@@ -118,7 +118,10 @@ function displayDoctors(doctors) {
 	
 	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv, #apptInfo, #searchDoctors, #searchDoctorsAdvanced, #searchClinics, #searchClinicsAdvanced').remove();
 	
-	
+	$("#searchDoctors").show();
+	$("#searchDoctorsAdvanced").show();
+	$("#searchClinics").hide();
+	$("#searchClinicsAdvanced").hide();
 	
 	var panel = $("#panel");
 	var i = 0;
@@ -201,6 +204,7 @@ function displayDoctors(doctors) {
 function displayClinics(clinics, searchParams){ 		// i need search params for when i click on display doctors
 	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
 	
+	$("#searchClinics").show();
 	$("#searchDoctors").hide();
 	$("#searchDoctorsAdvanced").hide();
 	

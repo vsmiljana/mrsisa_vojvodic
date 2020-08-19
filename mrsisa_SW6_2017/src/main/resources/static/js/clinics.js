@@ -70,6 +70,9 @@ function setUpClinics(clinics){
 	
 	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
 	$("#searchDiv").show();
+	$("#searchClinics").show();
+	$("#searchDoctors").hide();
+	$("#searchDoctorsAdvanced").hide();
 	
 	//$( ".upcomingAppointment" ).remove();
 	
