@@ -72,6 +72,16 @@ public class DoctorDto {
 		this.votes = votes;
 	}
 
+	public DoctorDto(Long id, String firstName, String lastName, List<AppointmentTimeDto> appointmentStarts,
+			double rating, int votes) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.rating = rating;
+		this.votes = votes;
+		this.availableAppointments = appointmentStarts;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

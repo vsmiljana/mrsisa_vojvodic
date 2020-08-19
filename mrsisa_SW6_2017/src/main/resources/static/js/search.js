@@ -68,8 +68,10 @@ function searchClinics(searchParams){
 
 
 function setupHead(appt){
-	$('#panel').children().not('#navbarId, #searchDiv,  #searchClinics, #searchClinicsAdvanced').remove();
+	$('#panel').children().not('#navbarId, #searchDiv,  #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
 	var panel = $("#panel");
+	$("#searchDoctors").hide();
+	$("#searchDoctors").hide();
 	var dateStr = setupDate(appt.dateLong);
 	var name = appt.appointmentName;
 	panel.append(`<div id="apptInfo" data-appointment-name='${name}' data-appointment-date=${dateStr} style="width: 600px; margin: 0 auto;"><h5>Search results for ${name} on ${dateStr}</h5>
@@ -114,7 +116,10 @@ function updateHeadingClinic(searchParams){
 
 function displayDoctors(doctors) {
 	
-	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv, #apptInfo').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv, #apptInfo, #searchDoctors, #searchDoctorsAdvanced, #searchClinics, #searchClinicsAdvanced').remove();
+	
+	
+	
 	var panel = $("#panel");
 	var i = 0;
 	for (doctor of doctors){
@@ -137,8 +142,15 @@ function displayDoctors(doctors) {
 			 //   text: time 
 			//}));
 		}
+		var rating = doctor.rating;
+		var ratingText = doctor.rating;
+		if (isNaN(doctor.rating)){
+			ratingText = "-";
+			rating = 0;
+		}
 		
-		panel.append(`<div class="card card-appointment">
+		panel.append(`<div class="card card-appointment doctor"  data-id = ${doctor.id} data-first-name = '${doctor.firstName}'
+		data-last-name = '${doctor.lastName}' data-rating = ${rating}>
           <div class="row cardy doctor-card" id=${divId} >
                 <div class="apt-img-div">
                    <img class="apt-img" src="https://www.freeiconspng.com/uploads/physician-icon-png-28.png"; alt="" width="115px;"> 
@@ -149,6 +161,7 @@ function displayDoctors(doctors) {
                     <p class="doctorId" style="display: none">${doctor.id}</p>
                     <div style="display: inline-block; max-width: 200px;">
                       <p>Name: ${doctor.firstName} ${doctor.lastName}</p>
+                    	 <p> Rating: ${ratingText} <i class='fas fa-star'></i> (${doctor.votes} votes)</p>
                     </div>
                     <div style="display: inline-block; margin-left: 50px; margin-right: 30px;max-width: 200px;">
                    	 <div class="form-group mb-2">
@@ -160,9 +173,9 @@ function displayDoctors(doctors) {
   </select>
                     
                     <br>
-                    <a class="btn btn-primary btn-sm float-right">Make appointment<a/>
+             <!--       <a class="btn btn-primary btn-sm float-right">Make appointment<a/>
                      <a class="btn btn-primary btn-sm float-right"  href="javascript:makeAppointment(divIdString)">Make appointment<a/>
-                
+                -->
                    <a class="btn btn-primary btn-sm float-right open-ModalAppt2" data-toggle="modal" data-target="#modalAppt2" 
                 	data-name='${doctor.firstName} ${doctor.lastName}' data-doctor-id=${doctor.id} data-selectId = select${i}
                    href="#modalAppt2">Make appointment<a/> 
@@ -186,7 +199,11 @@ function displayDoctors(doctors) {
 
 
 function displayClinics(clinics, searchParams){ 		// i need search params for when i click on display doctors
-	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo, #searchClinics, #searchClinicsAdvanced').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
+	
+	$("#searchDoctors").hide();
+	$("#searchDoctorsAdvanced").hide();
+	
 	var panel = $("#panel");
 	
 	for (clinic of clinics){
@@ -262,9 +279,15 @@ function setUpDoctors1(appointmentName, date, id){
 
 function setupClinicInfo(id, name, address, price, appointmentName, date, price){
 	
+	// ili da mi ga dinamicki pravi
+	
 	$("#searchButton").val(id);
 	console.log("da vidim jesam li namjestila" + $("#searchButton").val());
-	$('#panel').children().not('#navbarId, #searchDiv').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced , #searchDoctors, #searchDoctorsAdvanced').remove();
+	$("#searchClinics").hide();
+	$("#searchClinicsAdvanced").hide();
+	$("#searchDoctors").show();
+	$("#searchDoctorsAdvanced").show();
 	var panel = $("#panel");
 	var date1 = setupDate(date);
 	console.log("date1  " + date1);

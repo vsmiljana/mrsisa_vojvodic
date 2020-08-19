@@ -334,7 +334,11 @@ public class PatientController {
 		List<DoctorDto> doctorsDto = new ArrayList<DoctorDto>(); 
 		
 		for (Doctor d: doctors) {
-			doctorsDto.add(new DoctorDto(d.getFirstName(), d.getLastName()));		
+			List<Rating> ratings = ratingService.findAllByDoctorId(d.getId());
+			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
+			int votes = ratings.size();
+			double rating = sum/votes;
+			doctorsDto.add(new DoctorDto(d.getId(), d.getFirstName(), d.getLastName(), rating, votes));		
 		}
 		
 		List<String> appointmentNames = getAppointmentsDoctorsCanPerform(doctors);
@@ -594,7 +598,11 @@ public class PatientController {
 			if (appointmentStarts.size() > 0) {
 				clinics.add(d.getClinic());
 				if (d.getClinic().getId().equals(clinicId)) {	// if we are searching only the doctors of a certain clinic
-					doctorsDto.add(new DoctorDto(d.getId(), d.getFirstName(), d.getLastName(), appointmentStarts));
+					List<Rating> ratings = ratingService.findAllByDoctorId(d.getId());
+					double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
+					int votes = ratings.size();
+					double rating = sum/votes;
+					doctorsDto.add(new DoctorDto(d.getId(), d.getFirstName(), d.getLastName(), appointmentStarts, rating, votes));
 					doctors2.add(d);
 				}
 			}

@@ -68,7 +68,7 @@ function setUpClinics(clinics){
 	//$('#panel').children().not(':first').remove();
 	
 	
-	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
 	$("#searchDiv").show();
 	
 	//$( ".upcomingAppointment" ).remove();
@@ -151,7 +151,7 @@ function getDoctors(clinicId){
 function setUpClinicInfo(clinic){
 	$("#searchButton").val(clinic.id);
 	console.log("da vidim jesam li namjestilaaaaaaaaaaaaaaaaaaaaaaaa" + $("#searchButton").val());
-	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo').remove();	// ovde sam dodala apptinfo
+	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();	// ovde sam dodala apptinfo
 	var panel = $("#panel");
 	var price = clinic.price;
 	if (price != null && price != 0){
@@ -166,12 +166,27 @@ function setUpClinicInfo(clinic){
 }
 
 function setUpDoctorsRegular(doctors){
-	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
+	
+	$("#searchClinics").hide();
+	$("#searchClinicsAdvanced").hide();
+	$("#searchDoctors").show();
+	$("#searchDoctorsAdvanced").show();
+	
 	var panel = $("#panel");
 	
+	// dodati rating
 	for (doctor of doctors){
 	
-		panel.append(`<div class="card card-appointment">
+		var rating = doctor.rating;
+		var ratingText = doctor.rating;
+		if (isNaN(doctor.rating)){
+			ratingText = "-";
+			rating = 0;
+		}
+		
+		panel.append(`<div class="card card-appointment doctor" data-id = ${doctor.id} data-first-name = '${doctor.firstName}'
+		data-last-name = '${doctor.lastName}' data-rating = ${rating}>
           <div class="row cardy" >
                 <div class="apt-img-div">
                    <img class="apt-img" src="https://www.freeiconspng.com/uploads/physician-icon-png-28.png"; alt="" width="115px;"> 
@@ -181,6 +196,7 @@ function setUpDoctorsRegular(doctors){
                     <h5 class="card-title clinic-name">Dr. ${doctor.firstName} ${doctor.lastName}</h5> 
                     <div style="display: inline-block; max-width: 200px;">
                       <p>Name: ${doctor.firstName} ${doctor.lastName}</p>
+                      <p> Rating: ${ratingText} <i class='fas fa-star'></i> (${doctor.votes} votes)</p>
                     </div>
                     <div style="display: inline-block; margin-left: 50px; margin-right: 30px;max-width: 200px;">
                       <br>
