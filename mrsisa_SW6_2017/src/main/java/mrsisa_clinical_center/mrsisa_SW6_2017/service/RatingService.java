@@ -12,4 +12,6 @@ public interface RatingService {
 
 	Rating findOneByPatientIdAndClinicId(Long id, Long id2);
 
+	List<Rating> findAllByDoctorId(Long id);
+
 }

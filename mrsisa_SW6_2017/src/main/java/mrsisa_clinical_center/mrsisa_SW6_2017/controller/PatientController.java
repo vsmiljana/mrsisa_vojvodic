@@ -656,15 +656,23 @@ public class PatientController {
 		for (Appointment a: pastAppointments) {
 			PastAppointmentDto paDto = new PastAppointmentDto(a);
 			Doctor d = a.getDoctor();
-			Set<Rating> ratings = d.getRatings();
+			List<Rating> ratings = ratingService.findAllByDoctorId(d.getId());
+			
+			System.out.println("doktor " + d.getEmail());
+			System.out.println("ima ocjena " + ratings.size());
+			for (Rating r: ratings) {
+				System.out.println(r.getRating());
+			}
+			
+			
 			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
 			int votes = ratings.size();
 			double rating = sum/votes;
 			DoctorDto dDto = new DoctorDto(d.getId(), d.getFirstName(), d.getLastName(), rating, votes);
 			paDto.setDoctorDto(dDto);
 			Clinic c = a.getClinic();
-			Set<Rating> ratings2 = c.getRatings();
-			double sum2 = ratings.stream().mapToInt(rating2 -> rating2.getRating()).sum();
+			List<Rating> ratings2 = ratingService.findAllByClinicId(c.getId()); 	// sa a.getRatings() ne znam sta dobijem?
+			double sum2 = ratings2.stream().mapToInt(rating2 -> rating2.getRating()).sum();
 			int votes2 = ratings2.size();
 			double rating2 = sum2/votes2;
 			ClinicDto cDto = new ClinicDto(c.getId(), c.getName(), c.getAddress(), c.getCity(), c.getCountry(), rating2, votes2);
@@ -672,6 +680,9 @@ public class PatientController {
 		
 			Rating ratingOfDoctor = ratingService.findOneByPatientIdAndDoctorId(p.getId(), d.getId());
 			Rating ratingOfClinic = ratingService.findOneByPatientIdAndClinicId(p.getId(), c.getId());
+			System.out.println("***************\n" + cDto.getName() + " a doktor " + d.getFirstName());
+			System.out.println(ratingOfDoctor);
+			System.out.println(ratingOfClinic);
 			if (ratingOfDoctor == null) {
 				paDto.setHisDoctorRating(0);
 			}

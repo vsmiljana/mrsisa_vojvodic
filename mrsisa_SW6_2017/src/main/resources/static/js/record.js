@@ -40,7 +40,34 @@ function showRecord(record){
 	for (appointment of record.pastAppointments) {
 		i = i + 1;
 		var idd = "divAppt" + i;
+		console.log("ocjen klinike" + appointment.clinicDto.rating + "ocjena doktor " + appointment.doctorDto.rating); 
 		var date = setupDate(appointment.date);
+		var clinicRating = appointment.clinicDto.rating;
+		var clinicRatingText = appointment.clinicDto.rating;
+		if (isNaN(appointment.clinicDto.rating)){
+			clinicRatingText = "-";
+			clinicRating = 0;
+		}
+		var doctorRating = appointment.doctorDto.rating;
+		var doctorRatingText = appointment.doctorDto.rating;
+		if (isNaN(appointment.doctorDto.rating)){
+			doctorRatingText = "-";
+			doctorRating = 0;
+		}
+		console.log(appointment.hisClinicRating);
+		if (appointment.hisClinicRating == 0) {
+			console.log("moze da ocijeni kliniku " + appointment.clinicDto.name);
+		}
+		else {
+			console.log(" ne moze da ocijeni  kliniku "+ appointment.clinicDto.name)
+		}
+		
+		if (appointment.hisDoctorRating == 0) {
+			console.log("moze da ocijeni doktora " + appointment.doctorDto.firstName);
+		}
+		else {
+			console.log("ne moze da ocijeni doktora "+ appointment.doctorDto.firstName)
+		}
 		//$("#panel").append(`<div id=divAppt${i}><h3>${appointment.appointmentName} ${date}</h3>
 		//<button onclick="getReportOnAppointment('${idd}', ${appointment.id})">Show details</button></div>`);
 		$("#panel").append(`<div class="card card-appointment" id=divAppt${i}>
@@ -56,8 +83,8 @@ function showRecord(record){
 		                   <p>Date: ${date}</p>
 		                   <p>Time: ${appointment.start}</p>
 		                   <p>Doctor: ${appointment.doctorDto.firstName} + ${appointment.doctorDto.lastName}</p>
-		                   
-		                   <p>Rating: nek bude 5 <i class="fas fa-star"></i> (nek bude 1 votes)</p>   
+		                  <p>Doctor Rating: ${doctorRatingText} <i class="fas fa-star"></i> (${appointment.doctorDto.votes} votes)</p>    
+		                 
 		                    <button>Ocijeni doktora</button>
 		                    </div>
 		                    <div style="display: inline-block; margin-left: 50px; margin-right: 30px; max-width: 200px;">
@@ -66,9 +93,9 @@ function showRecord(record){
 		                    <p>Address: ${appointment.clinicDto.address} </p>
 		                    <p>City: ${appointment.clinicDto.city}</p>
 		                    <p>Country: ${appointment.clinicDto.country}</p>
-		                  
-		                   <p>Rating: nek bude 5 <i class="fas fa-star"></i> (nek bude 1 votes)</p>   
-		                    <button>Ocijeni kliniku</button>
+		                   <p>Clinic Rating: ${clinicRatingText} <i class="fas fa-star"></i> (${appointment.clinicDto.votes} votes)</p>   
+		                
+		                      <button>Ocijeni kliniku</button>
 		                    
 		                    <br>
 		                   

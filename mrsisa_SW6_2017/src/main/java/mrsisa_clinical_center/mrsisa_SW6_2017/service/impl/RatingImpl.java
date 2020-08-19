@@ -32,5 +32,11 @@ public class RatingImpl implements RatingService {
 		// TODO Auto-generated method stub
 		return rep.findOneByPatientIdAndClinicId(id, id2);
 	}
+
+	@Override
+	public List<Rating> findAllByDoctorId(Long id) {
+		// TODO Auto-generated method stub
+		return rep.findAllByDoctorId(id);
+	}
 	
 }
