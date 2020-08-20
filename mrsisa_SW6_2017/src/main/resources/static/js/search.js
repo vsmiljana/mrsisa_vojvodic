@@ -119,7 +119,7 @@ function displayDoctors(doctors) {
 	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv, #apptInfo, #searchDoctors, #searchDoctorsAdvanced, #searchClinics, #searchClinicsAdvanced').remove();
 	
 	$("#searchDoctors").show();
-	$("#searchDoctorsAdvanced").show();
+	//$("#searchDoctorsAdvanced").show();
 	$("#searchClinics").hide();
 	$("#searchClinicsAdvanced").hide();
 	
@@ -291,7 +291,7 @@ function setupClinicInfo(id, name, address, price, appointmentName, date, price)
 	$("#searchClinics").hide();
 	$("#searchClinicsAdvanced").hide();
 	$("#searchDoctors").show();
-	$("#searchDoctorsAdvanced").show();
+	//$("#searchDoctorsAdvanced").show();
 	var panel = $("#panel");
 	var date1 = setupDate(date);
 	console.log("date1  " + date1);
@@ -346,6 +346,19 @@ function searchClinicsFromForm() {
     }
 	
 }
+
+function showAdvancedDoctorSearch(){
+	$("#searchDoctorsAdvanced").show();
+	$("#toggleAdvancedDoctorSearch").attr("href", "javascript:hideAdvancedDoctorSearch()");
+	$("#toggleAdvancedDoctorSearch").html("Hide advanced search");
+}
+
+function hideAdvancedDoctorSearch(){
+	$("#searchDoctorsAdvanced").hide();
+	$("#toggleAdvancedDoctorSearch").attr("href", "javascript:showAdvancedDoctorSearch()");
+	$("#toggleAdvancedDoctorSearch").html("Show advanced search");
+}
+
 
 function showAdvancedSearch(){
 	console.log("why are you like this")

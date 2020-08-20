@@ -174,7 +174,7 @@ function setUpDoctorsRegular(doctors){
 	$("#searchClinics").hide();
 	$("#searchClinicsAdvanced").hide();
 	$("#searchDoctors").show();
-	$("#searchDoctorsAdvanced").show();
+	//$("#searchDoctorsAdvanced").hide();
 	
 	var panel = $("#panel");
 	

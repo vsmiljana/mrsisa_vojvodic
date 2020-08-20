@@ -42,7 +42,7 @@ function displayUserProfileHome(user){
 		$("#searchClinicsAdvanced").hide();
 		$("#searchDoctors").hide();
 		$("#searchDoctorsAdvanced").hide();
-
+		$("#searchDiv").hide();
 		// ma sve opet da load omg
 	//	var userString = JSON.stringify(user);
 	//	console.log(userString);

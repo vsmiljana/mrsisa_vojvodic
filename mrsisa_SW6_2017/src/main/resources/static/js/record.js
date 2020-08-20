@@ -23,16 +23,57 @@ function getRecord(){
 }
 
 function showRecord(record){
-	$('#searchDiv').hide();		// vidjeti jel ovo dobro...
-	$('#panel').children().not('#navbarId, #searchDiv').remove(); 		// i ovo isto...
+	//$('#searchDiv').hide();		// vidjeti jel ovo dobro...
+	//$('#panel').children().not('#navbarId, #searchDiv').remove(); 		// i ovo isto...
 	console.log(record);
-	$("#panel").append(`<div><h1>Medical record</h1></div>`);
+	
+	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').hide();
+		$("#searchClinics").hide();
+		$("#searchClinicsAdvanced").hide();
+		$("#searchDoctors").hide();
+		$("#searchDoctorsAdvanced").hide();
+		$("#searchDiv").hide();
+	
+	
+	//$("#panel").append(`<div><h1>Medical record</h1></div>`);
 	var i = 0;
-	$("#panel").append(`<div><h2>General info</h2><p>Blood type: ${record.bloodType}</p>
-	<p>Height: ${record.height}</p><p>Weight: ${record.weight}</p><p>Dioptre: ${record.dioptre}</p>
-	<p>Allergies: ${record.allergies}</p></div>`);
+	//$("#panel").append(`<div><h2>General info</h2><p>Blood type: ${record.bloodType}</p>
+	//<p>Height: ${record.height}</p><p>Weight: ${record.weight}</p><p>Dioptre: ${record.dioptre}</p>
+	//<p>Allergies: ${record.allergies}</p></div>`);
+	
+	$("#panel").append(`<div class="card card-appointment" id="medical-record">
+	         <div class="row cardy" >
+	             <div class="apt-img-div">
+	                <img class="apt-img" src="https://cdn.iconscout.com/icon/free/png-512/medical-record-1800529-1529261.png"; alt="" width="115px;"> 
+	              </div> 
+	              <div>
+	                <div class="card-block">
+	                  <h4 class="card-title">General Information</h4> 
+	                  <div style="display: inline-block; max-width: 200px;">
+	                    <p>Blood type: ${record.bloodType}</p>
+	                    <p>Height: ${record.height}</p>
+	                  	<p>Weight: ${record.weight} </p>
+	                  </div>
+	                  <div style="display: inline-block; margin-left: 50px; margin-right: 30px;max-width: 200px;">
+	                  <p> Dioptre: ${record.dioptre} </p>
+	                  <p> Allergies: ${record.allergies} </p>
+	
+	               <br>
+	     </div> 
+	    </div></div></div></div>`);
+	
+	
 	if (record.pastAppointments.length > 0) {
-		$("#panel").append(`<div><h2>Past Appointments</h2></div>`);
+		//$("#panel").append(`<div><h2>Past Appointments</h2></div>`);
+		$("#panel").append(`<div class="" style="margin-top: 50px; margin-left: 150px;">
+		         <div class="" 
+		              <div>
+		                <div class="card-block">
+		                  <h4 class="card-title" style="color: gray">Past appointments:</h4> 
+		     </div> 
+		    </div></div></div></div>`);
+		
 	}
 	else {
 		$("#panel").append(`<div><h2>You have no past appointments</h2></div>`);
