@@ -37,8 +37,23 @@ function displayUserInformation(user){
 	$('#panel').children().not('#navbarId').remove();
 	$("#panel").append(`<div>EDIT PROFILE</div>`)
 	$("#panel").append(`
-	<div style="width: 600px; margin: 0 auto;">
-    <form>
+	
+	<script>
+/*$( "input.edit-input" )
+  .focusout(function() {
+    
+  });*/
+  
+$(".edit-input").focusout(function(){
+console.log("mamaaaaaaaaaaaaaaaaaaaaaaa");
+  checkInput($(this));
+});
+</script>
+	
+	<div style="width: 600px; margin: 0 auto;">	
+	<style>.error-message{display: none; color: red;}</style>
+	
+    <form class="needs-validation validate-form-edit" onsubmit="event.preventDefault();" id="form-edit-profile" novalidate>
         <div class="form-group">
             <label for="inputEmail">Email</label>
             <input type="text" class="form-control" id="inputEmail" value=${user.email} disabled>
@@ -50,41 +65,56 @@ function displayUserInformation(user){
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputFirstName">First Name</label>
-            <input type="text" class="form-control" id="inputFirstName" value='${user.firstName}'>
+            <input type="text" class="form-control edit-input" id="inputFirstName" value='${user.firstName}' required>
+			<div class="error-message">
+          Please enter your first name.
+        </div>
           </div>
           <div class="form-group col-md-6">
             <label for="inputLastName">Last Name</label>
-            <input type="text" class="form-control" id="inputLastName" value='${user.lastName}'>
+            <input type="text" class="form-control edit-input" id="inputLastName" value='${user.lastName}' required>
+             <div class="error-message">
+          Please enter your last name.
+        </div>
           </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputAddress">Address</label>
-              <input type="text" class="form-control" id="inputAddress" value='${user.address}'>
+              <input type="text" class="form-control edit-input" id="inputAddress" value='${user.address}'>
+              <div class="error-message">
+          Please enter your address.
+        </div>
             </div>
             <div class="form-group col-md-6">
               <label for="inputCity">City</label>
-              <input type="text" class="form-control" id="inputCity" value='${user.city}'>
+              <input type="text" class="form-control edit-input" id="inputCity" value='${user.city}'>
+              <div class="error-message">
+          Please enter your city.
+        </div>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputCountry">Country</label>
-              <input type="text" class="form-control" id="inputCountry" value='${user.country}'>
+              <input type="text" class="form-control edit-input" id="inputCountry" value='${user.country}'>
+              <div class="error-message">
+          Please enter your country.
+        </div>
             </div>
             <div class="form-group col-md-6 validate-input">
               <label for="inputPhoneNumber">Phone Number</label>
-              <input type="text" class="form-control" id="inputPhoneNumber" value=${user.phoneNumber}>
+              <input type="text" class="form-control edit-input" id="inputPhoneNumber" value=${user.phoneNumber}>
+              <div class="error-message">
+          Please enter your phone number.
+        </div>
             </div>
           </div>
-          <div class="wrap-input50 validate-input" data-validate = "Enter Address">
-						<input id="address_input" class="input100" type="text" name="address">
-						<span class="focus-input100" data-placeholder="Address"></span>
-					</div>
+      
 
-        <button type="" class="btn btn-primary" onclick="javascript:submitChanges()"style="margin: 0 auto;">Save changes</button>
+        <button  class="btn btn-primary" style="margin: 0 auto;" onclick="checkChanges111()">Save changes</button>
       </form>
     </div>`);
 	
@@ -92,13 +122,25 @@ function displayUserInformation(user){
 
 
 
+function checkChanges111(){
+	//var goodToGo = checkIfFormIsValid();
+	//console.log(goodToGo);
+	//if (goodToGo == true){
+	//	submitChanges();
+	//}
+	if (checkIfFormIsValid()){
+		submitChanges();
+	}
+///	if (doSth()){
+//		submitChanges();
+//	}
+}
+
 function submitChanges(){
-	alert("submit changes");
+	alert("sve je ok, moze izmjena");
 	// proveriti jel sve ok
 	// na beku provjeriti ejl email taj email koji mijenjam... preko postmana npr mogu svasta da napravim ako ne validiram
 	// na beku
-	
-	
 	var email = $("#inputEmail").val();
 	var ssn = $("#inputSsn").val();
 	var firstName = $("#inputFirstName").val();
@@ -130,4 +172,62 @@ function submitChanges(){
 		}
 		
 	});
+}
+
+
+function doSth(){
+	console.log("nesto sam uradio");
+	return true;
+}
+
+//function checkValidity(){
+	
+//}
+
+function checkIfFormIsValid(){
+	var valid = true; 
+	$("#form-edit-profile :input").not("button").each(function(){
+		
+		var input = $(this); // This is the jquery object of the input, do what you will
+		 console.log(input);
+		 if($(input).val().trim() == ''){
+		        // prikazi gresku
+				console.log("ne moze " + input.name);
+				$(input).siblings(".error-message").show();
+				valid = false;
+		 }
+		 else {
+			 $(input).siblings(".error-message").hide();
+		 }
+		 console.log(valid);
+		 //return valid;
+		 });
+	return valid;
+	
+}
+
+function checkIfValid(input){
+	console.log(input);
+	var val = input.val();
+	console.log(val);
+	if($(input).val().trim() == ''){
+        // prikazi gresku
+		console.log("ne moze " + input.name);
+		return false;
+    }
+	else {
+		//sakrij poruku greske
+	}
+}
+
+function checkInput(input){
+	if($(input).val().trim() == ''){
+        // prikazi gresku
+		console.log("ne moze " + input.name);
+		$(input).siblings(".error-message").show();
+		fail = false;
+ }
+ else {
+	 $(input).siblings(".error-message").hide();
+ }
 }
