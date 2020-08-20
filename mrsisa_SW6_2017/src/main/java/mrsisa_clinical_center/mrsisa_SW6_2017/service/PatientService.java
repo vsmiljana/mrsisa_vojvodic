@@ -14,4 +14,6 @@ public interface PatientService {
 
 	public void updatePatient(String email, String firstName, String lastName, String address, String city,
 			String country, String phoneNumber);
+
+	public void setNewPassword(Long id, String newPassword);
 }

@@ -35,6 +35,7 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.dto.ExaminationReportDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.LoginUserDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.MedicalRecordDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.MedicationDto;
+import mrsisa_clinical_center.mrsisa_SW6_2017.dto.PasswordChangeDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.PastAppointmentDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.RatingDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.RegisterUserDto;
@@ -246,6 +247,29 @@ public class PatientController {
 		patientService.updatePatient(patient.getEmail(), firstName, lastName, address, city, country, phoneNumber);
 		//System.out.println("ima apojentmentova: " + patient.getAppointments().size());
 		return;
+		///return clinics;
+	}
+	
+	@PutMapping("/changePassword")
+	public String changePassword(@RequestBody PasswordChangeDto passwordChange) {	// ili da ne bude void
+		
+		if (session.getAttribute("currentUser") == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+		}
+		Patient patient = (Patient) session.getAttribute("currentUser");
+	
+		String oldPassword = passwordChange.getOldPassword();
+		System.out.println("*\n*\n*\n" + oldPassword + " " + patient.getPassword());
+		if (!oldPassword.equals(patient.getPassword())) {
+			//return "Incorrect old password";
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad request!");
+			
+		}
+		String newPassword = passwordChange.getNewPassword();
+		
+		patientService.setNewPassword(patient.getId(), newPassword);
+		
+		return "";
 		///return clinics;
 	}
 	

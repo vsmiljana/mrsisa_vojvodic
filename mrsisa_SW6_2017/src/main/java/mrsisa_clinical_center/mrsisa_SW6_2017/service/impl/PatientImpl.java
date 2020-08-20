@@ -43,4 +43,10 @@ public class PatientImpl implements PatientService {
 		
 	}
 
+	@Override
+	public void setNewPassword(Long id, String newPassword) {
+		rep.setNewPassword(id, newPassword);
+		
+	}
+
 }
