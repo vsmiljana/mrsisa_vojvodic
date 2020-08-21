@@ -7,10 +7,20 @@ function searchAppointments(){
 	var apptType = $('#selectAppointments').find(":selected").text();
 	//console.log("Appointment Type: "  + apptType);
 	if (apptType === "Choose..."){
+		alert("Please choose type of appointment")
 		apptType = null;
+		return;
 	}
 	console.log(apptType);
 	var date = new Date($('#dateAppointment').val());
+	date.setHours(23);
+	date.setMinutes(59);
+	
+	var today = new Date();
+	
+	if (date <= today){
+		alert("Samo da bih imala u istoriji")
+	}
 	
 	console.log(date);
 	var dateToSend = date.getTime();
