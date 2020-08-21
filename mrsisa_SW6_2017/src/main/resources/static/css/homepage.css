@@ -120,6 +120,13 @@ background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(145,145,216,1) 35%, rg
   
   }
   
+  .card-misc{
+    width: 750px; 
+  	margin: 0 auto; 
+  	margin-top:30px; 
+  
+  }
+  
   .cardy{
   	vertical-align: middle;
   	/*box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.5)*/

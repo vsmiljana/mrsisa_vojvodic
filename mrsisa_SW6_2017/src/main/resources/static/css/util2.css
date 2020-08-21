@@ -1,0 +1,7 @@
+.boxy{
+	border: solid rgba(120, 192, 499, 0.5);
+	border-radius: 15px;
+	/*box-shadow: 5px 10px #888888;*/
+	padding: 10px;
+	margin-top: 50px;
+}
