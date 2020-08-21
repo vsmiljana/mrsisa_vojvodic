@@ -143,6 +143,7 @@ public class PatientController {
 	public List<ClinicDto> getClinics() {
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
+			//throw new ResponseStatusException()
 		}
 		
 		List<ClinicDto> clinicsDto = new ArrayList<ClinicDto>();
@@ -262,7 +263,7 @@ public class PatientController {
 		System.out.println("*\n*\n*\n" + oldPassword + " " + patient.getPassword());
 		if (!oldPassword.equals(patient.getPassword())) {
 			//return "Incorrect old password";
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad request!");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect current password!");
 			
 		}
 		String newPassword = passwordChange.getNewPassword();

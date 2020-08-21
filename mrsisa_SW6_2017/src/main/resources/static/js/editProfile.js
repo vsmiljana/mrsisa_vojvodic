@@ -173,8 +173,8 @@ console.log("mamaaaaaaaaaaaaaaaaaaaaaaa");
             </div>
           </div>
       
-			<button  class="btn btn-primary" style="margin: 0 auto;" onclick="cancelChanges()">Cancel</button>
-        <button  class="btn btn-primary" style="margin: 0 auto;" onclick="checkChanges111()">Save changes</button>
+			<button  type="button" class="btn btn-primary" style="margin: 0 auto;" onclick="cancelChanges()">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="margin: 0 auto;" onclick="checkChanges111()">Save changes</button>
       </form>
     </div>`);
 	
@@ -351,8 +351,10 @@ $("#input-new-password2").focusout(function(){
 			Re-entered password must match new password.
 			</div>
         </div>
-		<button  class="btn btn-primary" style="margin: 0 auto;" onclick="cancelChanges()">Cancel</button>
-        <button  class="btn btn-primary" style="margin: 0 auto;" onclick="checkPasswordChange()">Change password</button>
+		<div id="wrongPassword" style="display: none;"><p style=" color: red; font-weight:bold; font-size: 16px; ">The old password you entered is incorrect!</p></div>
+        
+		<button  type="button" class="btn btn-primary" style="margin: 0 auto;" onclick="cancelChanges()">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="margin: 0 auto;" onclick="checkPasswordChange()">Change password</button>
       </form>
     </div>
 	
@@ -384,7 +386,11 @@ function submitPasswordChange(){
 		contentType: "application/json",
 		data: passwordChangeStr,
 		error: function (response) {
-			alert("Oops..." + response)
+			console.log(response.responseJSON.message);
+			if (response.responseJSON.message === "Incorrect current password!") {
+				failedPasswordChange();	
+			}
+			//alert("Oops..." + response)
 			
 		},
 		success : function (data) {
@@ -435,6 +441,10 @@ function  checkInputReEnteredPassword(){
 	}
 }
 
+
+function failedPasswordChange(){
+	$("#wrongPassword").show();
+}	
 
 //https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR-czVNHm8tMBuKTNTTy9-aLF3YmZq8f2rC_A&usqp=CAU
 //https://assets.dryicons.com/uploads/icon/svg/5586/3f459e73-a14f-4a49-8622-d1de841f41ca.svg

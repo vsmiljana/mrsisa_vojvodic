@@ -5,3 +5,14 @@
 	padding: 10px;
 	margin-top: 50px;
 }
+
+#wrongPassword {
+	color: red !important;
+	font-size: 15px !important;
+	margin: 10px;
+}
+
+#wrongPassword.p {
+	color: red !important;
+	font-size: 15px !important;
+}
