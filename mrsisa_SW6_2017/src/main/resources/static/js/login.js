@@ -20,9 +20,8 @@ function login() {
 		//dataType: "json",
 		
 		error: function (response) {
-            errorValue = response.responseText;
-            console.log("error");
-            alert("nema");
+            var errorMessage = response.responseJSON.message;
+            showError(errorMessage);
 		},
 		success : function (data) {
 			//d = JSON.parse(data.responseText);
@@ -33,4 +32,10 @@ function login() {
 		}
 		
 	}); 
+}
+
+
+function showError(message){
+	$("#p-error-text").text(message);
+	$("#div-incorrect-combo").show()
 }

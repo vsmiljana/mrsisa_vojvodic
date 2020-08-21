@@ -97,7 +97,7 @@ public class PatientController {
 	public void login(@RequestBody LoginUserDto userDto) throws Exception {
 		Patient patient = patientService.findOneByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
 		if (patient == null) {
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid email and password combination.");
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid username or password!");
 		}
 		session.setAttribute("currentUser", patient);
 	}
