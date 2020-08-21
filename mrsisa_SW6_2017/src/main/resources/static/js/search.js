@@ -7,9 +7,13 @@ function searchAppointments(){
 	var apptType = $('#selectAppointments').find(":selected").text();
 	//console.log("Appointment Type: "  + apptType);
 	if (apptType === "Choose..."){
-		alert("Please choose type of appointment")
+		//alert("Please choose type of appointment")
 		apptType = null;
+		$("#search-appts-err").show();
 		return;
+	}
+	else {
+		$("#search-appts-err").hide();
 	}
 	console.log(apptType);
 	var date = new Date($('#dateAppointment').val());
