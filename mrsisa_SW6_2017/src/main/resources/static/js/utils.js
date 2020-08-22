@@ -11,7 +11,7 @@ function checkRegLoad(){
 		},
 		success : function (data) {
 			
-			window.location.replace("/");
+			window.location.replace("/homepage.html");
 		}
 		
 	}); 

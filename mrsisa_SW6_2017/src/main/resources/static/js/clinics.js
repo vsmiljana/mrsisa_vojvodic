@@ -7,7 +7,7 @@ function getClinics(){
 		//dataType: "json",
 		
 		error: function (response) {
-			window.location.replace("/login.html");
+			window.location.replace("/");
 		},
 		success : function (data) {
 			//d = JSON.parse(data.responseText);
@@ -156,11 +156,11 @@ function setUpClinicInfo(clinic){
 	var panel = $("#panel");
 	var price = clinic.price;
 	if (price != null && price != 0){
-		panel.append(`<div id="clinicInfoDiv" data-price=${price} style="margin: 0 auto; width: 500px;">${clinic.name}, address: ${clinic.address}, price: ${price}
+		panel.append(`<div id="clinicInfoDiv" data-price=${price} style="margin-left: 150px; margin-top: 20px;"><h5>${clinic.name} (${clinic.address}), appointment price: ${price} </h5>
 		<p id="appointmentPrice" style="display: none">${price}</p></div>`);
 	}
 	else {
-		panel.append(`<div id="clinicInfoDiv" style="margin: 0 auto; width: 500px;">${clinic.name}, address: ${clinic.address}</div>`);
+		panel.append(`<div id="clinicInfoDiv" style="margin-left: 150px; margin-top: 20px;"><h5>Displaying doctors of ${clinic.name} (${clinic.address})</h5></div>`);
 
 	}
 
@@ -176,7 +176,12 @@ function setUpDoctorsRegular(doctors){
 	
 	var panel = $("#panel");
 	
-	// dodati rating
+	
+	if (doctors.length == 0){
+		makeSorryDiv("There are no doctors available for display for this clinic.");
+	}
+	
+	
 	for (doctor of doctors){
 	
 		var rating = doctor.rating;
@@ -273,7 +278,7 @@ function setUpClinicsAppointments(appts){			// predefined
                     data-whatever = ${appointment.appointmentName}
                    data-date = ${date} data-appointmentType = '${appointment.appointmentName}' data-price = ${appointment.price}
                    data-time = ${timeStart} data-doctor = '${appointment.doctor}'
-                   href="#modalAppt">Schedulee<a/>
+                   href="#modalAppt">Schedule<a/>
                 
               <!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
 					-->

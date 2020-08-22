@@ -39,3 +39,19 @@ function showError(message){
 	$("#p-error-text").text(message);
 	$("#div-incorrect-combo").show()
 }
+
+function checkIfLogged(){
+	$.ajax({
+		url: "/usr/checkIfUserLogged",
+		type: "GET",
+		contentType: "application/json",
+		
+		error: function (response) {
+			window.location.replace("/homepage.html");
+		},
+		success : function (data) {
+		//	window.location.replace("/homepage.html");
+		}
+		
+	}); 
+}

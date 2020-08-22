@@ -9,7 +9,7 @@ function setUpPatient(data){
 			//dataType: "json",
 			
 			error: function (response) {
-				window.location.replace("/login.html");
+				window.location.replace("/");
 			},
 			success : function (data) {
 				//d = JSON.parse(data.responseText);

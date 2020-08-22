@@ -125,6 +125,16 @@ public class PatientController {
 		
 	}
 	
+	
+	@GetMapping("/checkIfUserLogged")
+	public void checkIfLogged2() {
+		if (session.getAttribute("currentUser") != null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Logged in!");
+		}
+
+	}
+	
+	
 	@GetMapping("/checkIfLogged")
 	public LoginUserDto checkIfLogged() {
 		if (session.getAttribute("currentUser") == null) {

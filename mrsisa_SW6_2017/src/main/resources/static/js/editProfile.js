@@ -205,7 +205,7 @@ function checkChanges111(){
 }
 
 function submitChanges(){
-	alert("sve je ok, moze izmjena");
+	//alert("sve je ok, moze izmjena");
 	// proveriti jel sve ok
 	// na beku provjeriti ejl email taj email koji mijenjam... preko postmana npr mogu svasta da napravim ako ne validiram
 	// na beku
@@ -236,7 +236,7 @@ function submitChanges(){
 		success : function (data) {
 		//d = JSON.parse(data.responseText);
 //			$("body").show();
-			alert("izmenio si");
+			//alert("izmenio si");
 			setupProfile();
 		}
 		

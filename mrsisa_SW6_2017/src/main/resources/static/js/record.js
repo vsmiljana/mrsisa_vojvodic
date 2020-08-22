@@ -10,12 +10,9 @@ function getRecord(){
             console.log("greska");
 		},
 		success : function (data) {
-			if (data == null || data === "") {
-				showEmptyRecord();
-			}
-			else {
-				showRecord(data);
-			}
+			
+			showRecord(data);
+			
 		}
 		
 	}); 
@@ -35,6 +32,11 @@ function showRecord(record){
 		$("#searchDoctorsAdvanced").hide();
 		$("#searchDiv").hide();
 	
+	
+	if (record == null || record === "") {
+			showEmptyRecord();
+			return;
+		}
 	
 	//$("#panel").append(`<div><h1>Medical record</h1></div>`);
 	var i = 0;
@@ -163,10 +165,16 @@ function showRecord(record){
 }
 
 function showEmptyRecord(){
-	$('#searchDiv').hide();		
-	$('#panel').children().not('#navbarId, #searchDiv').remove(); 		
-	$("#panel").append(`<div><h1>Your medical record has not been set up yet!</h1><h2> Because i have no clinic administrator (he does this)
-	and you probably just registered so understand me :( </h2></div>`);
+	//https://cdn.iconscout.com/icon/premium/png-512-thumb/empty-folder-1519007-1284948.png
+	//$("#panel").append(`<div><h1>Your medical record has not been set up yet!</h1><h2> Because i have no clinic administrator (he does this)
+	//and you probably just registered so understand me :( </h2></div>`);
+	$("#panel").append(`<div class="card card-appointment">
+		          <div class="row cardy">
+		           <div class="apt-img-div"><img class="apt-img" 
+		           src="https://cdn.iconscout.com/icon/premium/png-512-thumb/empty-folder-1519007-1284948.png"; 
+		           alt="" width="150px;"></div> 
+		            <h4 style="padding-top: 70px; padding-left: 30px; width: 550px;">We're sorry, but your medical record hasn't been set up yet!</h4> 
+		   </div></div>`)
 }
 
 

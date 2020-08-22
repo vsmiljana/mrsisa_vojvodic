@@ -23,7 +23,7 @@ function searchAppointments(){
 	var today = new Date();
 	
 	if (date <= today){
-		alert("Samo da bih imala u istoriji")
+		//alert("Samo da bih imala u istoriji")
 	}
 	
 	console.log(date);
@@ -88,8 +88,9 @@ function setupHead(appt){
 	//$("#searchClinicsAdvanced").hide();
 	var dateStr = setupDate(appt.dateLong);
 	var name = appt.appointmentName;
-	panel.append(`<div id="apptInfo" data-appointment-name='${name}' data-appointment-date=${dateStr} style="width: 600px; margin: 0 auto;"><h5>Search results for ${name} on ${dateStr}</h5>
-	<p id="appointmentName" style="display: none">${name}</p><p id="appointmentDate" style="display: none">${dateStr}</p>
+	panel.append(`<div id="apptInfo" data-appointment-name='${name}' data-appointment-date=${dateStr} style="margin-left: 150px; margin-top: 20px;">
+	<h5>Search results for <span class="highlight-text">${name}</span> on <span class="highlight-text">${dateStr}</span>:</h5>
+	
 	</div>`);
 }
 
@@ -139,6 +140,12 @@ function displayDoctors(doctors) {
 	
 	var panel = $("#panel");
 	var i = 0;
+	
+	if (doctors.length == 0) {
+		makeSorryDiv("Sorry! No doctors found.");
+		return;
+	}
+	
 	for (doctor of doctors){
 		i = i + 1;
 		var divId = "doctor" + i;
@@ -214,6 +221,10 @@ function displayDoctors(doctors) {
 
 
 
+function makeSorryDiv(message){
+	$("#panel").append(`<div class="reg-inf-display" style="color:gray"><h5>${message}</h5></div>`);	
+}
+
 
 function displayClinics(clinics, searchParams){ 		// i need search params for when i click on display doctors
 	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
@@ -223,6 +234,10 @@ function displayClinics(clinics, searchParams){ 		// i need search params for wh
 	$("#searchDoctorsAdvanced").hide();
 	
 	var panel = $("#panel");
+	
+	if (clinic.lenght == 0){
+		makeSorryDiv("Sorry! 0 search results found!");
+	}
 	
 	for (clinic of clinics){
 		var info = {"clinic": clinic, "searchParams": searchParams};
@@ -274,7 +289,9 @@ function displayClinics(clinics, searchParams){ 		// i need search params for wh
 
 function setUpDoctorDisplay(id, name, address, price, appointmentName, date){
 	
-	
+	//setUpClinicInfo(data.clinic);
+	//setUpSearch(data.clinic.appointmentNames, data.clinic.id);
+	//setUpDoctorsRegular(data.doctors);
 	
 	console.log("setUpDoctorDisplay");
 	console.log(id);

@@ -22,3 +22,14 @@
 	color: red !important;
 	font-size: 15px !important;
 }
+
+.highlight-text{
+	color: #493173;
+	/*color:#220b2e;*/
+}
+
+.reg-inf-display{
+	margin-left: 150px; 
+	margin-top: 20px;
+	color: gray;
+}
