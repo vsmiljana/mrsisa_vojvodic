@@ -79,6 +79,8 @@ function showRecord(record){
 	}
 	else {
 		$("#panel").append(`<div><h2>You have no past appointments</h2></div>`);
+		addSomeSpace();
+		return;
 	}
 	for (appointment of record.pastAppointments) {
 		i = i + 1;
@@ -122,6 +124,7 @@ function showRecord(record){
 			doctorRate = "<p>You rated this doctor with " + appointment.hisDoctorRating + "<i class='fas fa-star'></i></p>";
 			
 		}
+		var timeStr = setupTime(appointment.start);
 		//$("#panel").append(`<div id=divAppt${i}><h3>${appointment.appointmentName} ${date}</h3>
 		//<button onclick="getReportOnAppointment('${idd}', ${appointment.id})">Show details</button></div>`);
 		$("#panel").append(`<div class="card card-appointment" id=divAppt${i}>
@@ -135,7 +138,7 @@ function showRecord(record){
 		                    <div style="display: inline-block; max-width: 200px;">
 		                   <p>AppointmentType: ${appointment.appointmentName}</p>
 		                   <p>Date: ${date}</p>
-		                   <p>Time: ${appointment.start}</p>
+		                   <p>Time: ${timeStr}</p>
 		                   <p>Doctor: ${appointment.doctorDto.firstName} + ${appointment.doctorDto.lastName}</p>
 		                  <p>Doctor Rating: ${doctorRatingText} <i class="fas fa-star"></i> (${appointment.doctorDto.votes} votes)</p>    
 		                 
@@ -162,6 +165,7 @@ function showRecord(record){
 		    </div> 
 		    </div></div></div></div>`);
 	}
+	addSomeSpace();
 }
 
 function showEmptyRecord(){
@@ -174,7 +178,8 @@ function showEmptyRecord(){
 		           src="https://cdn.iconscout.com/icon/premium/png-512-thumb/empty-folder-1519007-1284948.png"; 
 		           alt="" width="150px;"></div> 
 		            <h4 style="padding-top: 70px; padding-left: 30px; width: 550px;">We're sorry, but your medical record hasn't been set up yet!</h4> 
-		   </div></div>`)
+		   </div></div>`);
+	addSomeSpace();
 }
 
 
@@ -208,7 +213,7 @@ function showExaminationReport(divId, examinationReport){
 	}
 	else {
 		if (examinationReport == null || examinationReport === ""){
-			myDiv.append(`<div class="details"><h2>Nema ovde niceg lmaoooo</h2></div>`);	
+			myDiv.append(`<div class="details"><h4>Examination report for this examination hasn't been set up yet!</h4></div>`);	
 		}
 		else {	// staviti gore neku liniju nesto
 			var diagnoses = "Diagnoses: ";
@@ -233,7 +238,7 @@ function showExaminationReport(divId, examinationReport){
 	//console.log(examinationReport);
 	
 	
-	$("#" + divId).find("button.examDetails").css("background-color", "red" );
+	$("#" + divId).find("button.examDetails").css("background-color", "purple" );
 	$("#" + divId).find("button.examDetails").attr("onclick", "hideExaminationReport(" + "'" + nesto + "'" + ")");
 	$("#" + divId).find("button.examDetails").text("Hide details");
 }

@@ -216,6 +216,7 @@ function displayDoctors(doctors) {
 			}));
 		}
 	}
+	addSomeSpace();
 	
 }
 
@@ -223,6 +224,7 @@ function displayDoctors(doctors) {
 
 function makeSorryDiv(message){
 	$("#panel").append(`<div class="reg-inf-display" style="color:gray"><h5>${message}</h5></div>`);	
+	addSomeSpace();
 }
 
 
@@ -281,6 +283,8 @@ function displayClinics(clinics, searchParams){ 		// i need search params for wh
 				    </div></div></div></div>`);
 		
 	}
+	
+	addSomeSpace();
 	
 	
 }

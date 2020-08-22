@@ -80,6 +80,7 @@ function displayUserProfileHome(user){
 		 $("#a-edit-inf").attr("href", "javascript:displayEditInformation('" + user.email + "','"+  user.firstName +"','"  +
 				 user.lastName+ "','" + user.ssn + "','" + user.address + "','" + user.city + "','" + user.country
 				 + "','"+ user.phoneNumber + "')");
+		 addSomeSpace();
 
 	}
 
@@ -178,6 +179,8 @@ console.log("mamaaaaaaaaaaaaaaaaaaaaaaa");
       </form>
     </div>`);
 	
+	addSomeSpace();
+	
 }
 
 
@@ -187,6 +190,7 @@ function cancelChanges(){
 	//$("#edit-info-div").hide(); 	// bolje remove
 	//$("#change-password-div").hide();
 	$("#general-info-div").show();
+	addSomeSpace();
 }
 
 
@@ -359,6 +363,7 @@ $("#input-new-password2").focusout(function(){
     </div>
 	
 	`);
+	addSomeSpace();
 	
 }
 

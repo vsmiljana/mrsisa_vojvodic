@@ -113,6 +113,7 @@ function setUpClinics(clinics){
            
     </div></div></div></div>`);
 	}
+	addSomeSpace();
 }
 
 
@@ -179,6 +180,8 @@ function setUpDoctorsRegular(doctors){
 	
 	if (doctors.length == 0){
 		makeSorryDiv("There are no doctors available for display for this clinic.");
+		addSomeSpace();
+		return;
 	}
 	
 	
@@ -209,6 +212,7 @@ function setUpDoctorsRegular(doctors){
      </div> 
     </div></div></div></div>`);
 	}
+	addSomeSpace();
 }
 
 
@@ -288,6 +292,7 @@ function setUpClinicsAppointments(appts){			// predefined
   </div> 
   </div></div></div></div>`);
 	}
+	addSomeSpace();
 	
 }
 

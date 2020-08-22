@@ -107,3 +107,7 @@ function timeToMins(timeString){
 	var res = hours*60 + minutes;
 	return res;
 }
+
+function addSomeSpace(){
+	$("#panel").append(`<div style="height: 30px;"></div>`);
+}

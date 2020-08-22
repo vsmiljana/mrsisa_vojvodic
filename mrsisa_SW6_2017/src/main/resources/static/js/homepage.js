@@ -64,6 +64,7 @@ function setUpAppointments(data){
 		//panel.append(`<div>${appointment.appointmentName}</div>`);
 		//console.log(appointment);
 	}
+	addSomeSpace();
 	
 }
 
