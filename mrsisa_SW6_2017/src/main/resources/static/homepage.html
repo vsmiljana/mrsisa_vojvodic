@@ -279,14 +279,15 @@ $(document).ready(function() {
       
       
       
-       <div style="width: 500px; margin: 0 auto; display: none" id="searchClinics">
+       <div style="width: 700px; margin: 0 auto; display: none" id="searchClinics">
         <form class="form-inline" onsubmit="event.preventDefault();">  
           <div class="form-group mx-sm-3 mb-2 input-group-sm">
             <input type="text" class="form-control" id="searchClinicsAllInput" placeholder="Search clinics...">
           </div>
           <button onclick="searchClinicsAll()" class="btn btn-primary  mb-2 btn-sm">Search</button>
          <div class="form-group mx-sm-3 mb-2 input-group-sm">
-         <a href="javascript:showAdvancedSearch()" id="toggleAdvancedClinicSearch">Advanced Search</a>
+         <a href="javascript:clearRegularClinicSearch()" style="margin-right: 20px">Clear search</a>
+          <a href="javascript:showAdvancedSearch()" id="toggleAdvancedClinicSearch">Advanced Search</a>
          </div>
         </form>
       </div>
@@ -322,14 +323,15 @@ $(document).ready(function() {
       </div>
       
       
-      <div style="width: 500px; margin: 0 auto; display: none" id="searchDoctors">
+      <div style="width: 700px; margin: 0 auto; display: none" id="searchDoctors">
         <form class="form-inline" onsubmit="event.preventDefault();">  
           <div class="form-group mx-sm-3 mb-2 input-group-sm">
             <input type="text" class="form-control" id="searchDoctorsAllInput" placeholder="Search doctors...">
           </div>
           <button onclick="searchDoctorsAll()" class="btn btn-primary  mb-2 btn-sm">Search</button>
          <div class="form-group mx-sm-3 mb-2 input-group-sm">
-         <a href="javascript:showAdvancedDoctorSearch()" id="toggleAdvancedDoctorSearch">Advanced Search</a>
+          <a href="javascript:clearRegularDoctorSearch()" style="margin-right: 20px">Clear search</a>
+         <a href="javascript:showAdvancedDoctorSearch()" id="toggleAdvancedDoctorSearch">Show advanced dr search</a>
          </div>
         </form>
       </div>
@@ -364,7 +366,7 @@ $(document).ready(function() {
         </form>
       </div>
 
-      <div class="boxy" style="width: 750px; margin: 0 auto; display: none" id="searchDiv">
+      <div class="boxy" style="width: 800px; margin: 0 auto; display: none" id="searchDiv">
       <p style="color: gray">If you want to make an appointment, please enter appointment type and date and click Find!
       You will be displayed a list of clinics/doctors that match your search.</p>
       <form class="form-inline" id="searchApptsForm" onsubmit="event.preventDefault();">

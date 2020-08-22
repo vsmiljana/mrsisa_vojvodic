@@ -361,16 +361,49 @@ function searchClinicsFromForm() {
 	
 }
 
+function searchDoctorsFromForm() {
+	var inputFirstName = $("#firstNameInput").val().toUpperCase();
+	var inputLastName = $("#lastNameInput").val().toUpperCase();
+	var inputRating = $("#doctorRatingSelect").find(":selected").val();
+	//var input = $("#clinicNameInput").val();
+
+	var divs = $("div.doctor");
+    console.log(divs);
+    for (div1 of divs){
+        var firstName = $(div1).data('first-name').toUpperCase();
+        var lastName = $(div1).data('last-name').toUpperCase();
+        var rating = $(div1).data('rating');
+        if (!firstName.includes(inputFirstName)){
+            $(div1).hide();
+            continue;
+        }
+        if (!lastName.includes(inputLastName)){
+            $(div1).hide();
+            continue;
+        }
+        if (rating < inputRating && rating != 0){
+        	$(div1).hide();
+        	continue;
+        }
+        
+        else {
+        	 $(div1).show();
+        }
+    }
+	
+}
+
+
 function showAdvancedDoctorSearch(){
 	$("#searchDoctorsAdvanced").show();
 	$("#toggleAdvancedDoctorSearch").attr("href", "javascript:hideAdvancedDoctorSearch()");
-	$("#toggleAdvancedDoctorSearch").html("Hide advanced search");
+	$("#toggleAdvancedDoctorSearch").html("Hide advanced dr search");
 }
 
 function hideAdvancedDoctorSearch(){
 	$("#searchDoctorsAdvanced").hide();
 	$("#toggleAdvancedDoctorSearch").attr("href", "javascript:showAdvancedDoctorSearch()");
-	$("#toggleAdvancedDoctorSearch").html("Show advanced search");
+	$("#toggleAdvancedDoctorSearch").html("Show advanced dr search");
 }
 
 
@@ -415,6 +448,29 @@ function searchClinicsAll(){
     }
 }
 
+function searchDoctorsAll(){
+	var input = $("#searchDoctorsAllInput").val().toUpperCase();
+	var divs = $("div.doctor");
+    console.log(divs);
+    for (div1 of divs){
+        var firstName = $(div1).data('first-name').toUpperCase();
+        var lastName = $(div1).data('last-name').toUpperCase();
+        var rating = $(div1).data('rating').toString();
+       
+        if (firstName.includes(input) || lastName.includes(input) ||rating.includes(input)){
+        	//$( "div:contains('" + input + "')" ).css( "text-decoration", "underline" );
+        	//var elements = $(div1).find("p:contains(" + input + ")").css("background-color", "yellow");
+        	//var elements1 = $(div1).find("p:contains(" + input + ")");
+        	//console.log(elements1);
+        	//highlight(elements1, input)
+        	$(div1).show();
+        }
+        else {
+        	 $(div1).hide();
+        }
+    }
+}
+
 function clearAdvancedSearch(){
 	$("#clinicNameInput").val("");
 	var inputAddress = $("#clinicAddressInput").val("");
@@ -427,6 +483,30 @@ function clearAdvancedSearch(){
 	
 	console.log("hoces li " + inputRating2);
 	searchClinicsFromForm();
+}
+
+function clearAdvancedDoctorSearch(){
+	$("#firstNameInput").val("");
+	$("#lastNameInput").val("");
+	//var inputRating = $("#clinicRatingSelect").find(":selected").val();
+	$('#doctorRatingSelect select').val(1);
+	
+	$('#doctorRatingSelect option[value=1]').attr('selected','selected');
+	$('#doctorRatingSelect option[value=1]').prop('selected', true);
+	var inputRating2 = $("#doctorRatingSelect").find(":selected").val();
+	
+	console.log("hoces li " + inputRating2);
+	searchDoctorsFromForm();
+}
+
+function clearRegularDoctorSearch(){
+	$("#searchDoctorsAllInput").val("");
+	$("div.doctor").show();
+}
+
+function clearRegularClinicSearch(){
+	$("#searchDoctorsAllInput").val("");
+	$("div.clinic").show();
 }
 
 

@@ -17,4 +17,6 @@ public interface DoctorService {
 
 	Doctor findById(Long long1);
 
+	Doctor findOneByEmailOrSocialSecurityNumber(String email, String ssn);
+
 }

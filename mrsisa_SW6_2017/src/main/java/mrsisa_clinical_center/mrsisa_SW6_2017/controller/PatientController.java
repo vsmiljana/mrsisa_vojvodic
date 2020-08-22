@@ -112,7 +112,8 @@ public class PatientController {
 		}
 		
 		Patient patient = patientService.findOneByEmailOrSocialSecurityNumber(userDto.getEmail(), userDto.getSsn());
-		if (patient != null) {
+		Doctor doctor = doctorService.findOneByEmailOrSocialSecurityNumber(userDto.getEmail(), userDto.getSsn());
+		if (patient != null || doctor != null) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email or Social Security Number not unique.");
 		}
 		Long id = (long) (Math.random() * 1000);
@@ -292,7 +293,7 @@ public class PatientController {
 		
 		for (Appointment a: c.getAppointments()) {
 			if (a.getPatient() == null) {	// i ako je datum poslije danas
-				appointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
+				appointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + " " + a.getDoctor().getLastName(),
 						a.getAppointmentType().getName(), a.getAppointmentType().getPrice(), a.getClinic().getName(), 
 						a.getClinic().getAddress()));
 			}
@@ -327,7 +328,7 @@ public class PatientController {
 			Long dateLong = a.getDate().getTime();
 			System.out.println(a.getDate());
 			if (a.getPatient() == null) {
-				appointments.add(new AppointmentDto(a.getId(), dateLong, a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
+				appointments.add(new AppointmentDto(a.getId(), dateLong, a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + " " + a.getDoctor().getLastName(),
 						a.getAppointmentType().getName(), a.getAppointmentType().getPrice(), a.getClinic().getName(), 
 						a.getClinic().getAddress()));
 			}
@@ -467,9 +468,11 @@ public class PatientController {
 			
 			Date today0 = new Date();
 			System.out.println(a.getDate());
-			if (a.getDate().after(now)) {
+			Date apptExactTime = formatTimeDateMins(a.getDate(), a.getStart());
+			//System.out.println(now +  " to je sad, a formatirano je: " + apptExactTime);
+			if (apptExactTime.after(now)) {
 				//if (a.getEnd() > today0.getMinutes()) {
-				upcomingAppointments.add(new AppointmentDto(a.getId(), dateLong, a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
+				upcomingAppointments.add(new AppointmentDto(a.getId(), dateLong, a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + " " + a.getDoctor().getLastName(),
 						a.getAppointmentType().getName(), a.getAppointmentType().getPrice(), a.getClinic().getName(), 
 						a.getClinic().getAddress()));
 				//	}
@@ -484,6 +487,18 @@ public class PatientController {
 	}
 	
 	
+	private Date formatTimeDateMins(Date date, Integer start) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, start/60);
+		cal.set(Calendar.MINUTE, start%60);
+		cal.set(Calendar.SECOND,0);
+		cal.set(Calendar.MILLISECOND,0);
+		return cal.getTime();	
+	}
+
+
+
 	@PostMapping("/logOut")
 	public void logOut() {	// ili da ne bude void
 		if (session.getAttribute("currentUser") == null) {

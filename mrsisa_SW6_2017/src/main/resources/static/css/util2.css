@@ -6,6 +6,12 @@
 	margin-top: 50px;
 }
 
+
+.col-info-card {
+	width: 250px;
+	display: inline-block;
+}
+
 #wrongPassword {
 	color: red !important;
 	font-size: 15px !important;

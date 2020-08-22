@@ -52,8 +52,8 @@ public class DoctorImpl implements DoctorService {
 			starts.addAll(fitAppointments(timeStart, timeEnd, duration, pause));
 			
 			if (appointments.get(i).getPatient() == null) {		// if patient is null, the appointment is predefined and free
-				starts.add(new AppointmentTimeDto((long)(appointments.get(i).getStart()),
-						(long)(appointments.get(i).getEnd())));	// so this is a valid start of appointment and will be returned
+				//starts.add(new AppointmentTimeDto((long)(appointments.get(i).getStart()),  //not to mix predefined with regulars
+				//		(long)(appointments.get(i).getEnd())));	// so this is a valid start of appointment and will be returned
 			}
 		
 			timeStart = appointments.get(i).getEnd() + pause;
@@ -79,14 +79,20 @@ public class DoctorImpl implements DoctorService {
 
 	@Override
 	public List<Doctor> findAllByClinicId(Long id) {
-		// TODO Auto-generated method stub
+		
 		return rep.findAllByClinicId(id);
 	}
 
 	@Override
 	public Doctor findById(Long doctorId) {
-		// TODO Auto-generated method stub
+		
 		return rep.findOneById(doctorId);
+	}
+
+	@Override
+	public Doctor findOneByEmailOrSocialSecurityNumber(String email, String ssn) {
+		
+		return rep.findOneByEmailOrSocialSecurityNumber(email, ssn);
 	}
 	
 }

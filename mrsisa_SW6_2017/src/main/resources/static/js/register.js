@@ -244,14 +244,18 @@ function register() {
 		url: "/usr/register",
 		type: "POST",
 		data: personjson,
-		headers: {"Authorization": "Basic xxxx"},
 		contentType: "application/json",
 		//dataType: "json",
 		
 		error: function (response) {
             errorValue = response.responseText;
+            console.log(response.responseJSON.status);
             console.log("error");
-            alert("vec postoji neko sa tim ssn ili emailom");
+            if (response.responseJSON.status == 400){
+            	failedRegisterNotUnique(response.responseJSON.message);
+            }
+            else {
+            }
 		},
 		success : function (data) {
 			//d = JSON.parse(data.responseText);
@@ -264,3 +268,8 @@ function register() {
 	}); 
 }
 
+
+function failedRegisterNotUnique(message){
+	$("#p-error-text").text(message);
+	$("#div-incorrect-combo").show();
+}

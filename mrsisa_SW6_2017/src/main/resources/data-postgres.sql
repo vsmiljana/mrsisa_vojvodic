@@ -203,6 +203,10 @@ UPDATE public.patient SET medical_record_id=100 WHERE id=1000;
 UPDATE public.patient SET medical_record_id=101 WHERE id=33;
 
 
+/*INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (1000, TO_DATE('22/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, 1000);
+*/
 --INSERT INTO public.rating(id, duration, clinic_id, doctor_id, patient_id) VALUES (1, ?, ?, ?, ?);
 /*INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (1, 10, null, 1000, 4);
 INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (2, 11, null, 1000, 4);
