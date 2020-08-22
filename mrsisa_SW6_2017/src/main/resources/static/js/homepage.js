@@ -18,6 +18,7 @@ function setUpPatient(data){
 				//alert("ima");
 				$("body").show();
 				setUpAppointments(data);
+				setupDateForSearch();
 				
 			}
 			
@@ -64,4 +65,28 @@ function setUpAppointments(data){
 		//console.log(appointment);
 	}
 	
+}
+
+function setupDateForSearch(){
+	  var inputDateObject = document.getElementById("dateAppointment");
+	  //inputDateObject.min = "2020-22-08";
+	  var today = new Date();
+	  var year = today.getFullYear();
+	  var month = today.getMonth() + 1;
+	  var day = today.getDate();
+	  console.log(year + " " + month  + " " + day)
+	  var monthStr = month;
+	  var dayStr = day;
+	  if (month < 10) {
+		  monthStr = "0" + month;
+	  }
+	  if (day < 10){
+		  dayStr = "0" + day;
+	  }
+	  var dateStr = year + "-" + monthStr + "-" + dayStr;
+	  dateStr = dateStr.toString();
+	  console.log(dateStr);
+	  document.getElementById("dateAppointment").min = dateStr;
+	  document.getElementById("dateAppointment").value = dateStr;
+	  //document.getElementById("dateAppointment").min = "2020-08-22";
 }
