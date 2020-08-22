@@ -87,6 +87,11 @@ function setUpClinics(clinics){
 			ratingText = "-";
 			rating = 0;
 		}
+		var appointmentsStrings = "We provide the following appointments: ";
+		for (as of clinic.appointmentNames){
+			appointmentsStrings += as + ", ";
+		}
+		appointmentsStrings = appointmentsStrings.substring(0, appointmentsStrings.length-2)
 		
 		panel.append(`<div class="card card-appointment clinic" data-name='${clinic.name}' data-address='${clinic.address}'
           data-city='${clinic.city}' data-country='${clinic.country}' data-rating=${rating}>
@@ -95,24 +100,17 @@ function setUpClinics(clinics){
                    <img class="apt-img" src="https://image.flaticon.com/icons/png/512/511/511079.png"; alt="" width="115px;"> 
                 </div> 
                 <div>
-                  <div class="card-block">
+                  <div class="card-block" style="width: 550px" >
                     <h5 class="card-title clinic-name">${clinic.name}</h5> 
-                    <div style="display: inline-block; max-width: 200px;">
-                    <p>${clinic.description} alskjdaslkdjalkdjalsdjkalksjdl asdlkj asldk alskdj alskjd askldj </p>
-                    
-                    </div>
-                    <div style="display: inline-block; margin-left: 50px; margin-right: 30px;">
-                    <p>Address: ${clinic.address} </p>
-                    <p>City: ${clinic.city}</p>
-                    <p>Country: ${clinic.country}</p>
+                    <p>${clinic.description} </p>
+                    <p> ${appointmentsStrings}</p>                   
+                    <p>Address: ${clinic.address}, ${clinic.city}, ${clinic.country}</p>
                     <p>Rating: ${ratingText} <i class="fas fa-star"></i> (${clinic.votes} votes)</p>   
                     <br>
-                    <a class="btn btn-primary btn-sm"  href="javascript:getClinicsAppts(${clinic.id})">Apojntmenti<a/>
+                    <a class="btn btn-primary btn-sm"  href="javascript:getClinicsAppts(${clinic.id})">Predefined appointments<a/>
                    <a class="btn btn-primary btn-sm "  href="javascript:getDoctors(${clinic.id})">Doctors<a/>
                    
-                    
-                    
-    </div> 
+           
     </div></div></div></div>`);
 	}
 }
@@ -235,13 +233,15 @@ function getClinicsAppts(clinicId){
 function setUpClinicsAppointments(appts){			// predefined
 	console.log(appts);
 	$('#searchDiv').hide();
-	$('#panel').children().not('#navbarId, #searchDiv').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
+	$('#panel').children().not('#navbarId').hide();
+	
 	//$('#panel').children().not(':first').remove();
 	
 	var panel = $("#panel");
 	// treba prikazati mozda na vrhu detalje klinike, kako da ih dobijem/prikazen
 	if (appts.length == 0) {
-		panel.append(`<div>Nema ovde nicega :( </div>`)
+		panel.append(`<div>No predefined appointments!</div>`)
 	}
 	for (appointment of appts){
 		var date = setupDate(appointment.dateLong);

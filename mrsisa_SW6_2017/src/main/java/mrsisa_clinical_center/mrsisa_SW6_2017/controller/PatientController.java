@@ -183,12 +183,18 @@ public class PatientController {
 		
 		ArrayList<Clinic> clinics = (ArrayList<Clinic>) clinicService.findAll();
 		for (Clinic c: clinics) {
+			
+			List<Doctor> doctors = doctorService.findAllByClinicId(c.getId());
+			List<String> appointmentNames = getAppointmentsDoctorsCanPerform(doctors);
+			
 			List<Rating> ratings = ratingService.findAllByClinicId(c.getId());
 			System.out.println(ratings.size());
 			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
 			int votes = ratings.size();
 			double average = sum/votes;
-			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry(), average, votes));
+			ClinicDto cDto = new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry(), average, votes);
+			cDto.setAppointmentNames(appointmentNames);
+			clinicsDto.add(cDto);
 		}
 		
 		List<AppointmentType> appointmentTypes = appointmentTypeService.findAllByNameAsc();
@@ -654,12 +660,19 @@ public class PatientController {
 		List<ClinicDto> clinicsDto = new ArrayList<ClinicDto>();
 		
 		for (Clinic c: clinics) {
+			
+			
 			List<Rating> ratings = ratingService.findAllByClinicId(c.getId());
 			System.out.println(ratings.size());
 			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
 			int votes = ratings.size();
 			double average = sum/votes;
-			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry(), price, average, votes));
+			
+			List<Doctor> doctorsClinic = doctorService.findAllByClinicId(c.getId());
+			List<String> appointmentNames = getAppointmentsDoctorsCanPerform(doctorsClinic);
+			ClinicDto cDto = new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry(), price, average, votes);
+			cDto.setAppointmentNames(appointmentNames);
+			clinicsDto.add(cDto);
 		}
 		
 		List<Object> clinicsDoctors = new ArrayList<Object>();

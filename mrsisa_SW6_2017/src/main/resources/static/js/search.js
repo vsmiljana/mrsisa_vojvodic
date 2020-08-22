@@ -233,34 +233,37 @@ function displayClinics(clinics, searchParams){ 		// i need search params for wh
 			ratingText = "-";
 			rating = 0;
 		}
+		
+		var appointmentsStrings = "We provide the following appointments: ";
+		for (as of clinic.appointmentNames){
+			appointmentsStrings += as + ", ";
+		}
+		appointmentsStrings = appointmentsStrings.substring(0, appointmentsStrings.length-2)
+		
 		panel.append(`<div class="card card-appointment clinic" data-name='${clinic.name}' data-address='${clinic.address}'
-          data-city='${clinic.city}' data-country='${clinic.country}' data-rating=${rating}>
-		          <div class="row cardy" >
-		                <div class="apt-img-div">
-		                   <img class="apt-img" src="https://image.flaticon.com/icons/png/512/511/511079.png"; alt="" width="115px;"> 
-		                </div> 
-		                <div>
-		                  <div class="card-block">
+		          data-city='${clinic.city}' data-country='${clinic.country}' data-rating=${rating}>
+				          <div class="row cardy" >
+				                <div class="apt-img-div">
+				                   <img class="apt-img" src="https://image.flaticon.com/icons/png/512/511/511079.png"; alt="" width="115px;"> 
+				                </div> 
+				                <div>		                  
+				                  <div class="card-block" style="width: 550px" >
 		                    <h5 class="card-title clinic-name">${clinic.name}</h5> 
-		                    <div style="display: inline-block; max-width: 200px;">
-		                    <p>${clinic.description} alskjdaslkdjalkdjalsdjkalksjdl asdlkj asldk alskdj alskjd askldj </p>
-		                    <p>Appt price: ${clinic.price}</p>
-		                    </div>
-		                    <div style="display: inline-block; margin-left: 50px; margin-right: 30px;">
-		                    <p>Address: ${clinic.address} </p>
-		                    <p>City: ${clinic.city}</p>
-		                    <p>Country: ${clinic.country}</p>
-		                     <p>Rating: ${ratingText} <i class="fas fa-star"></i> (${clinic.votes} votes)</p>   
-		                    <br>
-		                     <a class="btn btn-primary btn-sm"  href="javascript:setUpDoctorDisplay(${clinic.id}, '${clinic.name}', '${clinic.address}', ${clinic.price}, '${searchParams.appointmentName}', ${searchParams.date})
-">See doctors<a/>
-		                   
-		                    <a class="btn btn-primary btn-sm float-right"  href="javascript:getClinicsAppts(${clinic.id})">Apojntmenti predef<a/>
-		                   
-		                    
-		                    
-		    </div> 
-		    </div></div></div></div>`);
+		                    <p>${clinic.description} </p>
+		                    <p> ${appointmentsStrings}</p>                   
+		                    <p>Address: ${clinic.address}, ${clinic.city}, ${clinic.country}</p>
+				             <p>Appointment price: ${clinic.price}</p>
+				             <p>Rating: ${ratingText} <i class="fas fa-star"></i> (${clinic.votes} votes)</p>   
+				             <br>
+				    <a class="btn btn-primary btn-sm"  href="javascript:setUpDoctorDisplay(${clinic.id}, '${clinic.name}', '${clinic.address}', ${clinic.price}, '${searchParams.appointmentName}', ${searchParams.date})
+		">See available doctors!<a/>
+				                   
+				                    <a style="margin-left: 20px;" href="javascript:getClinicsAppts(${clinic.id})">Predefined appointments<a/>
+				                   
+				                    
+				                    
+				    </div> 
+				    </div></div></div></div>`);
 		
 	}
 	
