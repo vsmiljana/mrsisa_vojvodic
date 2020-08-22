@@ -505,7 +505,7 @@ function clearRegularDoctorSearch(){
 }
 
 function clearRegularClinicSearch(){
-	$("#searchDoctorsAllInput").val("");
+	$("#searchClinicsAllInput").val("");
 	$("div.clinic").show();
 }
 
