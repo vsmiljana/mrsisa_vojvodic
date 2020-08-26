@@ -241,7 +241,8 @@ function submitChanges(){
 		//d = JSON.parse(data.responseText);
 //			$("body").show();
 			//alert("izmenio si");
-			setupProfile();
+			$('#sucessfullyChangedInfo').modal('show'); 
+			//setupProfile();
 		}
 		
 	});
@@ -404,7 +405,8 @@ function submitPasswordChange(){
 		},
 		success : function (data) {
 			alert("Pormijenio si lozinku bravoooooooo");
-			setupProfile();
+			$('#sucessfullyChangedPassword').modal('show'); 
+			//setupProfile();
 		}
 		
 	});

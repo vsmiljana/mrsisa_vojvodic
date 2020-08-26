@@ -296,6 +296,19 @@ INSERT INTO public.appointment(
 	VALUES (1000, TO_DATE('22/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, 1, 1000);
 
 
+INSERT INTO public.appointment(
+id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (9000, TO_DATE('28/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+
+	INSERT INTO public.appointment(
+id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (9001, TO_DATE('30/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+
+INSERT INTO public.appointment(
+id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (9002, TO_DATE('29/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+
+
 
 /*INSERT INTO public.appointment(
 	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)

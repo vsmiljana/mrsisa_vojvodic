@@ -139,7 +139,7 @@ function showRecord(record){
 		                   <p>AppointmentType: ${appointment.appointmentName}</p>
 		                   <p>Date: ${date}</p>
 		                   <p>Time: ${timeStr}</p>
-		                   <p>Doctor: ${appointment.doctorDto.firstName} + ${appointment.doctorDto.lastName}</p>
+		                   <p>Doctor: ${appointment.doctorDto.firstName} ${appointment.doctorDto.lastName}</p>
 		                  <p>Doctor Rating: ${doctorRatingText} <i class="fas fa-star"></i> (${appointment.doctorDto.votes} votes)</p>    
 		                 
 		            <!--        <a class="open-ModalRating" data-rate=doctor 

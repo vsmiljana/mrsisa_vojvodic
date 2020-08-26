@@ -242,20 +242,25 @@ function getClinicsAppts(clinicId){
 function setUpClinicsAppointments(appts){			// predefined
 	console.log(appts);
 	$('#searchDiv').hide();
-	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
+	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced, .clinic').remove();
 	$('#panel').children().not('#navbarId').hide();
-	
+	$(".clinic").hide();
 	//$('#panel').children().not(':first').remove();
 	
 	var panel = $("#panel");
 	// treba prikazati mozda na vrhu detalje klinike, kako da ih dobijem/prikazen
-	if (appts.length == 0) {
-		panel.append(`<div>No predefined appointments!</div>`)
+	if (appts.length == 0) {		
+		//panel.append(`<div>No predefined appointments!</div>`)
+		panel.append(`<div class="title-div" style="margin: 0 auto; min-width: 500px; margin-top: 50px;">
+	      <p class="card-title" style="text-align: center; font-size: 20px;">There are no available predefined appointments!</p></div>`);
+		panel.append(`<div class="title-div" style="margin: 0 auto; min-width: 500px;">
+	      <p class="card-title" style="text-align: center; font-size: 18px;"><a href="javascript:backFromPredefined();">Back</a></p></div>`);
+		return;
 	}
 	for (appointment of appts){
 		var date = setupDate(appointment.dateLong);
 		var timeStart = setupTime(appointment.start)
-		panel.append(`<div class="card card-appointment">
+		panel.append(`<div class="card card-appointment predefined">
         <div class="row cardy" >
               <div class="apt-img-div">
                  <img class="apt-img" src="https://vectorified.com/images/appointment-icon-34.png" alt="" width="115px;"> 
@@ -264,18 +269,18 @@ function setUpClinicsAppointments(appts){			// predefined
                 <div class="card-block">
                   <h5 class="card-title">${appointment.appointmentName}: ${date} </h5> 
                   <div style="display: inline-block">
-                  <p>Appointment type: appt</p>
+                  <p>Appointment type: ${appointment.appointmentName}</p>
                   <p>Date: ${date}</p>
-                  <div style="border-bottom: 1px;">
-                    <p>Time: ${timeStart}</p> </div>
-                    <p> Info: Lorem Ipsum </p>
-                    <p> More Info: Lorem Ipsum </p>
+                  
+                    <p>Time: ${timeStart}</p> 
+                    <p>Appointment price: ${appointment.price}</p>
                 </div>
+                
                   <div style="display: inline-block; margin-left: 50px; margin-right: 30px;">
                   <p>Doctor: ${appointment.doctor} </p>
                   <p>Clinic: ${appointment.clinicName}</p>
                   <p>Clinic Address: ${appointment.clinicAddress}</p>
-                  <p>Appointment price: ${appointment.price}</p>
+                  
                    <a class="btn btn-primary btn-sm float-right open-ModalAppt" data-toggle="modal" data-target="#modalAppt" 
                    data-id=${appointment.id} data-name="smiljana"
                    data-sth = 'javascript:makeAppointment(${appointment.clinicName})'
@@ -295,6 +300,15 @@ function setUpClinicsAppointments(appts){			// predefined
 	addSomeSpace();
 	
 }
+
+function backFromPredefined(){
+	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics').hide();
+	$('#navbarId, #searchDiv, #searchClinics').show();
+	$(".predefined").remove();
+	$(".clinic").show();
+	
+}
+
 
 function activateModal1(nesto){
 	console.log(nesto);

@@ -29,7 +29,10 @@ function scheduleApptReg(doctorId, apptName, date, time){
 		},
 		success : function (data) {
 			console.log("prosloooooooo");
-			window.location.replace("/homepage.html");
+			$.when( $("#modalAppt2").modal("hide")).done(function() {
+				$("#modalFeedback").modal("show")
+			});
+			//window.location.replace("/homepage.html");
 		}
 		
 	}); 

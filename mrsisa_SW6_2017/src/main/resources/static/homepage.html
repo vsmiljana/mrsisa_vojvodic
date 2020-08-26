@@ -119,8 +119,7 @@ $(document).on("click", ".open-ModalAppt", function () {
 	var date = $(this).data('date');
 	 var sth = $(this).data('sth');
 	$(".modal-body #clinicId").html("<p>Appointment Type: " + appt + "</p>"
-			+"<p>Date: "+ date + "</p><p>Time: " + time + "</p><p>Doctor: " + doctor + "</p><p>Price: " + price + "</p>"
-			+ "<p> sth" + sth + "</p>");
+			+"<p>Date: "+ date + "</p><p>Time: " + time + "</p><p>Doctor: " + doctor + "</p><p>Price: " + price + "</p>");
     
     // As pointed out in comments, 
     // it is unnecessary to have to manually call the modal.
@@ -249,8 +248,8 @@ $(document).ready(function() {
         <form class="form-inline">
           
           <div class="form-group mx-sm-3 mb-2 input-group-sm">
-            <input style="width: 130px;" type="text" class="form-control " id="inputPassword2" placeholder="First Name">
-            <input style="width: 130px;" type="text" class="form-control " id="inputPassword2" placeholder="Last Name">
+            <input style="width: 130px;" type="text" class="form-control " id="inputPassword22" placeholder="First Name">
+            <input style="width: 130px;" type="text" class="form-control " id="inputPassword2222" placeholder="Last Name">
           </div>
           <button type="submit" class="btn btn-primary  mb-2 btn-sm">Search By Name</button>
 
@@ -389,7 +388,7 @@ $(document).ready(function() {
  <div class="boxy" style="width: 750px; margin: 0 auto; display: none" id="searchDivvvvvv">
       <p style="color: gray">If you want to make an appointment, please enter appointment type and date and click Find!
       You will be displayed a list of clinics/doctors that match your search.</p>
-      <form class="" id="searchApptsForm" onsubmit="event.preventDefault();">
+      <form class="" id="searchApptsFormmm" onsubmit="event.preventDefault();">
       
       <div class="form-row">
           <div class="form-group col-md-5">
@@ -407,7 +406,7 @@ $(document).ready(function() {
         </div>
           </div>
           <div class="form-group col-md-2">
-    <button class="btn btn-primary mb-2 shadow-none" id="searchButton" value="" onclick="javascript:searchAppointments()">Find!</button>
+    <button class="btn btn-primary mb-2 shadow-none" id="searchButtonnnn" value="" onclick="javascript:searchAppointments()">Find!</button>
 	</div>
           
         </div>
@@ -506,6 +505,43 @@ $(document).ready(function() {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.replace('/homepage.html')">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="sucessfullyChangedInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+    	 <div class="modal-header">
+    	 
+          <h4 class="modal-title">Success</h4>
+        </div>
+      <div class="modal-body">
+        <div id="message"></div>
+      	<p> You have successfully edited your personal information.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="setupProfile()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="sucessfullyChangedPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+    	 <div class="modal-header">
+    	 
+          <h4 class="modal-title">Success</h4>
+        </div>
+      <div class="modal-body">
+        <div id="message"></div>
+      	<p> You have successfully changed your password.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="setupProfile()">Ok</button>
       </div>
     </div>
   </div>
