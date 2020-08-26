@@ -29,7 +29,12 @@ function setUpAppointments(data){
 	var panel = $("#panel");
 	
 	if (data.length == 0){
-		panel.append(`<div>Znam da je jadno al aj bar nesto pise :'( A pisace da nema apojntmenta.</div>`);
+		//panel.append(`<div>Znam da je jadno al aj bar nesto pise :'( A pisace da nema apojntmenta.</div>`);
+		//makeSorryDiv("You have no upcoming appointments!");
+		//makeInfoIsEmptyDiv("You have no upcoming appointments!");
+		panel.append(`<div class="title-div" style="margin: 0 auto; min-width: 500px;">
+      <p class="card-title" style="text-align: center; font-size: 20px;">You have no upcoming appointments!</p></div>`);
+		
 	}
 	
 	for (var appointment of data){
@@ -37,7 +42,7 @@ function setUpAppointments(data){
 		//var date = dateMs.toLocaleDateString();
 		var date = setupDate(appointment.dateLong);
 		var timeStart = setupTime(appointment.start)
-		panel.append( `<div class="card card-appointment upcomingAppointment">
+		panel.append( `<div class="card card-appointment upcomingAppointment" style="margin-top: 0px; margin-bottom: 25px;">
           <div class="row cardy" >
                 <div class="apt-img-div">
                    <img class="apt-img" src="/images/icons/upcoming_appts_ico.png" alt="" width="115px;"> 

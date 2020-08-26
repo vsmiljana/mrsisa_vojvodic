@@ -169,6 +169,21 @@ ALTER COLUMN description type varchar(4000);
 ALTER TABLE clinic
 ALTER COLUMN description type varchar(2000);
 
+
+/*
+INSERT INTO public.appointment(
+	id, date, ends, start, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (10000, TO_DATE('18/12/2020', 'DD/MM/YYYY'), 10, 11, 4, 10, 110, null, null);
+	
+INSERT INTO public.appointment(
+	id, date, ends, start, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (11000, TO_DATE('16/10/2020', 'DD/MM/YYYY'), 10, 11, 4, 10, 110, null, null);
+
+INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (12000, TO_DATE('22/12/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+*/
+
 /*INSERT INTO public.examination_report(id, description) VALUES (1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet laoreet est. Sed hendrerit maximus sem, sed molestie sapien volutpat eget. Aliquam efficitur aliquet nisl, vel sagittis ex. Proin tellus nisl, pharetra eget libero nec, pretium mollis odio. Aenean justo neque, commodo eu arcu sed, iaculis lacinia turpis. Aenean faucibus convallis orci ac ultricies. Donec vehicula massa nibh, eu tristique nisl cursus id. Aliquam erat volutpat. Vivamus ac quam viverra, pellentesque ligula molestie, bibendum nisi.');
 */
 
@@ -188,6 +203,76 @@ update appointment set ends=540  where id=7;
 update appointment set patient_id=142 where id=6;
 	*/
 
+/*
+update clinic set name='Deamedica Clinic' where id=10;
+update clinic set name='Intermedic Clinic' where id=11;
+update clinic set name='Health S Clinic' where id=12;
+*/
+
+/*
+INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (10102, TO_DATE('24/12/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+
+INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (10103, TO_DATE('22/10/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+*/
+
+--update appointment set start = 720, ends=780 where id=10000 or id=11000;
+
+
+--delete from appointment;
+
+--update clinical_center set name='Vojvodic Clinical Center' where id=1;
+
+/*
+INSERT INTO public.doctor(
+	id, address, city, country, email, first_name, last_name, password, phone_number, social_security_number, ends, start, clinic_id)
+	VALUES (114, 'Fulton St', 'San Francisco', 'USA', 'd_stephen', 'Stephen', 'Phillips', 'password', '+5551029', '778798', 780, 480, 11);
+
+INSERT INTO public.doctor(
+	id, address, city, country, email, first_name, last_name, password, phone_number, social_security_number, ends, start, clinic_id)
+	VALUES (115, 'Ocean Gate Av 13', 'Los Angeles', 'USA', 'd_angela', 'Angela', 'Wallace', 'password', '+5551030', '678798', 840, 480, 12);
+
+INSERT INTO public.doctor(
+	id, address, city, country, email, first_name, last_name, password, phone_number, social_security_number, ends, start, clinic_id)
+	VALUES (116, '118th 5', 'Los Angeles', 'USA', 'd_louisa', 'Louisa', 'Green', 'password', '+5551031', '44849155', 960, 480, 12);
+
+INSERT INTO public.doctor(
+	id, address, city, country, email, first_name, last_name, password, phone_number, social_security_number, ends, start, clinic_id)
+	VALUES (117, '256th 16', 'Los Angeles', 'USA', 'd_leonard', 'Leonard', 'Brooks', 'password', '+55510232', '177848', 780, 480, 12);
+*/
+
+delete from appointment;
+
+--delete from appointment_type_doctor where appointment_type_id = 3 or appointment_type_id = 5;
+
+/*
+INSERT INTO public.appointment_type_doctor(
+	doctor_id, appointment_type_id)
+	VALUES (114, 4);*/
+
+/*
+INSERT INTO public.appointment_type_doctor(
+	doctor_id, appointment_type_id)
+	VALUES (117, 3);
+
+INSERT INTO public.appointment_type_doctor(
+	doctor_id, appointment_type_id)
+	VALUES (115, 3);
+
+INSERT INTO public.appointment_type_doctor(
+	doctor_id, appointment_type_id)
+	VALUES (116, 5);*/
+
+	
+/*
+INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (10104, TO_DATE('24/12/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+*/	
+
 --INSERT INTO public.examination_report_diagnosis(diagnosis_id, examination_report_id) VALUES (7, 1);
 
 --INSERT INTO public.diagnosis_examination_report(examination_report_id, diagnosis_id) VALUES (1, 7);
@@ -204,6 +289,12 @@ UPDATE public.appointment SET examination_report_id=1, date=TO_DATE('24/7/2020',
 UPDATE public.patient SET medical_record_id=100 WHERE id=1000;
 --INSERT INTO public.medical_record( id, allergies, blood_type, dipotre, height, weight) VALUES (101, 'None', 'AB', 0, 162, 60);
 UPDATE public.patient SET medical_record_id=101 WHERE id=33;
+
+
+INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (1000, TO_DATE('22/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, 1, 1000);
+
 
 
 /*INSERT INTO public.appointment(

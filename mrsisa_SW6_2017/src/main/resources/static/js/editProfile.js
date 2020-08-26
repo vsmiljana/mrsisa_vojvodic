@@ -371,6 +371,10 @@ $("#input-new-password2").focusout(function(){
 
 function checkPasswordChange(){
 	
+	checkInput($("#input-old-password"));
+	checkInput($("#input-new-password1"));
+	checkInput($("#input-new-password2"));
+	
 	if (checkPasswordForm()){
 		submitPasswordChange();
 	}

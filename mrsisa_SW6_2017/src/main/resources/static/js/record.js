@@ -232,7 +232,7 @@ function showExaminationReport(divId, examinationReport){
 			medications1 = medications.substring(0, medications.length-2);
 			//console.log( medications1 + diagnoses1);
 			myDiv.append(`<div class="details"><h2>Examination report</h2>
-			<p>${examinationReport.description}</p><p>lolsie</p><p>${diagnoses1}</p><p>${medications1}</p></div>`);		
+			<p>${examinationReport.description}</p><p>${diagnoses1}</p><p>${medications1}</p></div>`);		
 		}
 	}
 	//console.log(examinationReport);

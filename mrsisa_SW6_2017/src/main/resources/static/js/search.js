@@ -227,6 +227,10 @@ function makeSorryDiv(message){
 	addSomeSpace();
 }
 
+function makeInfoIsEmptyDiv(message){
+	$("#panel").append(`<div class="reg-inf-display" style="color:gray; margin: 0 auto;"><h5>${message}</h5></div>`);	
+	addSomeSpace();
+}
 
 function displayClinics(clinics, searchParams){ 		// i need search params for when i click on display doctors
 	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();

@@ -286,6 +286,7 @@ public class PatientController {
 		String newPassword = passwordChange.getNewPassword();
 		
 		patientService.setNewPassword(patient.getId(), newPassword);
+		patient.setPassword(newPassword);
 		
 		return "";
 		///return clinics;
