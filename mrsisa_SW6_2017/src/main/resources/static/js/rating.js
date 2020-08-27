@@ -17,7 +17,7 @@ function rateDoctor(doctorId){
             getRecord();
 		},
 		success : function (data) {
-			alert("ocijenio si svaka cast bre")
+			//alert("ocijenio si svaka cast bre")
 			// postavi sve opet
 			getRecord();
 
@@ -45,7 +45,7 @@ function rateClinic(clinicId){
             getRecord();
 		},
 		success : function (data) {
-			alert("ocijenio si kliniku svaka cast bre")
+			//alert("ocijenio si kliniku svaka cast bre")
 			// postavi sve opet
 			getRecord();
 		}

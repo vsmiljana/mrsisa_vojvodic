@@ -54,7 +54,7 @@ function displayUserProfileHome(user){
 		panel.append(`<div class="card card-appointment doctor" id="general-info-div">
 	         <div class="row cardy" >
 	             <div class="apt-img-div">
-	                <img class="apt-img" src="https://assets.dryicons.com/uploads/icon/svg/5584/25eea25e-4514-459a-965f-f07761e47fed.svg"; alt="" width="115px;"> 
+	                <img class="apt-img" src="/images/icons/user_icon.png"; alt="" width="115px;"> 
 	              </div> 
 	              <div>
 	                <div class="card-block">

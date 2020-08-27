@@ -177,7 +177,7 @@ function displayDoctors(doctors) {
 		data-last-name = '${doctor.lastName}' data-rating = ${rating}>
           <div class="row cardy doctor-card" id=${divId} >
                 <div class="apt-img-div">
-                   <img class="apt-img" src="https://www.freeiconspng.com/uploads/physician-icon-png-28.png"; alt="" width="115px;"> 
+                   <img class="apt-img" src="/images/icons/doctor_icon.png"; alt="" width="115px;"> 
                 </div> 
                 <div>
                   <div class="card-block">
@@ -265,7 +265,7 @@ function displayClinics(clinics, searchParams){ 		// i need search params for wh
 		          data-city='${clinic.city}' data-country='${clinic.country}' data-rating=${rating}>
 				          <div class="row cardy" >
 				                <div class="apt-img-div">
-				                   <img class="apt-img" src="https://image.flaticon.com/icons/png/512/511/511079.png"; alt="" width="115px;"> 
+				                   <img class="apt-img" src="/images/icons/clinic_icon.png"; alt="" width="115px;"> 
 				                </div> 
 				                <div>		                  
 				                  <div class="card-block" style="width: 550px" >

@@ -47,7 +47,7 @@ function showRecord(record){
 	$("#panel").append(`<div class="card card-appointment" id="medical-record">
 	         <div class="row cardy" >
 	             <div class="apt-img-div">
-	                <img class="apt-img" src="https://cdn.iconscout.com/icon/free/png-512/medical-record-1800529-1529261.png"; alt="" width="115px;"> 
+	                <img class="apt-img" src="/images/icons/medical_record_icon.png"; alt="" width="115px;"> 
 	              </div> 
 	              <div>
 	                <div class="card-block">
@@ -130,7 +130,7 @@ function showRecord(record){
 		$("#panel").append(`<div class="card card-appointment" id=divAppt${i}>
 		          <div class="row cardy">
 		                <div class="apt-img-div">
-		                   <img class="apt-img" src="https://cdn3.iconfinder.com/data/icons/cute-icon-weather/512/Untitled-4-16-512.png"; alt="" width="115px;"> 
+		                   <img class="apt-img" src="images/icons/happy_cloud_past_appt.png"; alt="" width="115px;"> 
 		                </div> 
 		                <div>
 		                  <div class="card-block">
@@ -175,7 +175,7 @@ function showEmptyRecord(){
 	$("#panel").append(`<div class="card card-appointment">
 		          <div class="row cardy">
 		           <div class="apt-img-div"><img class="apt-img" 
-		           src="https://cdn.iconscout.com/icon/premium/png-512-thumb/empty-folder-1519007-1284948.png"; 
+		           src="images/icons/empty_record_icon.png"; 
 		           alt="" width="150px;"></div> 
 		            <h4 style="padding-top: 70px; padding-left: 30px; width: 550px;">We're sorry, but your medical record hasn't been set up yet!</h4> 
 		   </div></div>`);

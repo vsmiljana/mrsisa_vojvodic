@@ -97,7 +97,7 @@ function setUpClinics(clinics){
           data-city='${clinic.city}' data-country='${clinic.country}' data-rating=${rating}>
           <div class="row cardy clinicRegular">
                 <div class="apt-img-div">
-                   <img class="apt-img" src="https://image.flaticon.com/icons/png/512/511/511079.png"; alt="" width="115px;"> 
+                   <img class="apt-img" src="/images/icons/clinic_icon.png"; alt="" width="115px;"> 
                 </div> 
                 <div>
                   <div class="card-block" style="width: 550px" >
@@ -198,7 +198,7 @@ function setUpDoctorsRegular(doctors){
 		data-last-name = '${doctor.lastName}' data-rating = ${rating}>
           <div class="row cardy" >
                 <div class="apt-img-div">
-                   <img class="apt-img" src="https://www.freeiconspng.com/uploads/physician-icon-png-28.png"; alt="" width="115px;"> 
+                   <img class="apt-img" src="/images/icons/doctor_icon.png"; alt="" width="115px;"> 
                 </div> 
                 <div>
                   <div class="card-block">
@@ -257,13 +257,16 @@ function setUpClinicsAppointments(appts){			// predefined
 	      <p class="card-title" style="text-align: center; font-size: 18px;"><a href="javascript:backFromPredefined();">Back</a></p></div>`);
 		return;
 	}
+	panel.append(`<div class="title-div" style="margin: 0 auto; min-width: 500px; margin-top: 20px;">
+    <p class="card-title" style="text-align: center; font-size: 18px;"><a href="javascript:backFromPredefined();">Back to clinics</a></p></div>`);
+	
 	for (appointment of appts){
 		var date = setupDate(appointment.dateLong);
-		var timeStart = setupTime(appointment.start)
+		var timeStart = setupTime(appointment.start);
 		panel.append(`<div class="card card-appointment predefined">
         <div class="row cardy" >
               <div class="apt-img-div">
-                 <img class="apt-img" src="https://vectorified.com/images/appointment-icon-34.png" alt="" width="115px;"> 
+                 <img class="apt-img" src="/images/icons/appointment-icon-345.png" alt="" width="115px;"> 
               </div> 
               <div>
                 <div class="card-block">
