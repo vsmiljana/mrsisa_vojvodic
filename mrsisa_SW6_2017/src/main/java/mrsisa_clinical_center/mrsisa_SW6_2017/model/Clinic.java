@@ -2,6 +2,7 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "clinic")
@@ -39,6 +41,9 @@ public class Clinic {
 	
 	@OneToMany(mappedBy = "clinic")
 	private Set<Rating> ratings;
+	
+	@Version
+	private Long version;
 	
 	public Clinic() {}
 
@@ -150,4 +155,14 @@ public class Clinic {
 	public void setRatings(Set<Rating> ratings) {
 		this.ratings = ratings;
 	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	
+	
 }

@@ -2,11 +2,13 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "clinical_center")
@@ -22,6 +24,9 @@ public class ClinicalCenter {
 
 	@OneToMany(mappedBy = "clinicalCenter")
 	private Set<Patient> patients;
+	
+	@Version
+	private Long version;
 	
 	public ClinicalCenter() {}
 	
@@ -46,5 +51,14 @@ public class ClinicalCenter {
 	public void setName(String name) {
 		this.name = name;
 	}	
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	
 	
 }

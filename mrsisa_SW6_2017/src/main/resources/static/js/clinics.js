@@ -360,7 +360,9 @@ function scheduleAppt(apptId){
 		data: appointment,
 		error: function (response) {
 			//window.location.replace("/login.html");
-		console.log("desila se neka greska");
+			$.when( $("#modalAppt").modal("hide")).done(function() {
+				$("#modalMissedAppointment").modal("show");
+			});
 			
 		},
 		success : function (data) {

@@ -3,6 +3,7 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "appointment")
@@ -46,7 +48,8 @@ public class Appointment {
 	@JoinColumn(name = "examination_report_id")
 	private ExaminationReport examinationReport;
 	
-	
+	@Version
+	private Long version;
 	
 	public Appointment() {}
 
@@ -141,5 +144,15 @@ public class Appointment {
 	public void setExaminationReport(ExaminationReport examinationReport) {
 		this.examinationReport = examinationReport;
 	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	
+	
 	
 }

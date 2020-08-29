@@ -25,7 +25,10 @@ function scheduleApptReg(doctorId, apptName, date, time){
 		//dataType: "json",
 		
 		error: function (response) {
-            console.log("greska");
+			$.when( $("#modalAppt2").modal("hide")).done(function() {
+				$("#modalMissedAppointment").modal("show");
+			});
+			
 		},
 		success : function (data) {
 			console.log("prosloooooooo");

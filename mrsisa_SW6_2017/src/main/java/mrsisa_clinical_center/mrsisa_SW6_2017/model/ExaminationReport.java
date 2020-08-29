@@ -10,6 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "examination_report")
@@ -37,6 +38,8 @@ public class ExaminationReport {
     	referencedColumnName = "id"))
 	private Set<Medication> medications;
 	
+	@Version
+	private Long version;
 	
 	public ExaminationReport() {}
 
@@ -85,6 +88,13 @@ public class ExaminationReport {
 		this.medications = medications;
 	}
 	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	
 	
 }

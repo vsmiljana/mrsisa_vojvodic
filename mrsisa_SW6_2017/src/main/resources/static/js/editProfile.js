@@ -404,7 +404,7 @@ function submitPasswordChange(){
 			
 		},
 		success : function (data) {
-			alert("Pormijenio si lozinku bravoooooooo");
+			//alert("Pormijenio si lozinku bravoooooooo");
 			$('#sucessfullyChangedPassword').modal('show'); 
 			//setupProfile();
 		}

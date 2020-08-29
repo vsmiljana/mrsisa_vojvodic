@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
 @MappedSuperclass
 public abstract class User {
@@ -28,6 +29,8 @@ public abstract class User {
 	private String country;
 	@Column(name="social_security_number", unique=true, nullable=false)
 	private String socialSecurityNumber;
+	@Version
+	private Long version;
 	
 	public User() {}
 
@@ -123,6 +126,14 @@ public abstract class User {
 
 	public void setSocialSecurityNumber(String socialSecurityNumber) {
 		this.socialSecurityNumber = socialSecurityNumber;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 	
 	

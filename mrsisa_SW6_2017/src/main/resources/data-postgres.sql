@@ -295,18 +295,53 @@ INSERT INTO public.appointment(
 	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
 	VALUES (1000, TO_DATE('22/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, 1, 1000);
 
+	
+INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (1222222, TO_DATE('27/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, 1000);
+
+INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (125232, TO_DATE('25/08/2020', 'DD/MM/YYYY'), 720, 780, 5, 12, 116, null, 1000);
+
+
+	
+INSERT INTO public.appointment(
+	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (1222232, TO_DATE('10/12/2020', 'DD/MM/YYYY'), 720, 780, 5, 12, 116, null, 1000);
+
+
+
 
 INSERT INTO public.appointment(
 id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
-	VALUES (9000, TO_DATE('28/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+	VALUES (9000, TO_DATE('28/09/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
 
 	INSERT INTO public.appointment(
 id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
-	VALUES (9001, TO_DATE('30/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+	VALUES (9001, TO_DATE('30/09/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
 
 INSERT INTO public.appointment(
 id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
-	VALUES (9002, TO_DATE('29/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+	VALUES (9002, TO_DATE('29/09/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, null);
+
+INSERT INTO public.appointment(
+id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (9003, TO_DATE('4/10/2020', 'DD/MM/YYYY'), 720, 780, 1, 10, 110, null, null);
+
+INSERT INTO public.appointment(
+id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (9004, TO_DATE('5/10/2020', 'DD/MM/YYYY'), 720, 780, 4, 10, 110, null, null);
+
+
+
+INSERT INTO public.appointment(
+id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (9005, TO_DATE('7/11/2020', 'DD/MM/YYYY'), 720, 780, 3, 12, 115, null, null);
+
+INSERT INTO public.appointment(
+id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
+	VALUES (9006, TO_DATE('6/11/2020', 'DD/MM/YYYY'), 720, 780, 3, 12, 117, null, null);
 
 
 
@@ -332,6 +367,18 @@ INSERT INTO public.rating(id, clinic_id, doctor_id, patient_id, rating) VALUES (
 delete from rating where clinic_id=12;
 
 delete from rating where patient_id = 1000;
+
+update patient set version=0;
+update doctor set version = 0;
+update appointment set version = 0;
+update clinic set version = 0;
+update clinical_center set version = 0;
+update rating set version = 0;
+update appointment_type set version = 0;
+update medical_record set version = 0;
+update medication set version = 0;
+update rating set version = 0;
+update diagnosis set version = 0;
 
 /*
 INSERT INTO public.appointment_type_doctor(

@@ -2,6 +2,7 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -10,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "doctor")
@@ -24,6 +26,7 @@ public class Doctor extends User {
 	@JoinColumn(name = "clinic_id")
 	private Clinic clinic;
 	
+	
 	@OneToMany(mappedBy = "doctor")
 	private Set<Appointment> appointments;
 	
@@ -36,6 +39,7 @@ public class Doctor extends User {
 	
 	@OneToMany(mappedBy = "doctor")
 	private Set<Rating> ratings;
+	
 	
 	public Doctor() {}
 	
@@ -98,5 +102,6 @@ public class Doctor extends User {
 		this.ratings = ratings;
 	}
 	
+
 	
 }

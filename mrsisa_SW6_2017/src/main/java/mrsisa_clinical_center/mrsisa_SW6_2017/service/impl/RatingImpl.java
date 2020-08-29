@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Rating;
 import mrsisa_clinical_center.mrsisa_SW6_2017.repository.RatingRepository;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.RatingService;
 
 @Service
+@Transactional(readOnly=true)
 public class RatingImpl implements RatingService {
 
 	@Autowired
@@ -39,6 +41,7 @@ public class RatingImpl implements RatingService {
 		return rep.findAllByDoctorId(id);
 	}
 
+	@Transactional(readOnly=false)
 	@Override
 	public void save(Rating userRating) {
 		rep.save(userRating);

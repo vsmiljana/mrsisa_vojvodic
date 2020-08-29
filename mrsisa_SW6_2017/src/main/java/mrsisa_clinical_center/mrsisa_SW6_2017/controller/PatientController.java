@@ -3,6 +3,7 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -58,6 +59,8 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.service.ClinicService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.DoctorService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.PatientService;
 import mrsisa_clinical_center.mrsisa_SW6_2017.service.RatingService;
+import utils.AppointmentComparatorDate;
+import utils.AppointmentComparatorRegDate;
 
 @RestController
 @RequestMapping("/usr")
@@ -339,7 +342,7 @@ public class PatientController {
 		List<AppointmentDto> appointments = new ArrayList<AppointmentDto>();
 		
 		
-		
+		// ispisati ove koji nisu manji od dns
 		for (Appointment a: c.getAppointments()) {
 			
 			Long dateLong = a.getDate().getTime();
@@ -358,6 +361,7 @@ public class PatientController {
 		//}
 		//System.out.println(appointments.size());
 		System.out.println(appointments.size());
+		Collections.sort(appointments, new AppointmentComparatorDate());
 		return appointments;
 		
 	}
@@ -435,7 +439,10 @@ public class PatientController {
 		long id = (long) (Math.random() * 1000);
 		
 		Appointment a = new Appointment(id, start, end, date, p, d, c, at);
-		appointmentService.save(a);
+		if (!appointmentService.makeAppointmentRegular(a)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Someone beat you to it!");
+		}
+		//appointmentService.save(a);
 		
 		return;
 	}
@@ -454,7 +461,9 @@ public class PatientController {
 		//System.out.println(patientId);
 		System.out.println(appt.getAppointmentId());
 		
-		appointmentService.scheduleAppointment(appt.getAppointmentId(), patient);
+		if (!appointmentService.scheduleAppointment(appt.getAppointmentId(), patient)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Someone beat you to it!");
+		}
 		
 		//System.out.println("ima apojentmentova: " + patient.getAppointments().size());
 		return;
@@ -722,7 +731,9 @@ public class PatientController {
 		Date date = new Date();
 		date = adjustDate(date.getTime());
 		
-		List<Appointment> pastAppointments = appointmentService.findByPatientIdAndDateBefore(p.getId(), date);
+		List<Appointment> pastAppointments = appointmentService.findByPatientIdAndDateBeforeOrderByDateDesc(p.getId(), date);
+		
+		Collections.sort(pastAppointments, new AppointmentComparatorRegDate());
 		
 		List<PastAppointmentDto> pastAppointmentsDto = new ArrayList<PastAppointmentDto>();
 		
@@ -819,7 +830,7 @@ public class PatientController {
 		Date date = new Date();
 		date = adjustDate(date.getTime());
 		
-		List<Appointment> pastAppointments = appointmentService.findByPatientIdAndDateBefore(p.getId(), date);
+		List<Appointment> pastAppointments = appointmentService.findByPatientIdAndDateBeforeOrderByDateDesc(p.getId(), date);
 		
 		List<PastAppointmentDto> pastAppointmentsDto = new ArrayList<PastAppointmentDto>();
 		

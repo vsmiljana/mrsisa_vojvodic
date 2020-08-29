@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "appointment_type")
@@ -28,6 +29,9 @@ public class AppointmentType {
     @ManyToMany(mappedBy = "appointmentTypes")
 	private Set<Doctor> doctors;
 	
+    @Version
+    private Long version;
+    
 	public AppointmentType() {}
 
 	public AppointmentType(Long id, String name, Integer duration, Double price) {
@@ -83,6 +87,14 @@ public class AppointmentType {
 
 	public void setDoctors(Set<Doctor> doctors) {
 		this.doctors = doctors;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 	
 	

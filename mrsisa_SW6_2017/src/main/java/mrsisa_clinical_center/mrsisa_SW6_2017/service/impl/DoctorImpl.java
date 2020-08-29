@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import mrsisa_clinical_center.mrsisa_SW6_2017.dto.AppointmentTimeDto;
 import mrsisa_clinical_center.mrsisa_SW6_2017.model.Appointment;
@@ -16,15 +19,20 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.service.DoctorService;
 import utils.AppointmentComparator;
 
 @Service
+@Transactional(readOnly = true)
 public class DoctorImpl implements DoctorService {
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private DoctorRepository rep;
 
 	@Override
 	public List<Doctor> findAllByAppointmentTypes(AppointmentType apptType) {
-		// TODO Auto-generated method stub
-		return rep.findAllByAppointmentTypes(apptType);
+		logger.info("> findAllByAppointmentTypes");
+		List<Doctor> doctors = rep.findAllByAppointmentTypes(apptType);
+		logger.info("< findAllByAppointmentTypes");
+		return doctors;
 	}
 
 	@Override
@@ -79,20 +87,26 @@ public class DoctorImpl implements DoctorService {
 
 	@Override
 	public List<Doctor> findAllByClinicId(Long id) {
-		
-		return rep.findAllByClinicId(id);
+		logger.info("> findAllByClinicId");
+		List<Doctor> doctors = rep.findAllByClinicId(id);
+		logger.info("< findAllByClinicId");
+		return doctors;
 	}
 
 	@Override
 	public Doctor findById(Long doctorId) {
-		
-		return rep.findOneById(doctorId);
+		logger.info("> findById");
+		Doctor doctor = rep.findOneById(doctorId);
+		logger.info("< findById");
+		return doctor;
 	}
 
 	@Override
 	public Doctor findOneByEmailOrSocialSecurityNumber(String email, String ssn) {
-		
-		return rep.findOneByEmailOrSocialSecurityNumber(email, ssn);
+		logger.info("> findOneByEmailOrSocialSecurityNumber");
+		Doctor doctor = rep.findOneByEmailOrSocialSecurityNumber(email, ssn);
+		logger.info("< findOneByEmailOrSocialSecurityNumber");
+		return doctor;
 	}
 	
 }

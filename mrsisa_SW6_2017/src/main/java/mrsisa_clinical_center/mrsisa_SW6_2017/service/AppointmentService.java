@@ -9,7 +9,7 @@ import mrsisa_clinical_center.mrsisa_SW6_2017.model.Patient;
 
 public interface AppointmentService {
 
-	void scheduleAppointment(Long appointmendId, Patient patient);
+	boolean scheduleAppointment(Long appointmendId, Patient patient);
 
 	List<Appointment> findByPatientId(Long id);
 
@@ -21,13 +21,15 @@ public interface AppointmentService {
 
 	List<Appointment> findAllByDoctorIdAndDate(Long id, Date date);
 
-	void save(Appointment a);
+	boolean save(Appointment a);
 
 	List<Appointment> findByPatientIdOrderByDateAsc(Long id);
 
-	List<Appointment> findByPatientIdAndDateBefore(Long id, Date date);
+	List<Appointment> findByPatientIdAndDateBeforeOrderByDateDesc(Long id, Date date);
 
 	Appointment findById(Long apptId);
+
+	boolean makeAppointmentRegular(Appointment a);
 
 
 

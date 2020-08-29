@@ -2,6 +2,7 @@ package mrsisa_clinical_center.mrsisa_SW6_2017.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;

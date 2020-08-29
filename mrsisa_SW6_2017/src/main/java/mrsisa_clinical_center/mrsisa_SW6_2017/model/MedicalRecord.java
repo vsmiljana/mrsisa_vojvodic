@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "medical_record")
@@ -25,6 +26,9 @@ public class MedicalRecord {
 	
 	@OneToOne(mappedBy = "medicalRecord")
 	private Patient patient;
+	
+	@Version
+	private Long version;
 	
 	public MedicalRecord() {}
 
@@ -93,6 +97,13 @@ public class MedicalRecord {
 		this.patient = patient;
 	}
 	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	
 	
 }

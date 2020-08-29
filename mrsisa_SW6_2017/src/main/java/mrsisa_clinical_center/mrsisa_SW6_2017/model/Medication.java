@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "medication")
@@ -22,6 +23,9 @@ public class Medication {
 	
 	@ManyToMany(mappedBy = "medications")
 	private Set<ExaminationReport> examinationReports;
+	
+	@Version
+	private Long version;
 	
 	public Medication() {}
 
@@ -62,6 +66,13 @@ public class Medication {
 		this.examinationReports = examinationReports;
 	}
 	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	
 	
 	

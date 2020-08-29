@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "rating")
@@ -29,6 +30,9 @@ public class Rating {
 	@Column(name="rating", unique=false, nullable=false)
 	private Integer rating;
 
+	@Version
+	private Long version;
+	
 	public Rating() {}
 	
 	public Rating(Long id, Doctor doctor, Clinic clinic, Patient patient, Integer rating) {
@@ -79,5 +83,13 @@ public class Rating {
 	public void setRating(Integer rating) {
 		this.rating = rating;
 	}	
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	
 }
