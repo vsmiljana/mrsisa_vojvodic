@@ -184,7 +184,7 @@ INSERT INTO patient(
 	
 INSERT INTO patient(
 	id, address, city, country, email, first_name, last_name, password, phone_number, social_security_number, clinical_center_id, medical_record_id)
-	VALUES (142, 'Kentington Street 18', 'Cleveland', 'USA', 'sophie@gmail.com', 'Thomas', 'Pierce', 'password', '+5551221', '55515152', 1, 101);
+	VALUES (142, 'Kentington Street 18', 'Cleveland', 'USA', 'sophie@gmail.com', 'Sophie', 'Dean', 'password', '+5551221', '55515152', 1, 101);
 	
 
 -- appointments
