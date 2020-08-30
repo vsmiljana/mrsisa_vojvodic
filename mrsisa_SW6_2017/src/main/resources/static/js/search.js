@@ -275,8 +275,8 @@ function displayClinics(clinics, searchParams){ 		// i need search params for wh
 				                <div>		                  
 				                  <div class="card-block" style="width: 550px" >
 		                    <h5 class="card-title clinic-name">${clinic.name}</h5> 
-		                    <p>${clinic.description} </p>
-		                    <p> ${appointmentsStrings}</p>                   
+		                    <p class="clinic-description">${clinic.description} </p>
+		                    <p class="clinic-appointments"> ${appointmentsStrings}</p>                   
 		                    <p>Address: ${clinic.address}, ${clinic.city}, ${clinic.country}</p>
 				             <p>Appointment price: ${clinic.price}</p>
 				             <p>Rating: ${ratingText} <i class="fas fa-star"></i> (${clinic.votes} votes)</p>   
@@ -452,13 +452,11 @@ function searchClinicsAll(){
         var city = $(div1).data('city').toUpperCase();
         var country = $(div1).data('country').toUpperCase();
         var rating = $(div1).data('rating').toString();
-        var description = $(div1).children("p.clinic-description");
-        var appts = $(div1).children("p.clinic-appointments");
-        console.log(despription);
-        console.log(rating);
-        console.log($(div1).data('rating'));
+        var description = $(div1).find("p.clinic-description").text().toUpperCase();
+        var appts = $(div1).find("p.clinic-appointments").text().toUpperCase();
         
-        if (name.includes(input) || address.includes(input) || city.includes(input) || country.includes(input) || rating.includes(input)){
+        if (name.includes(input) || address.includes(input) || city.includes(input) || country.includes(input) || rating.includes(input)
+        		|| description.includes(input) || appts.includes(input)){
         	
         	$(div1).show();
         }

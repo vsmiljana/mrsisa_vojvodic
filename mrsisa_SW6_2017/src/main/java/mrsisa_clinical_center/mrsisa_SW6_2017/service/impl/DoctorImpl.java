@@ -54,7 +54,6 @@ public class DoctorImpl implements DoctorService {
 		int timeStart = start;
 		int timeEnd;
 		for (int i = 0; i <= appointments.size()-1; i++) {
-			System.out.println("------"+ appointments.get(i).getStart() + ", id: " + appointments.get(i).getId() +"------");
 			timeEnd = appointments.get(i).getStart();
 			
 			starts.addAll(fitAppointments(timeStart, timeEnd, duration, pause));
@@ -69,7 +68,6 @@ public class DoctorImpl implements DoctorService {
 		
 		// add apointments from the end of last prescheduled to the end of doctor's working hours	
 		starts.addAll(fitAppointments(appointments.get(appointments.size()-1).getEnd() + pause, end, duration, pause));
-		System.out.println(starts);
 		return starts;
 		
 	}

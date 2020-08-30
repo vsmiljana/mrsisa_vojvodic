@@ -145,10 +145,7 @@ public class PatientController {
 		}
 		
 		Patient p = (Patient) session.getAttribute("currentUser");
-		System.out.println(p.getFirstName());
-		System.out.println("da da ulogovan je");
-		//return new ResponseEntity<>(session.getAttribute("currentUser"), HttpStatus.OK); 
-		//return "p";
+		
 		return new LoginUserDto(p.getEmail(), "nebitno");
 	}
 	
@@ -157,7 +154,7 @@ public class PatientController {
 	public List<ClinicDto> getClinics() {
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
-			//throw new ResponseStatusException()
+			
 		}
 		
 		List<ClinicDto> clinicsDto = new ArrayList<ClinicDto>();
@@ -166,22 +163,15 @@ public class PatientController {
 		for (Clinic c: clinics) {
 			
 			List<Rating> ratings = ratingService.findAllByClinicId(c.getId());
-			System.out.println(ratings.size());
+			
 			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
 			int votes = ratings.size();
 			double average = sum/votes;
 			clinicsDto.add(new ClinicDto(c.getId(), c.getName(), c.getDescription(), c.getAddress(), c.getCity(), c.getCountry(), average, votes));
 		}
-		Clinic c = clinics.get(0);
-		System.out.println("Doktora: " + c.getDoctors().size());
-		
-		for (Doctor d: c.getDoctors()) {
-			System.out.println(d.getEmail());
-		}
-		
-		System.out.println("Ima ih " + clinics.size());
+
 		return clinicsDto;
-		///return clinics;
+
 	}
 	
 	
@@ -201,7 +191,7 @@ public class PatientController {
 			List<String> appointmentNames = getAppointmentsDoctorsCanPerform(doctors);
 			
 			List<Rating> ratings = ratingService.findAllByClinicId(c.getId());
-			System.out.println(ratings.size());
+			
 			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
 			int votes = ratings.size();
 			double average = sum/votes;
@@ -221,7 +211,7 @@ public class PatientController {
 		
 		ClinicsSetupDto setup = new ClinicsSetupDto(clinicsDto, appointments);
 		return setup;
-		///return clinics;
+		
 	}
 	
 	
@@ -237,7 +227,7 @@ public class PatientController {
 				patient.getSocialSecurityNumber(), patient.getPhoneNumber(), patient.getAddress(), patient.getCity(), patient.getCountry());
 		
 		return user;
-		///return clinics;
+		
 	}
 	
 	
@@ -246,11 +236,8 @@ public class PatientController {
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
-		Patient patient = (Patient) session.getAttribute("currentUser");
-		//System.out.println(patientId);
-		//System.out.println(appt.getAppointmentId());
+		Patient patient = (Patient) session.getAttribute("currentUser");	
 		
-		System.out.println("*****************\n********\n" + user.getEmail() + user.getFirstName() + user.getLastName());
 		String firstName = user.getFirstName();
 		String lastName = user.getLastName();
 		String address = user.getAddress();
@@ -264,11 +251,11 @@ public class PatientController {
 		patient.setCity(city);
 		patient.setCountry(country);
 		patient.setPhoneNumber(phoneNumber);
-		//appointmentService.scheduleAppointment(appt.getAppointmentId(), patient);
+		
 		patientService.updatePatient(patient.getEmail(), firstName, lastName, address, city, country, phoneNumber);
-		//System.out.println("ima apojentmentova: " + patient.getAppointments().size());
+		
 		return;
-		///return clinics;
+	
 	}
 	
 	@PutMapping("/changePassword")
@@ -280,9 +267,9 @@ public class PatientController {
 		Patient patient = (Patient) session.getAttribute("currentUser");
 	
 		String oldPassword = passwordChange.getOldPassword();
-		System.out.println("*\n*\n*\n" + oldPassword + " " + patient.getPassword());
+		
 		if (!oldPassword.equals(patient.getPassword())) {
-			//return "Incorrect old password";
+		
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect current password!");
 			
 		}
@@ -292,14 +279,14 @@ public class PatientController {
 		patient.setPassword(newPassword);
 		
 		return "";
-		///return clinics;
+		
 	}
 	
 	
-	// srediti datume
+
 	
 	
-	// po imenu klinike upcoming preshceduled appointmentse
+
 	@RequestMapping(value = "/appointments/{name}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<AppointmentDto> getPredefinedAppointmentsOfClinic(@PathVariable("name") String name) {
@@ -319,13 +306,7 @@ public class PatientController {
 			}
 		}
 		return appointments;
-		
-		//for (Appointment a: c.getAppointments()) {
-		//	appointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
-		//			a.getAppointmentType().getName(), a.getAppointmentType().getPrice()));
-		//}
-		//System.out.println(appointments.size());
-		//return appointments;
+	
 		
 	}
 	
@@ -342,12 +323,12 @@ public class PatientController {
 		List<AppointmentDto> appointments = new ArrayList<AppointmentDto>();
 		
 		
-		// ispisati ove koji nisu manji od dns
-		for (Appointment a: c.getAppointments()) {
-			
+		
+		for (Appointment a: c.getAppointments()) {		
 			Long dateLong = a.getDate().getTime();
-			System.out.println(a.getDate());
-			if (a.getPatient() == null) {
+			Date now = new Date();
+			Date apptExactTime = formatTimeDateMins(a.getDate(), a.getStart());
+			if (a.getPatient() == null && apptExactTime.after(now)) {
 				appointments.add(new AppointmentDto(a.getId(), dateLong, a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + " " + a.getDoctor().getLastName(),
 						a.getAppointmentType().getName(), a.getAppointmentType().getPrice(), a.getClinic().getName(), 
 						a.getClinic().getAddress()));
@@ -355,12 +336,6 @@ public class PatientController {
 		}
 		
 		
-		//for (Appointment a: c.getAppointments()) {
-		//	appointments.add(new AppointmentDto(a.getId(), a.getDate(), a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + a.getDoctor().getLastName(),
-		//			a.getAppointmentType().getName(), a.getAppointmentType().getPrice()));
-		//}
-		//System.out.println(appointments.size());
-		System.out.println(appointments.size());
 		Collections.sort(appointments, new AppointmentComparatorDate());
 		return appointments;
 		
@@ -374,7 +349,7 @@ public class PatientController {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
 		
-		//Clinic c = clinicService.findById(id);
+		
 			
 		List<Doctor> doctors = doctorService.findAllByClinicId(id);
 		
@@ -442,7 +417,7 @@ public class PatientController {
 		if (!appointmentService.makeAppointmentRegular(a)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Someone beat you to it!");
 		}
-		//appointmentService.save(a);
+		
 		
 		return;
 	}
@@ -456,18 +431,14 @@ public class PatientController {
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
-		System.out.println("MOZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-		Patient patient = (Patient) session.getAttribute("currentUser");
-		//System.out.println(patientId);
-		System.out.println(appt.getAppointmentId());
 		
+		Patient patient = (Patient) session.getAttribute("currentUser");
+	
 		if (!appointmentService.scheduleAppointment(appt.getAppointmentId(), patient)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Someone beat you to it!");
 		}
 		
-		//System.out.println("ima apojentmentova: " + patient.getAppointments().size());
 		return;
-		///return clinics;
 	}
 	
 	@GetMapping("/getUpcomingAppointments")
@@ -477,8 +448,7 @@ public class PatientController {
 		}
 		
 		Patient p = (Patient) session.getAttribute("currentUser");
-		System.out.println(p.getFirstName());
-		System.out.println("da da ulogovan je");
+		
 		List<AppointmentDto> upcomingAppointments = new ArrayList<AppointmentDto>();
 		
 		//List<Appointment> appointments = appointmentService.findByPatientId(p.getId());
@@ -486,29 +456,22 @@ public class PatientController {
 		
 		Date now = new Date();
 		
-		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
 		for (Appointment a: appointments) {
 			
 			Long dateLong = a.getDate().getTime();
-			
-			Date today0 = new Date();
-			System.out.println(a.getDate());
+
 			Date apptExactTime = formatTimeDateMins(a.getDate(), a.getStart());
-			//System.out.println(now +  " to je sad, a formatirano je: " + apptExactTime);
+		
 			if (apptExactTime.after(now)) {
-				//if (a.getEnd() > today0.getMinutes()) {
+				
 				upcomingAppointments.add(new AppointmentDto(a.getId(), dateLong, a.getStart(), a.getEnd(), a.getDoctor().getFirstName() + " " + a.getDoctor().getLastName(),
 						a.getAppointmentType().getName(), a.getAppointmentType().getPrice(), a.getClinic().getName(), 
 						a.getClinic().getAddress()));
-				//	}
+			
 				}
 			}
 		
-		System.out.println("Upcoming appointments: " + upcomingAppointments.size());
-		
-		//return new ResponseEntity<>(session.getAttribute("currentUser"), HttpStatus.OK); 
-		//return "p";
 		return upcomingAppointments;
 	}
 	
@@ -531,9 +494,9 @@ public class PatientController {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
 		session.invalidate();
-		//System.out.println("ima apojentmentova: " + patient.getAppointments().size());
+		
 		return;
-		///return clinics;
+		
 	}
 	
 	
@@ -551,32 +514,8 @@ public class PatientController {
 		
 		SearchClinicsResultDto result = new SearchClinicsResultDto(appt, clinicsDto);
 		
-		//clinicsDto.addAll((List<ClinicDto>) objects.get(0));
+		return result; 	
 		
-		//@SuppressWarnings("unchecked")
-		//List<DoctorDto> doctorsDto = (List<DoctorDto>) objects.get(1);
-		
-		//System.out.println("Name: " + apptName + ", date: " + date);
-		
-		//List<Appointment> appointments = appointmentService.findByDate(date);
-		/*
-		for (DoctorDto d: doctorsDto) {
-			System.out.println(d.getFirstName() + " " + d.getLastName());
-			for (AppointmentTimeDto atd: d.getAvailableAppointments()) {
-				System.out.println("pocetak minuta: " + atd.getStart());
-				
-				System.out.println(atd.getStart()/60 + ":" + atd.getStart()%60);
-			}
-		}*/
-		
-		
-		//System.out.println(appointments.size());
-		
-		
-		return result; 	// vratiti i cijenu
-		
-		//return null;
-		///return clinics;
 	}
 	
 	
@@ -600,7 +539,7 @@ public class PatientController {
 				c.getCountry(),price, appointmentNames);
 		SearchDoctorsResultDto result = new SearchDoctorsResultDto(appt, clinicDto, doctorsDto);
 		
-		return result; 	// vratiti i cijenu
+		return result; 	
 	
 	}
 	
@@ -611,14 +550,9 @@ public class PatientController {
 		if (session.getAttribute("currentUser") == null) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not logged in!");
 		}
-		
-		System.out.println("seatch appointment clinic");
-		
 		List<Object> objects = doSearch(search);
 		
-		//List<DoctorDto> doctorsDto = (List<DoctorDto>) objects.get(1);
-		
-		//return doctorsDto; 	// vratiti i cijenu
+	
 		List<ClinicDto> clinicsDto = (List<ClinicDto>) objects.get(0);
 		return clinicsDto;
 	
@@ -629,8 +563,7 @@ public class PatientController {
 		
 		Long clinicId = search.getClinicId();
 		
-		System.out.println("clinic id " + clinicId);
-		
+	
 		if (clinicId == null) {
 			clinicId = -1l;
 		}
@@ -638,16 +571,13 @@ public class PatientController {
 		
 		String apptName = search.getAppointmentName();
 		
-		System.out.println("*************apt name**********" + apptName);
+		
 		
 		AppointmentType apptType = appointmentTypeService.findByName(apptName);
 		
 		Double price = apptType.getPrice();
 		
 		List<Doctor> doctors = doctorService.findAllByAppointmentTypes(apptType);
-		System.out.println("--\n---\n--"+ doctors.size() + "--\n---\n" + clinicId + "\n---");
-		
-		
 		Long milliseconds = search.getDate();
 		
 		Date date = adjustDate(milliseconds);
@@ -658,7 +588,6 @@ public class PatientController {
 		ArrayList<Doctor> doctors2 = new ArrayList<Doctor>();
 		
 		for (Doctor d: doctors) {
-			System.out.println(d.getId() + " " + d.getEmail());
 			List<Appointment> appointments = appointmentService.findAllByDoctorIdAndDate(d.getId(), date);
 			List<AppointmentTimeDto> appointmentStarts = doctorService.makeSchedule(appointments, apptType.getDuration(), d.getStart(), d.getEnd());
 			if (appointmentStarts.size() > 0) {
@@ -672,18 +601,13 @@ public class PatientController {
 					doctors2.add(d);
 				}
 			}
-			
-			System.out.println(appointmentStarts);
-			
 		}
 		
 		List<ClinicDto> clinicsDto = new ArrayList<ClinicDto>();
 		
-		for (Clinic c: clinics) {
-			
-			
+		for (Clinic c: clinics) {		
 			List<Rating> ratings = ratingService.findAllByClinicId(c.getId());
-			System.out.println(ratings.size());
+		
 			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
 			int votes = ratings.size();
 			double average = sum/votes;
@@ -705,15 +629,7 @@ public class PatientController {
 	}
 	
 	
-	//login(LoginUserDto )
-	//Patient korisnik = service.findOneByEmailAndPassword
-	//if null
-	//throw
-	//else sve ok predje na homepage
-	
-	
-	// u past appts
-	
+
 	@GetMapping("/record")
 	public MedicalRecordDto getRecord() {
 		
@@ -740,15 +656,7 @@ public class PatientController {
 		for (Appointment a: pastAppointments) {
 			PastAppointmentDto paDto = new PastAppointmentDto(a);
 			Doctor d = a.getDoctor();
-			List<Rating> ratings = ratingService.findAllByDoctorId(d.getId());
-			
-			System.out.println("doktor " + d.getEmail());
-			System.out.println("ima ocjena " + ratings.size());
-			for (Rating r: ratings) {
-				System.out.println(r.getRating());
-			}
-			
-			
+			List<Rating> ratings = ratingService.findAllByDoctorId(d.getId());			
 			double sum = ratings.stream().mapToInt(rating -> rating.getRating()).sum();
 			int votes = ratings.size();
 			double rating = sum/votes;
@@ -764,9 +672,7 @@ public class PatientController {
 		
 			Rating ratingOfDoctor = ratingService.findOneByPatientIdAndDoctorId(p.getId(), d.getId());
 			Rating ratingOfClinic = ratingService.findOneByPatientIdAndClinicId(p.getId(), c.getId());
-			System.out.println("***************\n" + cDto.getName() + " a doktor " + d.getFirstName());
-			System.out.println(ratingOfDoctor);
-			System.out.println(ratingOfClinic);
+	
 			if (ratingOfDoctor == null) {
 				paDto.setHisDoctorRating(0);
 			}
@@ -798,7 +704,6 @@ public class PatientController {
 		ExaminationReport er = appt.getExaminationReport();
 		
 		if (er == null) {
-			System.out.println("yes examination report is null");
 			return null;
 		}
 		
@@ -852,7 +757,7 @@ public class PatientController {
 			}
 			
 			ExaminationReportDto erDto = new ExaminationReportDto(er.getDescription(), diagnosesDto, medicationsDto);
-			//paDto.setExaminationReport(erDto);
+			
 			pastAppointmentsDto.add(paDto);
 		}
 		

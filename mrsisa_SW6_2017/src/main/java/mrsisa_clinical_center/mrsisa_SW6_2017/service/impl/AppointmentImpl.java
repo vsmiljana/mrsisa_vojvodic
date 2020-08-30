@@ -77,7 +77,7 @@ public class AppointmentImpl implements AppointmentService {
 	@Override
 	public boolean save(Appointment a) {
 		Appointment appt = rep.findOneByDoctorIdAndDateAndStart(a.getDoctor().getId(), a.getDate(), a.getStart());
-		System.out.println(appt == null);
+		
 		if (appt == null) {
 			rep.save(a);
 			return true;
