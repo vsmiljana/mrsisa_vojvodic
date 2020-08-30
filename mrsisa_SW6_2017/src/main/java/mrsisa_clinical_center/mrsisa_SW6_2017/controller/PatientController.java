@@ -554,6 +554,7 @@ public class PatientController {
 		
 	
 		List<ClinicDto> clinicsDto = (List<ClinicDto>) objects.get(0);
+		
 		return clinicsDto;
 	
 	}
@@ -578,6 +579,7 @@ public class PatientController {
 		Double price = apptType.getPrice();
 		
 		List<Doctor> doctors = doctorService.findAllByAppointmentTypes(apptType);
+			
 		Long milliseconds = search.getDate();
 		
 		Date date = adjustDate(milliseconds);
@@ -601,6 +603,7 @@ public class PatientController {
 					doctors2.add(d);
 				}
 			}
+			
 		}
 		
 		List<ClinicDto> clinicsDto = new ArrayList<ClinicDto>();
