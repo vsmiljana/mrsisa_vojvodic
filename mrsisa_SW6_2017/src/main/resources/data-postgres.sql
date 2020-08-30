@@ -293,16 +293,16 @@ UPDATE public.patient SET medical_record_id=101 WHERE id=33;
 
 INSERT INTO public.appointment(
 	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
-	VALUES (1000, TO_DATE('22/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, 1, 1000);
+	VALUES (1000, TO_DATE('29/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, 1, 1000);
 
 	
 INSERT INTO public.appointment(
 	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
-	VALUES (1222222, TO_DATE('27/08/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, 1000);
+	VALUES (1222222, TO_DATE('22/07/2020', 'DD/MM/YYYY'), 720, 780, 4, 11, 111, null, 1000);
 
 INSERT INTO public.appointment(
 	id, date, start, ends, appointment_type_id, clinic_id, doctor_id, examination_report_id, patient_id)
-	VALUES (125232, TO_DATE('25/08/2020', 'DD/MM/YYYY'), 720, 780, 5, 12, 116, null, 1000);
+	VALUES (125232, TO_DATE('6/7/2020', 'DD/MM/YYYY'), 720, 780, 5, 12, 116, null, 1000);
 
 
 	

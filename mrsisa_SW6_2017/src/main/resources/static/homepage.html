@@ -85,7 +85,7 @@ $(document).on("click", ".open-ModalRating", function () {
     var whatIsRated = $(this).data('rate');
     var rating = $("#userRatingSelect").val();
     if (whatIsRated === "doctor") {
-    	$(".modal-title").text("Rating a doctor");
+    	$(".modal-title-rating").text("Rating a doctor");
     	var doctorId = $(this).data('doctor-id');
     	var name = $(this).data('name');
     	$('#ratingInfo').text("Doctor: " + name);
@@ -93,7 +93,7 @@ $(document).on("click", ".open-ModalRating", function () {
     	$('#buttonRate').attr('onClick', "rateDoctor(" + doctorId + ")");
     }
     else {
-    	$(".modal-title").text("Rating a clinic");
+    	$(".modal-title-rating").text("Rating a clinic");
     	var clinicId = $(this).data('clinic-id');
     	var name = $(this).data('name');
     	$('#ratingInfo').text("Clinic: " + name);
@@ -569,7 +569,7 @@ $(document).ready(function() {
   
     <div class="modal-content">
     	 <div class="modal-header">
-          <h4 class="modal-title"></h4>
+          <h4 class="modal-title-rating"></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

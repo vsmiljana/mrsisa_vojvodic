@@ -151,21 +151,34 @@ function displayDoctors(doctors) {
 		var divId = "doctor" + i;
 		var divIdString = divId.toString();
 		console.log("HELOOOOOOOOOOOOOOO" + divIdString);
+		var now = new Date();
 		var times = ""
 		for (apptTime of doctor.availableAppointments){
-			times += setupTime(apptTime.start) + " - " + setupTime(apptTime.end) + "&#13;";
+			var minutes = now.getHours() * 60 + now.getMinutes();
+			if (minutes < apptTime.start){
+				times += setupTime(apptTime.start) + " - " + setupTime(apptTime.end) + "&#13;";
+			}
 		}
 		var options ="";
+		var any = false;
 		for (apptTime of doctor.availableAppointments){
-			
-			time = setupTime(apptTime.start) + " - " + setupTime(apptTime.end);
-			
-			options += "<option>" + time + "</option>"
+			var minutes = now.getHours() * 60 + now.getMinutes();
+			if (minutes < apptTime.start){
+				time = setupTime(apptTime.start) + " - " + setupTime(apptTime.end);
+				any = true;
+				options += "<option>" + time + "</option>"
+			}
 			//$(this).closest("selectTime").append($('<option>', {
 			 //   value: 1,
 			 //   text: time 
 			//}));
 		}
+		
+		var disabled = ""
+		if (any == false){
+			disabled = "disabled";
+		}
+		
 		var rating = doctor.rating;
 		var ratingText = doctor.rating;
 		if (isNaN(doctor.rating)){
@@ -200,7 +213,7 @@ function displayDoctors(doctors) {
              <!--       <a class="btn btn-primary btn-sm float-right">Make appointment<a/>
                      <a class="btn btn-primary btn-sm float-right"  href="javascript:makeAppointment(divIdString)">Make appointment<a/>
                 -->
-                   <a class="btn btn-primary btn-sm float-right open-ModalAppt2" data-toggle="modal" data-target="#modalAppt2" 
+                   <a class="btn btn-primary ${disabled} btn-sm float-right open-ModalAppt2" data-toggle="modal" data-target="#modalAppt2" 
                 	data-name='${doctor.firstName} ${doctor.lastName}' data-doctor-id=${doctor.id} data-selectId = select${i}
                    href="#modalAppt2">Make appointment<a/> 
                     
@@ -215,6 +228,7 @@ function displayDoctors(doctors) {
 			    text: time 
 			}));
 		}
+		
 	}
 	addSomeSpace();
 	
