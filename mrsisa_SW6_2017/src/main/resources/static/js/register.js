@@ -39,24 +39,12 @@
         }
 
         if (check) {
-        	//console.log("nesto");
-        	
-        	//var name = $("#email_input").value;
-        	//var password = $("#password_input").value;
-        	
-        	//console.log(name);
         	
         	
         	register();
         }
         
-        //console.log("nesto");
-    	
-    	//var name = $("#email_input").value;
-    	//var password = $("#password_input").value;
-    	
-    	//console.log(name);
-        
+     
         return check;
     });
 
@@ -68,25 +56,12 @@
     });
     
 
-    //for(var i=0; i<input.length; i++) {
-    //    if(validate(input[i]) == false){
-    //        showValidate(input[i]);
-    //        check=false;
-    //    }
-    //}
-    
-    /*$input.forEach(element => element.focusout(function(){
-    	if(validate($("#email_input")) == false){
-    		console.log("iz for ica");
-            showValidate(element);
- 
-        }
-    }));*/
+  
     
     $( "#email_input" )
     .focusout(function() {
     	if(validate($("#email_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#email_input")));
  
         }
@@ -95,7 +70,7 @@
     $( "#password_input" )
     .focusout(function() {
     	if(validate($("#password_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#password_input")));
  
         }
@@ -104,7 +79,7 @@
     $( "#password2_input" )
     .focusout(function() {
     	if(validate($("#password2_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#password2_input")));
         }
     	if ($("#password2_input").val() != ($("#password_input").val())){
@@ -114,7 +89,7 @@
     $( "#first_name_input" )
     .focusout(function() {
     	if(validate($("#first_name_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#first_name_input")));
  
         }
@@ -122,7 +97,7 @@
     $( "#last_name_input" )
     .focusout(function() {
     	if(validate($("#last_name_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#last_name_input")));
  
         }
@@ -131,7 +106,7 @@
     $( "#city_input" )
     .focusout(function() {
     	if(validate($("#city_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#city_input")));
  
         }
@@ -139,28 +114,28 @@
     $( "#phone_number_input" )
     .focusout(function() {
     	if(validate($("#phone_number_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#phone_number_input")));
  
         }
     });   $( "#country_input" )
     .focusout(function() {
     	if(validate($("#country_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#country_input")));
  
         }
     });   $( "#address_input" )
     .focusout(function() {
     	if(validate($("#address_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#address_input")));
  
         }
     });   $( "#ssn_input" )
     .focusout(function() {
     	if(validate($("#ssn_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#ssn_input")));
  
         }
@@ -258,10 +233,7 @@ function register() {
             }
 		},
 		success : function (data) {
-			//d = JSON.parse(data.responseText);
-			console.log(data);
-			console.log("success registrovo si se");
-			//alert("ima");
+			
 			window.location.replace("/homepage.html");
 		}
 		

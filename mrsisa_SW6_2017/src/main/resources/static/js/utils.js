@@ -24,22 +24,18 @@ function checkIfLogged(){
 		url: "/usr/checkIfLogged",
 		type: "GET",
 		contentType: "application/json",
-		//dataType: "json",
+		
 		
 		error: function (response) {
-			console.log("upo u error");
+			
 			window.location.replace("/");
 		},
 		success : function (data) {
-			console.log("success");
-			console.log(data);
-			//d = JSON.parse(data.responseText);
-			console.log(data.email);
-			console.log("success moze aj");
-			//alert("ima");
+			
+	
 			$("body").show();
 			setUpPatient(data);
-			console.log("cao " + data.email);
+			
 		}
 		
 	}); 
@@ -56,11 +52,11 @@ function logOut(){
 		dataType: "json",
 		
 		error: function (response) {
-			console.log("upo u error");
+			
 			window.location.replace("/");
 		},
 		success : function (data) {
-			console.log("success");
+			
 			window.location.replace("/");
 		}
 		
@@ -87,15 +83,14 @@ function setupTime(minutes){
 
 function dateToMs(dateString){
 	// date is in dd/mm/yyyy format
-	console.log(dateString);
+	
 	var elements = dateString.split("/");
 	var day = elements[0];
 	var month = elements[1];
 	var year = elements[2];
-	console.log(day +  " " + month + " " + year);
+
 	var date = new Date(year + "-" + month + "-" + day);
-	console.log(date);
-	console.log(date.getTime());
+	
 	return date.getTime();
 }
 

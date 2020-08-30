@@ -33,23 +33,13 @@
         }
 
         if (check) {
-        	//console.log("nesto");
         	
-        	//var name = $("#email_input").value;
-        	//var password = $("#password_input").value;
-        	
-        	//console.log(name);
         	
         	
         	login();
         }
         
-        //console.log("nesto");
-    	
-    	//var name = $("#email_input").value;
-    	//var password = $("#password_input").value;
-    	
-    	//console.log(name);
+      
         
         return check;
     });
@@ -62,20 +52,7 @@
     });
     
 
-    //for(var i=0; i<input.length; i++) {
-    //    if(validate(input[i]) == false){
-    //        showValidate(input[i]);
-    //        check=false;
-    //    }
-    //}
-    
-    /*$input.forEach(element => element.focusout(function(){
-    	if(validate($("#email_input")) == false){
-    		console.log("iz for ica");
-            showValidate(element);
- 
-        }
-    }));*/
+
     
     $( "#email_input" )
     .focusout(function() {
@@ -89,7 +66,7 @@
     $( "#password_input" )
     .focusout(function() {
     	if(validate($("#password_input")) == false){
-    		//console.log("nope");
+    		
             showValidate(($("#password_input")));
  
         }

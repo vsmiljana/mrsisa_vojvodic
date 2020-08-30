@@ -1,7 +1,5 @@
 function setUpPatient(data){
-	console.log("setup patient");
-	console.log("iz setUpPatient")
-	console.log(data);
+	
 		$.ajax({
 			url: "/usr/getUpcomingAppointments",
 			type: "GET",
@@ -12,10 +10,7 @@ function setUpPatient(data){
 				window.location.replace("/");
 			},
 			success : function (data) {
-				//d = JSON.parse(data.responseText);
-				console.log(data);
-				console.log("success");
-				//alert("ima");
+			
 				$("body").show();
 				setUpAppointments(data);
 				setupDateForSearch();
@@ -29,17 +24,14 @@ function setUpAppointments(data){
 	var panel = $("#panel");
 	
 	if (data.length == 0){
-		//panel.append(`<div>Znam da je jadno al aj bar nesto pise :'( A pisace da nema apojntmenta.</div>`);
-		//makeSorryDiv("You have no upcoming appointments!");
-		//makeInfoIsEmptyDiv("You have no upcoming appointments!");
+		
 		panel.append(`<div class="title-div" style="margin: 0 auto; min-width: 500px;">
       <p class="card-title" style="text-align: center; font-size: 20px;">You have no upcoming appointments!</p></div>`);
 		
 	}
 	
 	for (var appointment of data){
-		//var dateMs = new Date(appointment.dateLong);
-		//var date = dateMs.toLocaleDateString();
+
 		var date = setupDate(appointment.dateLong);
 		var timeStart = setupTime(appointment.start)
 		panel.append( `<div class="card card-appointment upcomingAppointment" style="margin-top: 0px; margin-bottom: 25px;">
@@ -91,7 +83,6 @@ function setupDateForSearch(){
 	  }
 	  var dateStr = year + "-" + monthStr + "-" + dayStr;
 	  dateStr = dateStr.toString();
-	  console.log(dateStr);
 	  document.getElementById("dateAppointment").min = dateStr;
 	  document.getElementById("dateAppointment").value = dateStr;
 	  //document.getElementById("dateAppointment").min = "2020-08-22";

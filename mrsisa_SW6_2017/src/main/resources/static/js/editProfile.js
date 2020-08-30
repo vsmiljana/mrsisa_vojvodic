@@ -1,5 +1,5 @@
 function showProfile(){
-	//displayUserInformation("nestp");
+	
 	setupProfile();
 }
 
@@ -12,26 +12,15 @@ function setupProfile(){
 		//dataType: "json",
 		
 		error: function (response) {
-			window.location.replace("/login.html");
+			window.location.replace("/");
 		},
 		success : function (data) {
-			// $.getScript("js/validateEdit.js").then(displayUserInformation(data));
+			
 			displayUserProfileHome(data);
-			//displayUserInformation(data);
-			//whatev(data);
+			
 		}
 		
 	}); 
-}
-
-function whatev(data){
-	 $.ajax({
-		   url: $.getScript("js/validateEdit.js"),
-		   success:function(){
-			   
-		//displayUserInformation(data);
-		}
-	})
 }
 
 
@@ -43,11 +32,7 @@ function displayUserProfileHome(user){
 		$("#searchDoctors").hide();
 		$("#searchDoctorsAdvanced").hide();
 		$("#searchDiv").hide();
-		// ma sve opet da load omg
-	//	var userString = JSON.stringify(user);
-	//	console.log(userString);
-	//	var newTemp = userString.replace(/"/g, "'");
-	//	console.log(newTemp);
+	
 		
 		var panel = $("#panel");
 
@@ -74,7 +59,7 @@ function displayUserProfileHome(user){
 	               <br>
 	     </div> 
 	    </div></div></div></div>`);
-		//"javascript:displayEditInformation('${newTemp}')"
+		
 		
 	
 		 $("#a-edit-inf").attr("href", "javascript:displayEditInformation('" + user.email + "','"+  user.firstName +"','"  +
@@ -86,14 +71,14 @@ function displayUserProfileHome(user){
 
          
 function displayEditInformation(email, firstName, lastName, ssn, address, city, country, phoneNumber){
-	console.log("evo me, tu sam")
 	
-	//function1();
+	
+	
 	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced, #general-info-div').remove();
 
 	$("#general-info-div").hide();
 	
-//	var user = JSON.parse(userS);
+
 	
 	
 	$("#panel").append(`
@@ -187,32 +172,22 @@ console.log("mamaaaaaaaaaaaaaaaaaaaaaaa");
 function cancelChanges(){
 	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced, #general-info-div').remove();
 	
-	//$("#edit-info-div").hide(); 	// bolje remove
-	//$("#change-password-div").hide();
+	
 	$("#general-info-div").show();
 	addSomeSpace();
 }
 
 
 function checkChanges111(){
-	//var goodToGo = checkIfFormIsValid();
-	//console.log(goodToGo);
-	//if (goodToGo == true){
-	//	submitChanges();
-	//}
+	
 	if (checkIfFormIsValid()){
 		submitChanges();
 	}
-///	if (doSth()){
-//		submitChanges();
-//	}
+
 }
 
 function submitChanges(){
-	//alert("sve je ok, moze izmjena");
-	// proveriti jel sve ok
-	// na beku provjeriti ejl email taj email koji mijenjam... preko postmana npr mogu svasta da napravim ako ne validiram
-	// na beku
+	
 	var email = $("#inputEmail").val();
 	var ssn = $("#inputSsn").val();
 	var firstName = $("#inputFirstName").val();
@@ -233,16 +208,14 @@ function submitChanges(){
 		contentType: "application/json",
 		data: userString,
 		error: function (response) {
-			//window.location.replace("/login.html");
+			
 		console.log("desila se neka greska");
 			
 		},
 		success : function (data) {
-		//d = JSON.parse(data.responseText);
-//			$("body").show();
-			//alert("izmenio si");
+		
 			$('#sucessfullyChangedInfo').modal('show'); 
-			//setupProfile();
+			
 		}
 		
 	});
@@ -250,13 +223,9 @@ function submitChanges(){
 
 
 function doSth(){
-	console.log("nesto sam uradio");
 	return true;
 }
 
-//function checkValidity(){
-	
-//}
 
 function checkIfFormIsValid(){
 	var valid = true; 
@@ -265,15 +234,15 @@ function checkIfFormIsValid(){
 		var input = $(this); // This is the jquery object of the input, do what you will
 		 console.log(input);
 		 if($(input).val().trim() == ''){
-		        // prikazi gresku
-				console.log("ne moze " + input.name);
+		        
+				
 				$(input).siblings(".error-message").show();
 				valid = false;
 		 }
 		 else {
 			 $(input).siblings(".error-message").hide();
 		 }
-		 console.log(valid);
+	
 		 //return valid;
 		 });
 	return valid;
@@ -285,19 +254,18 @@ function checkIfValid(input){
 	var val = input.val();
 	console.log(val);
 	if($(input).val().trim() == ''){
-        // prikazi gresku
-		console.log("ne moze " + input.name);
+       
 		return false;
     }
 	else {
-		//sakrij poruku greske
+		
 	}
 }
 
 function checkInput(input){
 	if($(input).val().trim() == ''){
-        // prikazi gresku
-		console.log("ne moze " + input.name);
+        
+		
 		$(input).siblings(".error-message").show();
 		fail = false;
  }
@@ -400,13 +368,13 @@ function submitPasswordChange(){
 			if (response.responseJSON.message === "Incorrect current password!") {
 				failedPasswordChange();	
 			}
-			//alert("Oops..." + response)
+			
 			
 		},
 		success : function (data) {
-			//alert("Pormijenio si lozinku bravoooooooo");
+			
 			$('#sucessfullyChangedPassword').modal('show'); 
-			//setupProfile();
+			
 		}
 		
 	});
@@ -418,15 +386,15 @@ function submitPasswordChange(){
 function checkPasswordForm(){
 	
 	if (($("#input-old-password").val() === "")){
-		console.log("prazna stara")
+		
 		return false;
 	}
 	else if (($("#input-new-password1").val() === "")){
-		console.log("prazna nova")
+		
 		return false;
 	}
 	else if (!checkInputReEnteredPassword()) {
-		console.log("ne")
+		
 		return false;
 	}
 	else {
@@ -439,14 +407,14 @@ function checkPasswordForm(){
 function  checkInputReEnteredPassword(){
 	var password1 = $("#input-new-password1").val();
 	var password2 = $("#input-new-password2").val();
-	console.log(password2);
+	
 	if (password1 != password2 || password2 === ""){
 		$("#input-new-password2").siblings(".error-message").show();
-		console.log("asdkajdalksdjasdlkjasdjklkadsjlkjladsjklads vracam false")
+		
 		return false;
 	} 
 	else {
-		console.log("checkinputeasdafsd")
+		
 		$("#input-new-password2").siblings(".error-message").hide();
 		return true;
 	}

@@ -4,16 +4,14 @@ function getClinics(){
 		url: "/usr/clinics",
 		type: "GET",
 		contentType: "application/json",
-		//dataType: "json",
+	
 		
 		error: function (response) {
 			window.location.replace("/");
 		},
 		success : function (data) {
-			//d = JSON.parse(data.responseText);
-//			$("body").show();
+
 			setUpClinics(data);
-			//window.location = "/usr/clinics"
 			
 		}
 		
@@ -25,17 +23,16 @@ function setUpClinicsPage(){
 		url: "/usr/clinicsPage",
 		type: "GET",
 		contentType: "application/json",
-		//dataType: "json",
+
 		
 		error: function (response) {
 			window.location.replace("/login.html");
 		},
 		success : function (data) {
-			//d = JSON.parse(data.responseText);
-//			$("body").show();
+
 			setUpClinics(data.clinics);
 			setUpSearch(data.appointmentTypes, "");
-			//window.location = "/usr/clinics"
+
 			
 		}
 		
@@ -56,28 +53,19 @@ function setUpSearch(appointmentTypes, clinicId){
 		    text: type
 		}));
 	}
-	//$("#searchDiv").show();
+	
 	
 }
 
 function setUpClinics(clinics){
-	console.log("setup clinics");
-	//$('#panel').not(':first').remove();
-	//$('#panel div').empty();
-	
-	//$('#panel').children().not(':first').remove();
-	
-	
+		
 	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
 	$("#searchDiv").show();
 	$("#searchClinics").show();
 	$("#searchDoctors").hide();
 	$("#searchDoctorsAdvanced").hide();
 	
-	//$( ".upcomingAppointment" ).remove();
-	
-	//$("not:#panel").not( document.getElementById( "#navbarId" ) ).remove();
-	//$("not:#panel").remove();
+
 	
 	var panel = $("#panel");
 	for (clinic of clinics){
@@ -102,8 +90,8 @@ function setUpClinics(clinics){
                 <div>
                   <div class="card-block" style="width: 550px" >
                     <h5 class="card-title clinic-name">${clinic.name}</h5> 
-                    <p>${clinic.description} </p>
-                    <p> ${appointmentsStrings}</p>                   
+                    <p class="clinic-description">${clinic.description} </p>
+                    <p class="clinic-appointments"> ${appointmentsStrings}</p>                   
                     <p>Address: ${clinic.address}, ${clinic.city}, ${clinic.country}</p>
                     <p>Rating: ${ratingText} <i class="fas fa-star"></i> (${clinic.votes} votes)</p>   
                     <br>
@@ -130,19 +118,16 @@ function getDoctors(clinicId){
 		url: "/usr/doctors/" + clinicId,
 		type: "GET",
 		contentType: "application/json",
-		//dataType: "json",
+		
 		
 		error: function (response) {
 			console.log("Desila se neka greska pri dobavljanju lekara na osnovu id-ja klinike");
 		},
 		success : function (data) {
-			//d = JSON.parse(data.responseText);
-//			$("body").show();
-			alert("sad sam azurirala i search!!")
+
 			setUpClinicInfo(data.clinic);
 			setUpSearch(data.clinic.appointmentNames, data.clinic.id);
 			setUpDoctorsRegular(data.doctors);
-			//window.location = "/usr/clinics"
 			
 		}
 		
@@ -152,7 +137,7 @@ function getDoctors(clinicId){
 
 function setUpClinicInfo(clinic){
 	$("#searchButton").val(clinic.id);
-	console.log("da vidim jesam li namjestilaaaaaaaaaaaaaaaaaaaaaaaa" + $("#searchButton").val());
+	
 	$('#panel').children().not('#navbarId, #searchDiv, #apptInfo, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();	// ovde sam dodala apptinfo
 	var panel = $("#panel");
 	var price = clinic.price;
@@ -222,15 +207,14 @@ function getClinicsAppts(clinicId){
 		url: "/usr/appointmentsById/" + clinicId,
 		type: "GET",
 		contentType: "application/json",
-		//dataType: "json",
+		
 		
 		error: function (response) {
-			window.location.replace("/login.html");
+			window.location.replace("/homepage.html");
 			//console.log("desila se neka greska");
 		},
 		success : function (data) {
-		//d = JSON.parse(data.responseText);
-//			$("body").show();
+
 			setUpClinicsAppointments(data);
 			
 		}
@@ -240,7 +224,7 @@ function getClinicsAppts(clinicId){
 
 
 function setUpClinicsAppointments(appts){			// predefined
-	console.log(appts);
+
 	$('#searchDiv').hide();
 	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced, .clinic').remove();
 	$('#panel').children().not('#navbarId').hide();
@@ -248,9 +232,9 @@ function setUpClinicsAppointments(appts){			// predefined
 	//$('#panel').children().not(':first').remove();
 	
 	var panel = $("#panel");
-	// treba prikazati mozda na vrhu detalje klinike, kako da ih dobijem/prikazen
+	
 	if (appts.length == 0) {		
-		//panel.append(`<div>No predefined appointments!</div>`)
+	
 		panel.append(`<div class="title-div" style="margin: 0 auto; min-width: 500px; margin-top: 50px;">
 	      <p class="card-title" style="text-align: center; font-size: 20px;">There are no available predefined appointments!</p></div>`);
 		panel.append(`<div class="title-div" style="margin: 0 auto; min-width: 500px;">
@@ -313,39 +297,6 @@ function backFromPredefined(){
 }
 
 
-function activateModal1(nesto){
-	console.log(nesto);
-}
-
-function activateModal(appointment){
-	console.log("what");
-	
-	$("body").append(`<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="modalAppt" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onlick="javascript:scheduleAppt(${appointment.id})">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>`); 
-}
 
 
 function scheduleAppt(apptId){
@@ -359,24 +310,19 @@ function scheduleAppt(apptId){
 		contentType: "application/json",
 		data: appointment,
 		error: function (response) {
-			//window.location.replace("/login.html");
+			
 			$.when( $("#modalAppt").modal("hide")).done(function() {
 				$("#modalMissedAppointment").modal("show");
 			});
 			
 		},
 		success : function (data) {
-		//d = JSON.parse(data.responseText);
-//			$("body").show();
-			//alert("zakazo si lol");
-			
-			// the below code works fine!!
+	
 			$.when( $("#modalAppt").modal("hide")).done(function() {
 				$("#modalFeedback").modal("show")
 			});
 			
-			//$("#modalAppt").modal("hide").then($("#modalFeedback").modal("show"));
-			//window.location.replace("/homepage.html")
+			
 		}
 		
 	}); 

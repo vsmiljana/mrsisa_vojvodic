@@ -1,13 +1,10 @@
 function searchAppointments(){
-	
-	
-	
-	console.log("klikno na search");
+
 
 	var apptType = $('#selectAppointments').find(":selected").text();
-	//console.log("Appointment Type: "  + apptType);
+	
 	if (apptType === "Choose..."){
-		//alert("Please choose type of appointment")
+		
 		apptType = null;
 		$("#search-appts-err").show();
 		return;
@@ -15,7 +12,7 @@ function searchAppointments(){
 	else {
 		$("#search-appts-err").hide();
 	}
-	console.log(apptType);
+
 	var date = new Date($('#dateAppointment').val());
 	date.setHours(23);
 	date.setMinutes(59);
@@ -23,14 +20,14 @@ function searchAppointments(){
 	var today = new Date();
 	
 	if (date <= today){
-		//alert("Samo da bih imala u istoriji")
+		
 	}
 	
-	console.log(date);
+
 	var dateToSend = date.getTime();
 	
 	var clinicIdVal = $("#searchButton").val();
-	console.log("clinicIdVal: " + clinicIdVal);
+	
 	
 	var clinicId = clinicIdVal;
 	
@@ -49,8 +46,7 @@ function searchAppointments(){
 	}
 	
 	else {
-		console.log("USOOOOOO SAM OVDEEEEEEEEEEEEEEEEEEEEE")
-		console.log(searchAppts);
+		
 		searchDoctors(searchAppts);
 	}
 	
@@ -71,7 +67,7 @@ function searchClinics(searchParams){
             console.log("greska");
 		},
 		success : function (data) {
-			console.log(data);
+			
 			setupHead(data.searchedAppointment);
 			displayClinics(data.foundClinics, searchParams);
 		}
@@ -84,8 +80,7 @@ function searchClinics(searchParams){
 function setupHead(appt){
 	$('#panel').children().not('#navbarId, #searchDiv,  #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
 	var panel = $("#panel");
-	//$("#searchClinics").hide();
-	//$("#searchClinicsAdvanced").hide();
+	
 	var dateStr = setupDate(appt.dateLong);
 	var name = appt.appointmentName;
 	panel.append(`<div id="apptInfo" data-appointment-name='${name}' data-appointment-date=${dateStr} style="margin-left: 150px; margin-top: 20px;">
@@ -103,16 +98,15 @@ function searchDoctors(searchParams){
 		type: "PUT",
 		data: searchJson,
 		contentType: "application/json",
-		//dataType: "json",
+		
 		
 		error: function (response) {
             console.log("greska");
 		},
 		success : function (data) {
-			console.log("u dobroj sam funkciji");
+			
 			setupHead(data.searchedAppointment);
-			//updateHeadingClinic(searchParams);
-			//displayDoctors(data);
+			
 			setUpClinicInfo(data.clinic);
 			displayDoctors(data.doctors);
 
@@ -134,7 +128,7 @@ function displayDoctors(doctors) {
 	$('#panel').children().not('#navbarId, #searchDiv, #clinicInfoDiv, #apptInfo, #searchDoctors, #searchDoctorsAdvanced, #searchClinics, #searchClinicsAdvanced').remove();
 	
 	$("#searchDoctors").show();
-	//$("#searchDoctorsAdvanced").show();
+	
 	$("#searchClinics").hide();
 	$("#searchClinicsAdvanced").hide();
 	
@@ -150,7 +144,7 @@ function displayDoctors(doctors) {
 		i = i + 1;
 		var divId = "doctor" + i;
 		var divIdString = divId.toString();
-		console.log("HELOOOOOOOOOOOOOOO" + divIdString);
+		
 		var now = new Date();
 		var times = ""
 		for (apptTime of doctor.availableAppointments){
@@ -168,10 +162,7 @@ function displayDoctors(doctors) {
 				any = true;
 				options += "<option>" + time + "</option>"
 			}
-			//$(this).closest("selectTime").append($('<option>', {
-			 //   value: 1,
-			 //   text: time 
-			//}));
+			
 		}
 		
 		var disabled = ""
@@ -311,15 +302,6 @@ function displayClinics(clinics, searchParams){ 		// i need search params for wh
 
 function setUpDoctorDisplay(id, name, address, price, appointmentName, date){
 	
-	//setUpClinicInfo(data.clinic);
-	//setUpSearch(data.clinic.appointmentNames, data.clinic.id);
-	//setUpDoctorsRegular(data.doctors);
-	
-	console.log("setUpDoctorDisplay");
-	console.log(id);
-	console.log(name);
-	console.log(id + name + address + price + appointmentName + date);
-	//javascript:setUpDoctorDisplay(${clinic.id}, '${clinic.name}', '${clinic.address}', ${clinic.price}, '${searchParams.appointmentName}', ${searchParams.date})
 	$.ajax({
 		   url:setupClinicInfo(id, name, address, price, appointmentName, date, price),
 		   success:function(){
@@ -328,7 +310,6 @@ function setUpDoctorDisplay(id, name, address, price, appointmentName, date){
 	})
 	
 	
-	console.log("id klinike: " + id);
 	
 }
 
@@ -339,19 +320,18 @@ function setUpDoctors1(appointmentName, date, id){
 
 function setupClinicInfo(id, name, address, price, appointmentName, date, price){
 	
-	// ili da mi ga dinamicki pravi
+	
 	
 	$("#searchButton").val(id);
-	console.log("da vidim jesam li namjestila" + $("#searchButton").val());
+	
 	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced , #searchDoctors, #searchDoctorsAdvanced').remove();
 	$("#searchClinics").hide();
 	$("#searchClinicsAdvanced").hide();
 	$("#searchDoctors").show();
-	//$("#searchDoctorsAdvanced").show();
+	
 	var panel = $("#panel");
 	var date1 = setupDate(date);
-	console.log("date1  " + date1);
-	//dosomething.then()
+	
 	
 	panel.append(`<div id="clinicInfoDiv" style="margin: 0 auto; width: 500px;">${name}, address: ${address}
 	<p id="appointmentName">${appointmentName}</p><p id="appointmentDate">${date1}</p><p id="appointmentPrice">${price}</p>
@@ -373,10 +353,9 @@ function searchClinicsFromForm() {
 	var inputName = $("#clinicNameInput").val().toUpperCase();
 	var inputAddress = $("#clinicAddressInput").val().toUpperCase();
 	var inputRating = $("#clinicRatingSelect").find(":selected").val();
-	//var input = $("#clinicNameInput").val();
 
 	var divs = $("div.clinic");
-    console.log(divs);
+
     for (div1 of divs){
         var name = $(div1).data('name').toUpperCase();
         var address = $(div1).data('address').toUpperCase();
@@ -407,10 +386,10 @@ function searchDoctorsFromForm() {
 	var inputFirstName = $("#firstNameInput").val().toUpperCase();
 	var inputLastName = $("#lastNameInput").val().toUpperCase();
 	var inputRating = $("#doctorRatingSelect").find(":selected").val();
-	//var input = $("#clinicNameInput").val();
+	
 
 	var divs = $("div.doctor");
-    console.log(divs);
+   
     for (div1 of divs){
         var firstName = $(div1).data('first-name').toUpperCase();
         var lastName = $(div1).data('last-name').toUpperCase();
@@ -473,15 +452,14 @@ function searchClinicsAll(){
         var city = $(div1).data('city').toUpperCase();
         var country = $(div1).data('country').toUpperCase();
         var rating = $(div1).data('rating').toString();
+        var description = $(div1).children("p.clinic-description");
+        var appts = $(div1).children("p.clinic-appointments");
+        console.log(despription);
         console.log(rating);
         console.log($(div1).data('rating'));
         
         if (name.includes(input) || address.includes(input) || city.includes(input) || country.includes(input) || rating.includes(input)){
-        	//$( "div:contains('" + input + "')" ).css( "text-decoration", "underline" );
-        	//var elements = $(div1).find("p:contains(" + input + ")").css("background-color", "yellow");
-        	//var elements1 = $(div1).find("p:contains(" + input + ")");
-        	//console.log(elements1);
-        	//highlight(elements1, input)
+        	
         	$(div1).show();
         }
         else {
@@ -500,11 +478,7 @@ function searchDoctorsAll(){
         var rating = $(div1).data('rating').toString();
        
         if (firstName.includes(input) || lastName.includes(input) ||rating.includes(input)){
-        	//$( "div:contains('" + input + "')" ).css( "text-decoration", "underline" );
-        	//var elements = $(div1).find("p:contains(" + input + ")").css("background-color", "yellow");
-        	//var elements1 = $(div1).find("p:contains(" + input + ")");
-        	//console.log(elements1);
-        	//highlight(elements1, input)
+        	
         	$(div1).show();
         }
         else {
@@ -523,21 +497,20 @@ function clearAdvancedSearch(){
 	$('#clinicRatingSelect option[value=1]').prop('selected', true);
 	var inputRating2 = $("#clinicRatingSelect").find(":selected").val();
 	
-	console.log("hoces li " + inputRating2);
+	
 	searchClinicsFromForm();
 }
 
 function clearAdvancedDoctorSearch(){
 	$("#firstNameInput").val("");
 	$("#lastNameInput").val("");
-	//var inputRating = $("#clinicRatingSelect").find(":selected").val();
+
 	$('#doctorRatingSelect select').val(1);
 	
 	$('#doctorRatingSelect option[value=1]').attr('selected','selected');
 	$('#doctorRatingSelect option[value=1]').prop('selected', true);
 	var inputRating2 = $("#doctorRatingSelect").find(":selected").val();
 	
-	console.log("hoces li " + inputRating2);
 	searchDoctorsFromForm();
 }
 

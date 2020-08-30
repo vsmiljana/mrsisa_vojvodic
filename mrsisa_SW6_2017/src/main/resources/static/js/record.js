@@ -20,9 +20,7 @@ function getRecord(){
 }
 
 function showRecord(record){
-	//$('#searchDiv').hide();		// vidjeti jel ovo dobro...
-	//$('#panel').children().not('#navbarId, #searchDiv').remove(); 		// i ovo isto...
-	console.log(record);
+	
 	
 	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').remove();
 	$('#panel').children().not('#navbarId, #searchDiv, #searchClinics, #searchClinicsAdvanced, #searchDoctors, #searchDoctorsAdvanced').hide();
@@ -38,11 +36,9 @@ function showRecord(record){
 			return;
 		}
 	
-	//$("#panel").append(`<div><h1>Medical record</h1></div>`);
+	
 	var i = 0;
-	//$("#panel").append(`<div><h2>General info</h2><p>Blood type: ${record.bloodType}</p>
-	//<p>Height: ${record.height}</p><p>Weight: ${record.weight}</p><p>Dioptre: ${record.dioptre}</p>
-	//<p>Allergies: ${record.allergies}</p></div>`);
+	
 	
 	$("#panel").append(`<div class="card card-appointment" id="medical-record">
 	         <div class="row cardy" >
@@ -67,7 +63,7 @@ function showRecord(record){
 	
 	
 	if (record.pastAppointments.length > 0) {
-		//$("#panel").append(`<div><h2>Past Appointments</h2></div>`);
+	
 		$("#panel").append(`<div class="" style="margin-top: 50px; margin-left: 150px;">
 		         <div class="" 
 		              <div>
@@ -85,7 +81,7 @@ function showRecord(record){
 	for (appointment of record.pastAppointments) {
 		i = i + 1;
 		var idd = "divAppt" + i;
-		console.log("ocjen klinike" + appointment.clinicDto.rating + "ocjena doktor " + appointment.doctorDto.rating); 
+		
 		var date = setupDate(appointment.date);
 		var clinicRating = appointment.clinicDto.rating;
 		var clinicRatingText = appointment.clinicDto.rating;
@@ -99,34 +95,33 @@ function showRecord(record){
 			doctorRatingText = "-";
 			doctorRating = 0;
 		}
-		console.log(appointment.hisClinicRating);
+		
 		var doctorRate;
 		var clinicRate
 		if (appointment.hisClinicRating == 0) {
-			console.log("moze da ocijeni kliniku " + appointment.clinicDto.name);
+			
 			  clinicRate="<a class='open-ModalRating' data-rate=clinic " +
 				  " data-clinic-id= " + appointment.clinicDto.id + " data-name = '" + appointment.clinicDto.name + "'" +
               " data-toggle='modal' data-target='#modalRating'  href='#modalRating'>Rate clinic</a>";
 		}
 		else {
-			console.log(" ne moze da ocijeni  kliniku "+ appointment.clinicDto.name)
+			
 			clinicRate = "<p>You rated this clinic with " + appointment.hisClinicRating + "<i class='fas fa-star'></i></p>";
 		}
 		
 		if (appointment.hisDoctorRating == 0) {
-			console.log("moze da ocijeni doktora " + appointment.doctorDto.firstName);
+			
 			  doctorRate="<a class='open-ModalRating' data-rate=doctor " +
 			 " data-doctor-id=" + appointment.doctorDto.id + " data-name = '" + appointment.doctorDto.firstName +" "+ appointment.doctorDto.lastName + "'" +
         " data-toggle='modal' data-target='#modalRating'  href='#modalRating'>Rate doctor</a>";
 		}
 		else {
-			console.log("ne moze da ocijeni doktora "+ appointment.doctorDto.firstName)
+			
 			doctorRate = "<p>You rated this doctor with " + appointment.hisDoctorRating + "<i class='fas fa-star'></i></p>";
 			
 		}
 		var timeStr = setupTime(appointment.start);
-		//$("#panel").append(`<div id=divAppt${i}><h3>${appointment.appointmentName} ${date}</h3>
-		//<button onclick="getReportOnAppointment('${idd}', ${appointment.id})">Show details</button></div>`);
+		
 		$("#panel").append(`<div class="card card-appointment" id=divAppt${i}>
 		          <div class="row cardy">
 		                <div class="apt-img-div">
@@ -169,9 +164,7 @@ function showRecord(record){
 }
 
 function showEmptyRecord(){
-	//https://cdn.iconscout.com/icon/premium/png-512-thumb/empty-folder-1519007-1284948.png
-	//$("#panel").append(`<div><h1>Your medical record has not been set up yet!</h1><h2> Because i have no clinic administrator (he does this)
-	//and you probably just registered so understand me :( </h2></div>`);
+
 	$("#panel").append(`<div class="card card-appointment">
 		          <div class="row cardy">
 		           <div class="apt-img-div"><img class="apt-img" 
@@ -184,7 +177,7 @@ function showEmptyRecord(){
 
 
 function getReportOnAppointment(divId, apptId){
-	console.log(divId + " lmaooo " + apptId);
+	
 	
 	$.ajax({
 		url: "/usr/pastAppointmentReport/" + apptId,
@@ -204,9 +197,9 @@ function getReportOnAppointment(divId, apptId){
 
 function showExaminationReport(divId, examinationReport){
 	var nesto = String(divId);
-	console.log("div Id: "+ divId);
+
 	var myDiv = $("#" + divId);
-	//if($("#" + divId + ".details").length)
+	
 	if($('#' + divId).find('div.details').length !== 0)
 	{
 		$('#' + divId).find('div.details').show();   
@@ -217,25 +210,25 @@ function showExaminationReport(divId, examinationReport){
 		}
 		else {	// staviti gore neku liniju nesto
 			var diagnoses = "Diagnoses: ";
-			console.log(examinationReport.diagnoses.length + 'dijagnozeeeeeee');
+			
 			for (d of examinationReport.diagnoses){
 				diagnoses += d.name +  ", "
-				console.log(d);
+				
 			}	
 		   diagnoses1 = diagnoses.substring(0, diagnoses.length-2);
-			console.log(diagnoses + "dijatnogee");
+			
 			var medications = "Medications: ";
 			for (m of examinationReport.medications){
 				medications += m.name +  ", "
 			}	
-			console.log(diagnoses + medications);
+			
 			medications1 = medications.substring(0, medications.length-2);
-			//console.log( medications1 + diagnoses1);
+			
 			myDiv.append(`<div class="details"><h2>Examination report</h2>
 			<p>${examinationReport.description}</p><p>${diagnoses1}</p><p>${medications1}</p></div>`);		
 		}
 	}
-	//console.log(examinationReport);
+	
 	
 	
 	$("#" + divId).find("button.examDetails").css("background-color", "purple" );
@@ -244,10 +237,10 @@ function showExaminationReport(divId, examinationReport){
 }
 
 function hideExaminationReport(divId){
-	console.log("sta sam ovde dobila " + divId);
+	
 	var myDiv = $("#" + divId);
 	$("#" + divId).find(".details").hide();
-	//$("#" + divId).closest("button").attr("onclick", "showExaminationReport(" + divId + ",'')");
+	
 	$("#" + divId).find("button.examDetails").css("background-color", "blue" );
 	$("#" + divId).find("button.examDetails").attr("onclick", "showExaminationReport('" + divId + "','')");
 	$("#" + divId).find("button.examDetails").text("Show details");

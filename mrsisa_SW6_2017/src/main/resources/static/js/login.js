@@ -1,11 +1,9 @@
 function login() {
-	console.log("iz login funkcije");
+
 	
 	var name = $("#email_input").val();
 	var password = $("#password_input").val();
-	
-	console.log(name);
-	console.log(password);
+
 	
 	var person = {"email":name, "password":password};
 	
@@ -17,17 +15,14 @@ function login() {
 		data: personjson,
 		headers: {"Authorization": "Basic xxxx"},
 		contentType: "application/json",
-		//dataType: "json",
+		
 		
 		error: function (response) {
             var errorMessage = response.responseJSON.message;
             showError(errorMessage);
 		},
 		success : function (data) {
-			//d = JSON.parse(data.responseText);
-			console.log(data);
-			console.log("success");
-			//alert("ima");
+			
 			window.location.replace("/homepage.html");
 		}
 		
@@ -50,7 +45,7 @@ function checkIfLogged(){
 			window.location.replace("/homepage.html");
 		},
 		success : function (data) {
-		//	window.location.replace("/homepage.html");
+			//window.location.replace("/homepage.html");
 		}
 		
 	}); 
